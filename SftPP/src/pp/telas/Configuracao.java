@@ -30,28 +30,20 @@ import java.awt.event.ActionEvent;
 public class Configuracao extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textFieldResposta1;
-	private JTextField textFieldResposta2;
-	private JTextField textFieldResposta3;
-	private JTextField textFieldResposta4;
-	private JTextField textFieldResposta5;
-	private JTextField textFieldResposta6;
-	private JTextField textFieldResposta7;
-	private JTextField textFieldResposta8;
-	private JTextField textFieldResposta9;
-	private JRadioButton rdbtnResposta9;
-	private JRadioButton rdbtnResposta8;
-	private JRadioButton rdbtnResposta7;
-	private JRadioButton rdbtnResposta6;
-	private JRadioButton rdbtnResposta5;
-	private JRadioButton rdbtnResposta4;
-	private JRadioButton rdbtnResposta3;
-	private JRadioButton rdbtnResposta2;
-	private JRadioButton rdbtnResposta1;
 	private JTextArea textAreaPergunta;
 	private JComboBox comboBoxRespostas = new JComboBox();
 	private List<String> listaRespostasConfig = new ArrayList<>();
 	private Map<String, List<String>> mapaRespostaConfig = new HashMap<>();
+	private JTextField txt1;
+	private JTextField txt2;
+	private JTextField txt3;
+	private JTextField txt4;
+	private JTextField txt5;
+	private JTextField txt6;
+	private JTextField txt7;
+	private JTextField txt8;
+	private JTextField txt9;
+	private JLabel lblRespostas;
 
 	/**
 	 * Launch the application.
@@ -71,15 +63,15 @@ public class Configuracao extends JDialog {
 	 * Create the dialog.
 	 */
 	public Configuracao() {
-		setBounds(100, 100, 464, 355);
+		setBounds(100, 100, 464, 346);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[] { 0, 0, 0 };
-		gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0 };
+		gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 21, 0, 0 };
 		gbl_contentPanel.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
-		gbl_contentPanel.rowWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gbl_contentPanel.rowWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JLabel lblRespostaAnterior = new JLabel("Resposta Anterior:");
@@ -123,108 +115,118 @@ public class Configuracao extends JDialog {
 			}
 		}
 		{
+			lblRespostas = new JLabel("Respostas:");
+			GridBagConstraints gbc_lblRespostas = new GridBagConstraints();
+			gbc_lblRespostas.anchor = GridBagConstraints.EAST;
+			gbc_lblRespostas.insets = new Insets(0, 0, 5, 5);
+			gbc_lblRespostas.gridx = 0;
+			gbc_lblRespostas.gridy = 4;
+			contentPanel.add(lblRespostas, gbc_lblRespostas);
+		}
+		{
 			JPanel panel = new JPanel();
 			GridBagConstraints gbc_panel = new GridBagConstraints();
 			gbc_panel.gridwidth = 2;
 			gbc_panel.fill = GridBagConstraints.BOTH;
 			gbc_panel.gridx = 0;
-			gbc_panel.gridy = 4;
+			gbc_panel.gridy = 5;
 			contentPanel.add(panel, gbc_panel);
-			panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+			GridBagLayout gbl_panel = new GridBagLayout();
+			gbl_panel.columnWidths = new int[]{0, 0, 0, 0};
+			gbl_panel.rowHeights = new int[]{0, 0, 18, 0};
+			gbl_panel.columnWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
+			gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+			panel.setLayout(gbl_panel);
+			{
+				txt1 = new JTextField();
+				GridBagConstraints gbc_txt1 = new GridBagConstraints();
+				gbc_txt1.insets = new Insets(0, 0, 5, 5);
+				gbc_txt1.fill = GridBagConstraints.BOTH;
+				gbc_txt1.gridx = 0;
+				gbc_txt1.gridy = 0;
+				panel.add(txt1, gbc_txt1);
+				txt1.setColumns(10);
+			}
+			{
+				txt2 = new JTextField();
+				GridBagConstraints gbc_txt2 = new GridBagConstraints();
+				gbc_txt2.insets = new Insets(0, 0, 5, 5);
+				gbc_txt2.fill = GridBagConstraints.BOTH;
+				gbc_txt2.gridx = 1;
+				gbc_txt2.gridy = 0;
+				panel.add(txt2, gbc_txt2);
+				txt2.setColumns(10);
+			}
+			{
+				txt3 = new JTextField();
+				GridBagConstraints gbc_txt3 = new GridBagConstraints();
+				gbc_txt3.insets = new Insets(0, 0, 5, 0);
+				gbc_txt3.fill = GridBagConstraints.BOTH;
+				gbc_txt3.gridx = 2;
+				gbc_txt3.gridy = 0;
+				panel.add(txt3, gbc_txt3);
+				txt3.setColumns(10);
+			}
+			{
+				txt4 = new JTextField();
+				GridBagConstraints gbc_txt4 = new GridBagConstraints();
+				gbc_txt4.insets = new Insets(0, 0, 5, 5);
+				gbc_txt4.fill = GridBagConstraints.BOTH;
+				gbc_txt4.gridx = 0;
+				gbc_txt4.gridy = 1;
+				panel.add(txt4, gbc_txt4);
+				txt4.setColumns(10);
+			}
+			{
+				txt5 = new JTextField();
+				GridBagConstraints gbc_txt5 = new GridBagConstraints();
+				gbc_txt5.insets = new Insets(0, 0, 5, 5);
+				gbc_txt5.fill = GridBagConstraints.BOTH;
+				gbc_txt5.gridx = 1;
+				gbc_txt5.gridy = 1;
+				panel.add(txt5, gbc_txt5);
+				txt5.setColumns(10);
+			}
+			{
+				txt6 = new JTextField();
+				GridBagConstraints gbc_txt6 = new GridBagConstraints();
+				gbc_txt6.insets = new Insets(0, 0, 5, 0);
+				gbc_txt6.fill = GridBagConstraints.BOTH;
+				gbc_txt6.gridx = 2;
+				gbc_txt6.gridy = 1;
+				panel.add(txt6, gbc_txt6);
+				txt6.setColumns(10);
+			}
+			{
+				txt7 = new JTextField();
+				GridBagConstraints gbc_txt7 = new GridBagConstraints();
+				gbc_txt7.insets = new Insets(0, 0, 0, 5);
+				gbc_txt7.fill = GridBagConstraints.BOTH;
+				gbc_txt7.gridx = 0;
+				gbc_txt7.gridy = 2;
+				panel.add(txt7, gbc_txt7);
+				txt7.setColumns(10);
+			}
+			{
+				txt8 = new JTextField();
+				GridBagConstraints gbc_txt8 = new GridBagConstraints();
+				gbc_txt8.insets = new Insets(0, 0, 0, 5);
+				gbc_txt8.fill = GridBagConstraints.BOTH;
+				gbc_txt8.gridx = 1;
+				gbc_txt8.gridy = 2;
+				panel.add(txt8, gbc_txt8);
+				txt8.setColumns(10);
+			}
+			{
+				txt9 = new JTextField();
+				GridBagConstraints gbc_txt9 = new GridBagConstraints();
+				gbc_txt9.fill = GridBagConstraints.BOTH;
+				gbc_txt9.gridx = 2;
+				gbc_txt9.gridy = 2;
+				panel.add(txt9, gbc_txt9);
+				txt9.setColumns(10);
+			}
 			ButtonGroup btgRespostas = new ButtonGroup();
-			{
-				rdbtnResposta1 = new JRadioButton("");
-				rdbtnResposta1.setToolTipText("");
-				panel.add(rdbtnResposta1);
-				btgRespostas.add(rdbtnResposta1);
-			}
-			{
-				textFieldResposta1 = new JTextField();
-				panel.add(textFieldResposta1);
-				textFieldResposta1.setColumns(10);
-			}
-			{
-				rdbtnResposta2 = new JRadioButton("");
-				panel.add(rdbtnResposta2);
-				btgRespostas.add(rdbtnResposta2);
-			}
-			{
-				textFieldResposta2 = new JTextField();
-				panel.add(textFieldResposta2);
-				textFieldResposta2.setColumns(10);
-			}
-			{
-				rdbtnResposta3 = new JRadioButton("");
-				panel.add(rdbtnResposta3);
-				btgRespostas.add(rdbtnResposta3);
-
-			}
-			{
-				textFieldResposta3 = new JTextField();
-				panel.add(textFieldResposta3);
-				textFieldResposta3.setColumns(10);
-			}
-			{
-				rdbtnResposta4 = new JRadioButton("");
-				panel.add(rdbtnResposta4);
-				btgRespostas.add(rdbtnResposta4);
-			}
-			{
-				textFieldResposta4 = new JTextField();
-				panel.add(textFieldResposta4);
-				textFieldResposta4.setColumns(10);
-
-			}
-			{
-				rdbtnResposta5 = new JRadioButton("");
-				panel.add(rdbtnResposta5);
-				btgRespostas.add(rdbtnResposta5);
-			}
-			{
-				textFieldResposta5 = new JTextField();
-				panel.add(textFieldResposta5);
-				textFieldResposta5.setColumns(10);
-			}
-			{
-				rdbtnResposta6 = new JRadioButton("");
-				panel.add(rdbtnResposta6);
-				btgRespostas.add(rdbtnResposta6);
-			}
-			{
-				textFieldResposta6 = new JTextField();
-				panel.add(textFieldResposta6);
-				textFieldResposta6.setColumns(10);
-			}
-			{
-				rdbtnResposta7 = new JRadioButton("");
-				panel.add(rdbtnResposta7);
-				btgRespostas.add(rdbtnResposta7);
-			}
-			{
-				textFieldResposta7 = new JTextField();
-				panel.add(textFieldResposta7);
-				textFieldResposta7.setColumns(10);
-			}
-			{
-				rdbtnResposta8 = new JRadioButton("");
-				panel.add(rdbtnResposta8);
-				btgRespostas.add(rdbtnResposta8);
-			}
-			{
-				textFieldResposta8 = new JTextField();
-				panel.add(textFieldResposta8);
-				textFieldResposta8.setColumns(10);
-			}
-			{
-				rdbtnResposta9 = new JRadioButton("");
-				panel.add(rdbtnResposta9);
-				btgRespostas.add(rdbtnResposta9);
-			}
-			{
-				textFieldResposta9 = new JTextField();
-				panel.add(textFieldResposta9);
-				textFieldResposta9.setColumns(10);
-			}
 
 		}
 		{
@@ -235,7 +237,7 @@ public class Configuracao extends JDialog {
 				JButton addButton = new JButton("Adicionar");
 				addButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						lerRespostas();
+						
 					}
 				});
 				addButton.setActionCommand("OK");
@@ -255,26 +257,6 @@ public class Configuracao extends JDialog {
 		}
 	}
 
-	public void lerRespostas() {
-
-		rdbtnResposta1.setText(textFieldResposta1.getText());
-
-		rdbtnResposta2.setText(textFieldResposta2.getText());
-
-		rdbtnResposta3.setText(textFieldResposta3.getText());
-
-		rdbtnResposta4.setText(textFieldResposta4.getText());
-
-		rdbtnResposta5.setText(textFieldResposta5.getText());
-
-		rdbtnResposta6.setText(textFieldResposta6.getText());
-
-		rdbtnResposta7.setText(textFieldResposta7.getText());
-
-		rdbtnResposta8.setText(textFieldResposta8.getText());
-
-		rdbtnResposta9.setText(textFieldResposta9.getText());
-
-	}
+	
 
 }
