@@ -10,8 +10,6 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import pp.config.ConfiguracaoConfig;
-
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
@@ -23,6 +21,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +49,9 @@ public class Configuracao extends JDialog {
 	private JRadioButton rdbtnResposta2;
 	private JRadioButton rdbtnResposta1;
 	private JTextArea textAreaPergunta;
+	private JComboBox comboBoxRespostas = new JComboBox();
+	private List<String> listaRespostasConfig = new ArrayList<>();
+	private Map<String, List<String>> mapaRespostaConfig = new HashMap<>();
 
 	/**
 	 * Launch the application.
@@ -59,7 +61,7 @@ public class Configuracao extends JDialog {
 			Configuracao dialog = new Configuracao();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -74,28 +76,28 @@ public class Configuracao extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{0, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
-		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPanel.columnWidths = new int[] { 0, 0, 0 };
+		gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0 };
+		gbl_contentPanel.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+		gbl_contentPanel.rowWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		contentPanel.setLayout(gbl_contentPanel);
 		{
-			JLabel lblPerguntaAnterior = new JLabel("Pergunta Anterior:");
-			GridBagConstraints gbc_lblPerguntaAnterior = new GridBagConstraints();
-			gbc_lblPerguntaAnterior.anchor = GridBagConstraints.EAST;
-			gbc_lblPerguntaAnterior.insets = new Insets(0, 0, 5, 5);
-			gbc_lblPerguntaAnterior.gridx = 0;
-			gbc_lblPerguntaAnterior.gridy = 0;
-			contentPanel.add(lblPerguntaAnterior, gbc_lblPerguntaAnterior);
+			JLabel lblRespostaAnterior = new JLabel("Resposta Anterior:");
+			GridBagConstraints gbc_lblRespostaAnterior = new GridBagConstraints();
+			gbc_lblRespostaAnterior.anchor = GridBagConstraints.EAST;
+			gbc_lblRespostaAnterior.insets = new Insets(0, 0, 5, 5);
+			gbc_lblRespostaAnterior.gridx = 0;
+			gbc_lblRespostaAnterior.gridy = 0;
+			contentPanel.add(lblRespostaAnterior, gbc_lblRespostaAnterior);
 		}
 		{
-			JComboBox comboBoxPerguntaAnterior = new JComboBox();
-			GridBagConstraints gbc_comboBoxPerguntaAnterior = new GridBagConstraints();
-			gbc_comboBoxPerguntaAnterior.insets = new Insets(0, 0, 5, 0);
-			gbc_comboBoxPerguntaAnterior.fill = GridBagConstraints.HORIZONTAL;
-			gbc_comboBoxPerguntaAnterior.gridx = 1;
-			gbc_comboBoxPerguntaAnterior.gridy = 0;
-			contentPanel.add(comboBoxPerguntaAnterior, gbc_comboBoxPerguntaAnterior);
+			// JComboBox comboBoxRespostas = new JComboBox();
+			GridBagConstraints gbc_comboBoxRespostas = new GridBagConstraints();
+			gbc_comboBoxRespostas.insets = new Insets(0, 0, 5, 0);
+			gbc_comboBoxRespostas.fill = GridBagConstraints.HORIZONTAL;
+			gbc_comboBoxRespostas.gridx = 1;
+			gbc_comboBoxRespostas.gridy = 0;
+			contentPanel.add(comboBoxRespostas, gbc_comboBoxRespostas);
 		}
 		{
 			JLabel lblPergunta = new JLabel("Pergunta:");
@@ -129,7 +131,7 @@ public class Configuracao extends JDialog {
 			gbc_panel.gridy = 4;
 			contentPanel.add(panel, gbc_panel);
 			panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-				ButtonGroup btgRespostas = new ButtonGroup();
+			ButtonGroup btgRespostas = new ButtonGroup();
 			{
 				rdbtnResposta1 = new JRadioButton("");
 				rdbtnResposta1.setToolTipText("");
@@ -155,7 +157,7 @@ public class Configuracao extends JDialog {
 				rdbtnResposta3 = new JRadioButton("");
 				panel.add(rdbtnResposta3);
 				btgRespostas.add(rdbtnResposta3);
-				
+
 			}
 			{
 				textFieldResposta3 = new JTextField();
@@ -171,7 +173,7 @@ public class Configuracao extends JDialog {
 				textFieldResposta4 = new JTextField();
 				panel.add(textFieldResposta4);
 				textFieldResposta4.setColumns(10);
-				
+
 			}
 			{
 				rdbtnResposta5 = new JRadioButton("");
@@ -223,7 +225,7 @@ public class Configuracao extends JDialog {
 				panel.add(textFieldResposta9);
 				textFieldResposta9.setColumns(10);
 			}
-			
+
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -233,15 +235,7 @@ public class Configuracao extends JDialog {
 				JButton addButton = new JButton("Adicionar");
 				addButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						ConfiguracaoConfig cc = new ConfiguracaoConfig();
-						List<String> listaRespostas = null;
-						Map<String, List<String>> mapPerguntaResposta = new HashMap<>();
-						cc.addTextoRespostas(rdbtnResposta1, rdbtnResposta2, rdbtnResposta3, rdbtnResposta4, rdbtnResposta5, rdbtnResposta6, rdbtnResposta7, rdbtnResposta8, rdbtnResposta9, 
-								textFieldResposta1, textFieldResposta2, textFieldResposta3, textFieldResposta4, textFieldResposta5, textFieldResposta6, textFieldResposta7, textFieldResposta8, textFieldResposta9);
-						
-						cc.addPeruntasRespostas(listaRespostas, mapPerguntaResposta, 
-								rdbtnResposta1, rdbtnResposta2, rdbtnResposta3, rdbtnResposta4, rdbtnResposta5, rdbtnResposta6, rdbtnResposta7, rdbtnResposta8, rdbtnResposta9,
-								textAreaPergunta);
+						lerRespostas();
 					}
 				});
 				addButton.setActionCommand("OK");
@@ -259,6 +253,28 @@ public class Configuracao extends JDialog {
 				buttonPane.add(voltarButton);
 			}
 		}
+	}
+
+	public void lerRespostas() {
+
+		rdbtnResposta1.setText(textFieldResposta1.getText());
+
+		rdbtnResposta2.setText(textFieldResposta2.getText());
+
+		rdbtnResposta3.setText(textFieldResposta3.getText());
+
+		rdbtnResposta4.setText(textFieldResposta4.getText());
+
+		rdbtnResposta5.setText(textFieldResposta5.getText());
+
+		rdbtnResposta6.setText(textFieldResposta6.getText());
+
+		rdbtnResposta7.setText(textFieldResposta7.getText());
+
+		rdbtnResposta8.setText(textFieldResposta8.getText());
+
+		rdbtnResposta9.setText(textFieldResposta9.getText());
+
 	}
 
 }
