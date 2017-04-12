@@ -30,6 +30,7 @@ import javax.swing.UIManager;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.awt.event.ActionEvent;
@@ -44,7 +45,8 @@ public class Configuracao extends JDialog {
 	private JTextArea textAreaPergunta;
 	private JComboBox comboBoxRespostas = new JComboBox();
 	private List<String> listaRespostasConfig = new ArrayList<>();
-	private Map<String, List<String>> mapaRespostaConfig = new HashMap<>();
+	public List<String> listaRespostaAnterior = new ArrayList<>();
+	public LinkedHashMap<String, List<String>> mapaRespostaConfig = new LinkedHashMap();
 	private JTextField txt1;
 	private JTextField txt2;
 	private JTextField txt3;
@@ -490,7 +492,7 @@ public class Configuracao extends JDialog {
 				JButton addButton = new JButton("Adicionar");
 				addButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						lerPerguntas(listaRespostasConfig, mapaRespostaConfig);
+						lerPerguntas(listaRespostasConfig,listaRespostaAnterior, mapaRespostaConfig);
 						limparCampos();
 					}
 				});
@@ -516,11 +518,12 @@ public class Configuracao extends JDialog {
 
 	}
 
-	public void lerPerguntas(List<String> lista, Map<String, List<String>> mapa) {
+	public void lerPerguntas(List<String> lista,List<String> listaCombo, LinkedHashMap<String, List<String>> mapa) {
 
 		if (!txt1.getText().equals(String.valueOf("Add Resposta"))) {
 			comboBoxRespostas.addItem(txt1.getText());
 			lista.add(txt1.getText());
+			
 		}
 		if (!txt2.getText().equals(String.valueOf("Add Resposta"))) {
 			comboBoxRespostas.addItem(txt2.getText());
@@ -554,7 +557,8 @@ public class Configuracao extends JDialog {
 			comboBoxRespostas.addItem(txt9.getText());
 			lista.add(txt9.getText());
 		}
-
+		
+		listaCombo.add(String.valueOf(comboBoxRespostas.getSelectedItem()));
 		mapa.put(textAreaPergunta.getText(), lista);
 	}
 

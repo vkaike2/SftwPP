@@ -56,6 +56,17 @@ public class Principal extends JFrame {
 			}
 		});
 		mnArquivo.add(mntmConfigurao);
+		
+		JMenuItem mntmComear = new JMenuItem("Come\u00E7ar");
+		mntmComear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Comecar com = new Comecar();
+				com.setVisible(true);
+				com.setLocationRelativeTo(null);
+				com.Start();
+			}
+		});
+		mnArquivo.add(mntmComear);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
