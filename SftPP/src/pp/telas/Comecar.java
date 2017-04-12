@@ -166,6 +166,7 @@ public class Comecar extends JDialog {
 				buttonPane.add(btnCancelar);
 			}
 		}
+		textAreaComecarPerguntas.setEditable(false);
 		Start();
 	}
 	public void Start(){
