@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -594,5 +595,16 @@ public class Configuracao extends JDialog {
 		txt7.setText("Add Resposta");
 		txt8.setText("Add Resposta");
 		txt9.setText("Add Resposta");
+	}
+	public void Start(){
+		for (Entry<String, List<String>> mapa : mapaRespostaConfig.entrySet()) {
+			System.out.println(mapa.getKey()+" ");
+			for (String str : mapa.getValue()) {
+				System.out.print(str);
+			}
+		}
+		
+		
+	
 	}
 }

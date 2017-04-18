@@ -63,7 +63,7 @@ public class Principal extends JFrame {
 				Comecar com = new Comecar();
 				com.setVisible(true);
 				com.setLocationRelativeTo(null);
-				com.Start();
+				//com.Start();
 			}
 		});
 		mnArquivo.add(mntmComear);

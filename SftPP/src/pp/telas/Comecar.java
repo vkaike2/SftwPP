@@ -17,10 +17,11 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.lang.Thread.State;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.awt.event.ActionEvent;
 
-public class Comecar extends JDialog {
+public class Comecar<V, K> extends JDialog{
 
 	private final JPanel contentPanel = new JPanel();
 	private Configuracao config = new Configuracao();
@@ -167,14 +168,8 @@ public class Comecar extends JDialog {
 			}
 		}
 		textAreaComecarPerguntas.setEditable(false);
-		Start();
+		config.Start();
 	}
-	public void Start(){
-		for (Entry<String, List<String>> entry : config.mapaRespostaConfig.entrySet()) {
-			for (int i = 0; i < config.listaRespostaAnterior.size(); i++) {
-				//procura a primeira pergunta para startar
-			}
-		}
-	}
+
 
 }
