@@ -25,6 +25,7 @@ import java.util.Map.Entry;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
@@ -230,9 +231,9 @@ public class TelaNova extends JFrame {
 		tabbedPane.addTab("New tab", null, panelStart, null);
 		GridBagLayout gbl_panelStart = new GridBagLayout();
 		gbl_panelStart.columnWidths = new int[] { 0, 0, 0 };
-		gbl_panelStart.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_panelStart.rowHeights = new int[] { 62, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		gbl_panelStart.columnWeights = new double[] { 1.0, 0.0, Double.MIN_VALUE };
-		gbl_panelStart.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+		gbl_panelStart.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0,
 				Double.MIN_VALUE };
 		panelStart.setLayout(gbl_panelStart);
 
@@ -330,7 +331,7 @@ public class TelaNova extends JFrame {
 		JButton btnComear = new JButton("Come\u00E7ar");
 
 		GridBagConstraints gbc_btnComear = new GridBagConstraints();
-		gbc_btnComear.anchor = GridBagConstraints.EAST;
+		gbc_btnComear.anchor = GridBagConstraints.SOUTHEAST;
 		gbc_btnComear.insets = new Insets(0, 0, 0, 5);
 		gbc_btnComear.gridx = 0;
 		gbc_btnComear.gridy = 10;
@@ -339,7 +340,7 @@ public class TelaNova extends JFrame {
 		JButton btnProximaPergunta = new JButton("Proxima Pergunta");
 
 		GridBagConstraints gbc_btnProximaPergunta = new GridBagConstraints();
-		gbc_btnProximaPergunta.anchor = GridBagConstraints.EAST;
+		gbc_btnProximaPergunta.anchor = GridBagConstraints.SOUTHEAST;
 		gbc_btnProximaPergunta.gridx = 1;
 		gbc_btnProximaPergunta.gridy = 10;
 		panelStart.add(btnProximaPergunta, gbc_btnProximaPergunta);
@@ -361,15 +362,26 @@ public class TelaNova extends JFrame {
 		 * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 		 * 
 		 */
-		radio1.setEnabled(false);
-		radio2.setEnabled(false);
-		radio3.setEnabled(false);
-		radio4.setEnabled(false);
-		radio5.setEnabled(false);
-		radio6.setEnabled(false);
-		radio7.setEnabled(false);
-		radio8.setEnabled(false);
-		radio9.setEnabled(false);
+		ButtonGroup group = new ButtonGroup();
+		group.add(radio1);
+		group.add(radio2);
+		group.add(radio3);
+		group.add(radio4);
+		group.add(radio5);
+		group.add(radio6);
+		group.add(radio7);
+		group.add(radio8);
+		group.add(radio9);
+		
+		radio1.setVisible(false);
+		radio2.setVisible(false);
+		radio3.setVisible(false);
+		radio4.setVisible(false);
+		radio5.setVisible(false);
+		radio6.setVisible(false);
+		radio7.setVisible(false);
+		radio8.setVisible(false);
+		radio9.setVisible(false);
 
 		label.setFont(new Font("Arial", Font.BOLD, 12));
 
@@ -481,39 +493,39 @@ public class TelaNova extends JFrame {
 			label.setText(entry.getKey());
 
 			if (!entry.getValue().get(0).equals("+_+")) {
-				radio1.setEnabled(true);
+				radio1.setVisible(true);
 				radio1.setText(entry.getValue().get(0));
 			}
 			if (!entry.getValue().get(1).equals("+_+")) {
-				radio2.setEnabled(true);
+				radio2.setVisible(true);
 				radio2.setText(entry.getValue().get(1));
 			}
 			if (!entry.getValue().get(2).equals("+_+")) {
-				radio3.setEnabled(true);
+				radio3.setVisible(true);
 				radio3.setText(entry.getValue().get(2));
 			}
 			if (!entry.getValue().get(3).equals("+_+")) {
-				radio4.setEnabled(true);
+				radio4.setVisible(true);
 				radio4.setText(entry.getValue().get(3));
 			}
 			if (!entry.getValue().get(4).equals("+_+")) {
-				radio5.setEnabled(true);
+				radio5.setVisible(true);
 				radio5.setText(entry.getValue().get(4));
 			}
 			if (!entry.getValue().get(5).equals("+_+")) {
-				radio6.setEnabled(true);
+				radio6.setVisible(true);
 				radio6.setText(entry.getValue().get(5));
 			}
 			if (!entry.getValue().get(6).equals("+_+")) {
-				radio7.setEnabled(true);
+				radio7.setVisible(true);
 				radio7.setText(entry.getValue().get(6));
 			}
 			if (!entry.getValue().get(7).equals("+_+")) {
-				radio8.setEnabled(true);
+				radio8.setVisible(true);
 				radio8.setText(entry.getValue().get(7));
 			}
 			if (!entry.getValue().get(8).equals("+_+")) {
-				radio9.setEnabled(true);
+				radio9.setVisible(true);
 				radio9.setText(entry.getValue().get(8));
 			}
 
