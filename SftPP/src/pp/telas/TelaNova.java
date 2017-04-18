@@ -372,7 +372,7 @@ public class TelaNova extends JFrame {
 		group.add(radio7);
 		group.add(radio8);
 		group.add(radio9);
-		
+
 		radio1.setVisible(false);
 		radio2.setVisible(false);
 		radio3.setVisible(false);
@@ -411,47 +411,47 @@ public class TelaNova extends JFrame {
 		listaConfig.clear();
 		if (!txt1.getText().equals("")) {
 			listaConfig.add(txt1.getText());
-		}else{
+		} else {
 			listaConfig.add("+_+");
 		}
 		if (!txt2.getText().equals("")) {
 			listaConfig.add(txt2.getText());
-		}else{
+		} else {
 			listaConfig.add("+_+");
 		}
 		if (!txt3.getText().equals("")) {
 			listaConfig.add(txt3.getText());
-		}else{
+		} else {
 			listaConfig.add("+_+");
 		}
 		if (!txt4.getText().equals("")) {
 			listaConfig.add(txt4.getText());
-		}else{
+		} else {
 			listaConfig.add("+_+");
 		}
 		if (!txt5.getText().equals("")) {
 			listaConfig.add(txt5.getText());
-		}else{
+		} else {
 			listaConfig.add("+_+");
 		}
 		if (!txt6.getText().equals("")) {
 			listaConfig.add(txt6.getText());
-		}else{
+		} else {
 			listaConfig.add("+_+");
 		}
 		if (!txt7.getText().equals("")) {
 			listaConfig.add(txt7.getText());
-		}else{
+		} else {
 			listaConfig.add("+_+");
 		}
 		if (!txt8.getText().equals("")) {
 			listaConfig.add(txt8.getText());
-		}else{
+		} else {
 			listaConfig.add("+_+");
 		}
 		if (!txt9.getText().equals("")) {
 			listaConfig.add(txt9.getText());
-		}else{
+		} else {
 			listaConfig.add("+_+");
 		}
 
@@ -460,8 +460,8 @@ public class TelaNova extends JFrame {
 		listaPergAnteriro.add(String.valueOf(cb.getSelectedItem()));
 
 		for (String string : listaConfig) {
-			if(!string.equals("+_+"))
-			cb.addItem(string);
+			if (!string.equals("+_+"))
+				cb.addItem(string);
 		}
 	}
 
@@ -531,5 +531,9 @@ public class TelaNova extends JFrame {
 
 			break;
 		}
+	}
+
+	public void proximaPergunta() {
+		
 	}
 }
