@@ -1,6 +1,7 @@
 package pp.telas;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 
@@ -384,6 +385,7 @@ public class TelaNova extends JFrame {
 		 * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 		 * 
 		 */
+		// panelStart.setBackground(Color.BLACK);
 		ButtonGroup group = new ButtonGroup();
 		group.add(radio1);
 		group.add(radio2);
@@ -483,9 +485,15 @@ public class TelaNova extends JFrame {
 		}
 
 		mapa.put(txtA.getText(), lista);
+		String TextoDoComboBox = String.valueOf(cb.getSelectedIndex());
 
-		listaPergAnteriro.add(String.valueOf(cb.getSelectedItem()));
+		listaPergAnteriro.add(TextoDoComboBox);
+		
+		if (!TextoDoComboBox.equals(null)) {
+			//tentando remover do combobox
+			cb.removeItem(TextoDoComboBox);
 
+		}
 		for (String string : lista) {
 			if (!string.equals("+_+"))
 				cb.addItem(string);
