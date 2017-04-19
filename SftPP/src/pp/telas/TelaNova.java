@@ -400,6 +400,17 @@ public class TelaNova extends JFrame {
 
 		btnProximaPergunta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				radio1.setVisible(false);
+				radio2.setVisible(false);
+				radio3.setVisible(false);
+				radio4.setVisible(false);
+				radio5.setVisible(false);
+				radio6.setVisible(false);
+				radio7.setVisible(false);
+				radio8.setVisible(false);
+				radio9.setVisible(false);
+				
 				proximaPergunta(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
 
 			}
@@ -463,10 +474,7 @@ public class TelaNova extends JFrame {
 		mapa.put(txtA.getText(), lista);
 
 		listaPergAnteriro.add(String.valueOf(cb.getSelectedItem()));
-		for (String string : listaPergAnteriro) {
-			System.out.println(string);
-		}
-
+		
 		for (String string : lista) {
 			if (!string.equals("+_+"))
 				cb.addItem(string);
