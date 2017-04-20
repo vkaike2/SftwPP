@@ -39,6 +39,8 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
+import javax.swing.JPasswordField;
 
 public class TelaNova extends JFrame {
 
@@ -57,6 +59,8 @@ public class TelaNova extends JFrame {
 	// private List<String> listaConfig = new ArrayList<>();
 	private List<String> listaCombobox = new ArrayList<>();
 	private LinkedList<String> listaPergAnteriro = new LinkedList<>();
+	private JPasswordField passwordField;
+	private JTextField txtUsuario;
 
 	/**
 	 * Launch the application.
@@ -90,6 +94,65 @@ public class TelaNova extends JFrame {
 
 		JPanel panelPrincipal = new JPanel();
 		tabbedPane.addTab("New tab", null, panelPrincipal, null);
+		GridBagLayout gbl_panelPrincipal = new GridBagLayout();
+		gbl_panelPrincipal.columnWidths = new int[] { 173, 74, 76, 0 };
+		gbl_panelPrincipal.rowHeights = new int[] { 134, 0, 0, 0, 40, 0 };
+		gbl_panelPrincipal.columnWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panelPrincipal.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		panelPrincipal.setLayout(gbl_panelPrincipal);
+
+		JLabel label_1 = new JLabel("");
+		GridBagConstraints gbc_label_1 = new GridBagConstraints();
+		gbc_label_1.gridwidth = 2;
+		gbc_label_1.insets = new Insets(0, 0, 5, 0);
+		gbc_label_1.gridx = 1;
+		gbc_label_1.gridy = 0;
+		panelPrincipal.add(label_1, gbc_label_1);
+
+		JLabel lblUsurio = new JLabel("Usu\u00E1rio:");
+		GridBagConstraints gbc_lblUsurio = new GridBagConstraints();
+		gbc_lblUsurio.insets = new Insets(0, 0, 5, 5);
+		gbc_lblUsurio.anchor = GridBagConstraints.SOUTHEAST;
+		gbc_lblUsurio.gridx = 0;
+		gbc_lblUsurio.gridy = 1;
+		panelPrincipal.add(lblUsurio, gbc_lblUsurio);
+
+		txtUsuario = new JTextField();
+		GridBagConstraints gbc_txtUsuario = new GridBagConstraints();
+		gbc_txtUsuario.gridwidth = 2;
+		gbc_txtUsuario.insets = new Insets(0, 0, 5, 0);
+		gbc_txtUsuario.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtUsuario.gridx = 1;
+		gbc_txtUsuario.gridy = 1;
+		panelPrincipal.add(txtUsuario, gbc_txtUsuario);
+		txtUsuario.setColumns(10);
+
+		JLabel lblSenha = new JLabel("Senha:");
+		GridBagConstraints gbc_lblSenha = new GridBagConstraints();
+		gbc_lblSenha.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSenha.anchor = GridBagConstraints.SOUTHEAST;
+		gbc_lblSenha.gridx = 0;
+		gbc_lblSenha.gridy = 2;
+		panelPrincipal.add(lblSenha, gbc_lblSenha);
+
+		passwordField = new JPasswordField();
+		GridBagConstraints gbc_passwordField = new GridBagConstraints();
+		gbc_passwordField.gridwidth = 2;
+		gbc_passwordField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_passwordField.anchor = GridBagConstraints.SOUTH;
+		gbc_passwordField.insets = new Insets(0, 0, 5, 0);
+		gbc_passwordField.gridx = 1;
+		gbc_passwordField.gridy = 2;
+		panelPrincipal.add(passwordField, gbc_passwordField);
+
+		JButton btnConectar = new JButton("Conectar");
+
+		GridBagConstraints gbc_btnConectar = new GridBagConstraints();
+		gbc_btnConectar.anchor = GridBagConstraints.SOUTH;
+		gbc_btnConectar.gridwidth = 2;
+		gbc_btnConectar.gridx = 1;
+		gbc_btnConectar.gridy = 4;
+		panelPrincipal.add(btnConectar, gbc_btnConectar);
 		tabbedPane.setTitleAt(0, "Home");
 
 		JPanel panelConfiguracao = new JPanel();
@@ -365,6 +428,64 @@ public class TelaNova extends JFrame {
 		gbc_btnProximaPergunta.gridx = 2;
 		gbc_btnProximaPergunta.gridy = 10;
 		panelStart.add(btnProximaPergunta, gbc_btnProximaPergunta);
+		/*
+		 * btHOME
+		 * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+		 * 
+		 */
+
+		tabbedPane.remove(panelStart);
+		tabbedPane.remove(panelConfiguracao);
+
+		ImageIcon icon = new ImageIcon(getClass().getResource(".\\Dente.png"));
+		label_1.setIcon(icon);
+
+		btnConectar.addActionListener(new ActionListener() {
+			String s;
+
+			public void actionPerformed(ActionEvent arg0) {
+				if (!txtUsuario.isEnabled()) {
+
+					txtUsuario.setEnabled(true);
+					passwordField.setEnabled(true);
+					txtUsuario.setText(null);
+					passwordField.setText(null);
+
+					tabbedPane.remove(panelStart);
+					tabbedPane.remove(panelConfiguracao);
+
+				}
+
+				if (txtUsuario.getText().equals("admin") && passwordField.getText().equals("admin")) {
+					tabbedPane.add("Configuração", panelConfiguracao);
+					tabbedPane.add("Começar", panelStart);
+
+					s = txtUsuario.getText();
+					txtUsuario.setEnabled(false);
+					passwordField.setEnabled(false);
+					tabbedPane.setSelectedIndex(1);
+
+					btnConectar.setText("Desconectar");
+				} else if (txtUsuario.getText().equals("user") && passwordField.getText().equals("user")) {
+					tabbedPane.add("Começar", panelStart);
+
+					s = txtUsuario.getText();
+
+					txtUsuario.setEnabled(false);
+					passwordField.setEnabled(false);
+					tabbedPane.setSelectedIndex(1);
+
+					btnConectar.setText("Desconectar");
+
+				} else if (txtUsuario.getText().equals("") && passwordField.getText().equals("")) {
+
+					JOptionPane.showMessageDialog(contentPane, "O usuário " + s + " deslogou com sucesso");
+				} else {
+					JOptionPane.showMessageDialog(contentPane, "Usuário ou senha incorretos");
+				}
+
+			}
+		});
 		/*
 		 * btCONFIGURAÇÃO
 		 * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -696,10 +817,10 @@ public class TelaNova extends JFrame {
 							radio9.setText(entry.getValue().get(8));
 						}
 
-						
 					}
 					cont++;
 				}
+
 			}
 
 		}
