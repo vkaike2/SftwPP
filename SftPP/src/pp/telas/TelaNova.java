@@ -437,7 +437,7 @@ public class TelaNova extends JFrame {
 		tabbedPane.remove(panelStart);
 		tabbedPane.remove(panelConfiguracao);
 
-		ImageIcon icon = new ImageIcon(getClass().getResource(".\\Dente.png"));
+		ImageIcon icon = new ImageIcon(".\\Dente.png");
 		label_1.setIcon(icon);
 
 		btnConectar.addActionListener(new ActionListener() {
