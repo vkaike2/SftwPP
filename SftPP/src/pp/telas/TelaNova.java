@@ -696,6 +696,7 @@ public class TelaNova extends JFrame {
 							radio9.setText(entry.getValue().get(8));
 						}
 
+						
 					}
 					cont++;
 				}
