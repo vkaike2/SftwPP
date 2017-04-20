@@ -55,6 +55,7 @@ public class TelaNova extends JFrame {
 
 	private LinkedHashMap<String, List<String>> mapaConfig = new LinkedHashMap<>();
 	// private List<String> listaConfig = new ArrayList<>();
+	private List<String> listaCombobox = new ArrayList<>();
 	private LinkedList<String> listaPergAnteriro = new LinkedList<>();
 
 	/**
@@ -407,7 +408,7 @@ public class TelaNova extends JFrame {
 		radio8.setVisible(false);
 		radio9.setVisible(false);
 
-		label.setFont(new Font("Arial", Font.BOLD, 12));
+		label.setFont(new Font("Arial", Font.BOLD, 14));
 
 		btnProximaPergunta.setEnabled(false);
 		panelStart.setFocusTraversalPolicy(new FocusTraversalOnArray(
@@ -485,18 +486,28 @@ public class TelaNova extends JFrame {
 		}
 
 		mapa.put(txtA.getText(), lista);
-		String TextoDoComboBox = String.valueOf(cb.getSelectedIndex());
+		String TextoDoComboBox = String.valueOf(cb.getSelectedItem());
 
 		listaPergAnteriro.add(TextoDoComboBox);
-		
+
 		if (!TextoDoComboBox.equals(null)) {
-			//tentando remover do combobox
-			cb.removeItem(TextoDoComboBox);
+			// tentando remover do combobox
+			Object textoObject = TextoDoComboBox;
+			cb.removeItem(textoObject);
 
 		}
 		for (String string : lista) {
 			if (!string.equals("+_+"))
-				cb.addItem(string);
+				listaCombobox.add(string);
+		}
+		for (int i = 0; i < listaCombobox.size(); i++) {
+			if (listaCombobox.get(i).equals(TextoDoComboBox) && !listaCombobox.get(i).equals(null)) {
+				listaCombobox.remove(i);
+			}
+		}
+		cb.removeAllItems();
+		for (String string : listaCombobox) {
+			cb.addItem(string);
 		}
 
 	}
