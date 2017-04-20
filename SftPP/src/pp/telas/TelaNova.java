@@ -242,110 +242,119 @@ public class TelaNova extends JFrame {
 		JPanel panelStart = new JPanel();
 		tabbedPane.addTab("New tab", null, panelStart, null);
 		GridBagLayout gbl_panelStart = new GridBagLayout();
-		gbl_panelStart.columnWidths = new int[] { 0, 0, 0 };
+		gbl_panelStart.columnWidths = new int[] { 0, 0, 0, 0 };
 		gbl_panelStart.rowHeights = new int[] { 62, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gbl_panelStart.columnWeights = new double[] { 1.0, 0.0, Double.MIN_VALUE };
+		gbl_panelStart.columnWeights = new double[] { 1.0, 0.0, 0.0, Double.MIN_VALUE };
 		gbl_panelStart.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0,
 				Double.MIN_VALUE };
 		panelStart.setLayout(gbl_panelStart);
 
 		JLabel label = new JLabel("");
 		GridBagConstraints gbc_label = new GridBagConstraints();
-		gbc_label.gridwidth = 2;
+		gbc_label.gridwidth = 3;
 		gbc_label.fill = GridBagConstraints.BOTH;
-		gbc_label.insets = new Insets(0, 0, 5, 5);
+		gbc_label.insets = new Insets(0, 0, 5, 0);
 		gbc_label.gridx = 0;
 		gbc_label.gridy = 0;
 		panelStart.add(label, gbc_label);
 
 		JRadioButton radio1 = new JRadioButton("");
 		GridBagConstraints gbc_radio1 = new GridBagConstraints();
-		gbc_radio1.gridwidth = 2;
+		gbc_radio1.gridwidth = 3;
 		gbc_radio1.anchor = GridBagConstraints.WEST;
-		gbc_radio1.insets = new Insets(0, 0, 5, 5);
+		gbc_radio1.insets = new Insets(0, 0, 5, 0);
 		gbc_radio1.gridx = 0;
 		gbc_radio1.gridy = 1;
 		panelStart.add(radio1, gbc_radio1);
 
 		JRadioButton radio2 = new JRadioButton("");
 		GridBagConstraints gbc_radio2 = new GridBagConstraints();
-		gbc_radio2.gridwidth = 2;
+		gbc_radio2.gridwidth = 3;
 		gbc_radio2.anchor = GridBagConstraints.WEST;
-		gbc_radio2.insets = new Insets(0, 0, 5, 5);
+		gbc_radio2.insets = new Insets(0, 0, 5, 0);
 		gbc_radio2.gridx = 0;
 		gbc_radio2.gridy = 2;
 		panelStart.add(radio2, gbc_radio2);
 
 		JRadioButton radio3 = new JRadioButton("");
 		GridBagConstraints gbc_radio3 = new GridBagConstraints();
-		gbc_radio3.gridwidth = 2;
+		gbc_radio3.gridwidth = 3;
 		gbc_radio3.anchor = GridBagConstraints.WEST;
-		gbc_radio3.insets = new Insets(0, 0, 5, 5);
+		gbc_radio3.insets = new Insets(0, 0, 5, 0);
 		gbc_radio3.gridx = 0;
 		gbc_radio3.gridy = 3;
 		panelStart.add(radio3, gbc_radio3);
 
 		JRadioButton radio4 = new JRadioButton("");
 		GridBagConstraints gbc_radio4 = new GridBagConstraints();
-		gbc_radio4.gridwidth = 2;
+		gbc_radio4.gridwidth = 3;
 		gbc_radio4.anchor = GridBagConstraints.WEST;
-		gbc_radio4.insets = new Insets(0, 0, 5, 5);
+		gbc_radio4.insets = new Insets(0, 0, 5, 0);
 		gbc_radio4.gridx = 0;
 		gbc_radio4.gridy = 4;
 		panelStart.add(radio4, gbc_radio4);
 
 		JRadioButton radio5 = new JRadioButton("");
 		GridBagConstraints gbc_radio5 = new GridBagConstraints();
-		gbc_radio5.gridwidth = 2;
+		gbc_radio5.gridwidth = 3;
 		gbc_radio5.anchor = GridBagConstraints.WEST;
-		gbc_radio5.insets = new Insets(0, 0, 5, 5);
+		gbc_radio5.insets = new Insets(0, 0, 5, 0);
 		gbc_radio5.gridx = 0;
 		gbc_radio5.gridy = 5;
 		panelStart.add(radio5, gbc_radio5);
 
 		JRadioButton radio6 = new JRadioButton("");
 		GridBagConstraints gbc_radio6 = new GridBagConstraints();
-		gbc_radio6.gridwidth = 2;
+		gbc_radio6.gridwidth = 3;
 		gbc_radio6.anchor = GridBagConstraints.WEST;
-		gbc_radio6.insets = new Insets(0, 0, 5, 5);
+		gbc_radio6.insets = new Insets(0, 0, 5, 0);
 		gbc_radio6.gridx = 0;
 		gbc_radio6.gridy = 6;
 		panelStart.add(radio6, gbc_radio6);
 
 		JRadioButton radio7 = new JRadioButton("");
 		GridBagConstraints gbc_radio7 = new GridBagConstraints();
-		gbc_radio7.gridwidth = 2;
+		gbc_radio7.gridwidth = 3;
 		gbc_radio7.anchor = GridBagConstraints.WEST;
-		gbc_radio7.insets = new Insets(0, 0, 5, 5);
+		gbc_radio7.insets = new Insets(0, 0, 5, 0);
 		gbc_radio7.gridx = 0;
 		gbc_radio7.gridy = 7;
 		panelStart.add(radio7, gbc_radio7);
 
 		JRadioButton radio8 = new JRadioButton("");
 		GridBagConstraints gbc_radio8 = new GridBagConstraints();
-		gbc_radio8.gridwidth = 2;
+		gbc_radio8.gridwidth = 3;
 		gbc_radio8.anchor = GridBagConstraints.WEST;
-		gbc_radio8.insets = new Insets(0, 0, 5, 5);
+		gbc_radio8.insets = new Insets(0, 0, 5, 0);
 		gbc_radio8.gridx = 0;
 		gbc_radio8.gridy = 8;
 		panelStart.add(radio8, gbc_radio8);
 
 		JRadioButton radio9 = new JRadioButton("");
 		GridBagConstraints gbc_radio9 = new GridBagConstraints();
-		gbc_radio9.gridwidth = 2;
+		gbc_radio9.gridwidth = 3;
 		gbc_radio9.anchor = GridBagConstraints.WEST;
-		gbc_radio9.insets = new Insets(0, 0, 5, 5);
+		gbc_radio9.insets = new Insets(0, 0, 5, 0);
 		gbc_radio9.gridx = 0;
 		gbc_radio9.gridy = 9;
 		panelStart.add(radio9, gbc_radio9);
 		tabbedPane.setTitleAt(2, "Começar");
+
+		JButton btnResetar = new JButton("Resetar");
+
+		GridBagConstraints gbc_btnResetar = new GridBagConstraints();
+		gbc_btnResetar.anchor = GridBagConstraints.SOUTHEAST;
+		gbc_btnResetar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnResetar.gridx = 0;
+		gbc_btnResetar.gridy = 10;
+		panelStart.add(btnResetar, gbc_btnResetar);
 
 		JButton btnComear = new JButton("Come\u00E7ar");
 
 		GridBagConstraints gbc_btnComear = new GridBagConstraints();
 		gbc_btnComear.anchor = GridBagConstraints.SOUTHEAST;
 		gbc_btnComear.insets = new Insets(0, 0, 0, 5);
-		gbc_btnComear.gridx = 0;
+		gbc_btnComear.gridx = 1;
 		gbc_btnComear.gridy = 10;
 		panelStart.add(btnComear, gbc_btnComear);
 
@@ -353,7 +362,7 @@ public class TelaNova extends JFrame {
 
 		GridBagConstraints gbc_btnProximaPergunta = new GridBagConstraints();
 		gbc_btnProximaPergunta.anchor = GridBagConstraints.SOUTHEAST;
-		gbc_btnProximaPergunta.gridx = 1;
+		gbc_btnProximaPergunta.gridx = 2;
 		gbc_btnProximaPergunta.gridy = 10;
 		panelStart.add(btnProximaPergunta, gbc_btnProximaPergunta);
 		/*
@@ -411,22 +420,33 @@ public class TelaNova extends JFrame {
 		label.setFont(new Font("Arial", Font.BOLD, 14));
 
 		btnProximaPergunta.setEnabled(false);
+		btnResetar.setEnabled(false);
+
 		panelStart.setFocusTraversalPolicy(new FocusTraversalOnArray(
 				new Component[] { radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9 }));
-
-		btnComear.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				mostrarDados(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
-				btnProximaPergunta.setEnabled(true);
-				btnComear.setEnabled(false);
-			}
-		});
 
 		btnProximaPergunta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				proximaPergunta(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
 
+			}
+		});
+
+		btnComear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				mostrarDados(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
+				btnProximaPergunta.setEnabled(true);
+				btnComear.setEnabled(false);
+				btnResetar.setEnabled(true);
+			}
+		});
+		btnResetar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				limparRadios(radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
+				mostrarDados(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
+				btnProximaPergunta.setEnabled(true);
+				btnComear.setEnabled(false);
 			}
 		});
 	}
@@ -679,11 +699,10 @@ public class TelaNova extends JFrame {
 					}
 					cont++;
 				}
-			} else {
-				JOptionPane.showMessageDialog(this, "Esta resposta nao te leva a nenhuma perunta");
 			}
 
 		}
+
 	}
 
 	public void deixarRadiosInvisiveis(JRadioButton radio1, JRadioButton radio2, JRadioButton radio3,
@@ -699,5 +718,19 @@ public class TelaNova extends JFrame {
 		radio7.setVisible(false);
 		radio8.setVisible(false);
 		radio9.setVisible(false);
+	}
+
+	public void limparRadios(JRadioButton radio1, JRadioButton radio2, JRadioButton radio3, JRadioButton radio4,
+			JRadioButton radio5, JRadioButton radio6, JRadioButton radio7, JRadioButton radio8, JRadioButton radio9) {
+
+		radio1.setText(null);
+		radio2.setText(null);
+		radio3.setText(null);
+		radio4.setText(null);
+		radio5.setText(null);
+		radio6.setText(null);
+		radio7.setText(null);
+		radio8.setText(null);
+		radio9.setText(null);
 	}
 }
