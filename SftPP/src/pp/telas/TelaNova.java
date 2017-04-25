@@ -41,6 +41,10 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class TelaNova extends JFrame {
 
@@ -61,6 +65,7 @@ public class TelaNova extends JFrame {
 	private LinkedList<String> listaPergAnteriro = new LinkedList<>();
 	private JPasswordField passwordField;
 	private JTextField txtUsuario;
+	private JTextField txtLink;
 
 	/**
 	 * Launch the application.
@@ -83,7 +88,7 @@ public class TelaNova extends JFrame {
 	 */
 	public TelaNova() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 512, 408);
+		setBounds(100, 100, 512, 412);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -159,9 +164,9 @@ public class TelaNova extends JFrame {
 		tabbedPane.addTab("New tab", null, panelConfiguracao, null);
 		GridBagLayout gbl_panelConfiguracao = new GridBagLayout();
 		gbl_panelConfiguracao.columnWidths = new int[] { 0, 0, 0, 0, 0 };
-		gbl_panelConfiguracao.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+		gbl_panelConfiguracao.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
 		gbl_panelConfiguracao.columnWeights = new double[] { 0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
-		gbl_panelConfiguracao.rowWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panelConfiguracao.rowWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panelConfiguracao.setLayout(gbl_panelConfiguracao);
 
 		JLabel lblRespostaAnterior = new JLabel("Resposta Anterior:");
@@ -175,7 +180,7 @@ public class TelaNova extends JFrame {
 		JComboBox comboBox = new JComboBox();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.gridwidth = 3;
-		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBox.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 1;
 		gbc_comboBox.gridy = 0;
@@ -192,7 +197,7 @@ public class TelaNova extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.gridwidth = 3;
-		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 1;
 		gbc_scrollPane.gridy = 1;
@@ -202,12 +207,37 @@ public class TelaNova extends JFrame {
 
 		scrollPane.setViewportView(textAreaPergunta);
 
+		JRadioButton radioContinuacao = new JRadioButton("Continua\u00E7\u00E3o");
+	
+		GridBagConstraints gbc_radioContinuacao = new GridBagConstraints();
+		gbc_radioContinuacao.insets = new Insets(0, 0, 5, 5);
+		gbc_radioContinuacao.gridx = 1;
+		gbc_radioContinuacao.gridy = 2;
+		panelConfiguracao.add(radioContinuacao, gbc_radioContinuacao);
+
+		JRadioButton radioRespostaFinal = new JRadioButton("Resposta Final");
+		GridBagConstraints gbc_radioRespostaFinal = new GridBagConstraints();
+		gbc_radioRespostaFinal.insets = new Insets(0, 0, 5, 5);
+		gbc_radioRespostaFinal.gridx = 2;
+		gbc_radioRespostaFinal.gridy = 2;
+		panelConfiguracao.add(radioRespostaFinal, gbc_radioRespostaFinal);
+
+		txtLink = new JTextField();
+
+		GridBagConstraints gbc_txtLink = new GridBagConstraints();
+		gbc_txtLink.insets = new Insets(0, 0, 5, 0);
+		gbc_txtLink.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtLink.gridx = 3;
+		gbc_txtLink.gridy = 2;
+		panelConfiguracao.add(txtLink, gbc_txtLink);
+		txtLink.setColumns(10);
+
 		JLabel lblRespostas = new JLabel("Respostas: ");
 		GridBagConstraints gbc_lblRespostas = new GridBagConstraints();
 		gbc_lblRespostas.anchor = GridBagConstraints.EAST;
 		gbc_lblRespostas.insets = new Insets(0, 0, 5, 5);
 		gbc_lblRespostas.gridx = 0;
-		gbc_lblRespostas.gridy = 2;
+		gbc_lblRespostas.gridy = 3;
 		panelConfiguracao.add(lblRespostas, gbc_lblRespostas);
 
 		txt1 = new JTextField();
@@ -215,7 +245,7 @@ public class TelaNova extends JFrame {
 		gbc_txt1.insets = new Insets(0, 0, 5, 5);
 		gbc_txt1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txt1.gridx = 1;
-		gbc_txt1.gridy = 2;
+		gbc_txt1.gridy = 3;
 		panelConfiguracao.add(txt1, gbc_txt1);
 		txt1.setColumns(10);
 
@@ -224,7 +254,7 @@ public class TelaNova extends JFrame {
 		gbc_txt2.insets = new Insets(0, 0, 5, 5);
 		gbc_txt2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txt2.gridx = 2;
-		gbc_txt2.gridy = 2;
+		gbc_txt2.gridy = 3;
 		panelConfiguracao.add(txt2, gbc_txt2);
 		txt2.setColumns(10);
 
@@ -233,7 +263,7 @@ public class TelaNova extends JFrame {
 		gbc_txt3.insets = new Insets(0, 0, 5, 0);
 		gbc_txt3.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txt3.gridx = 3;
-		gbc_txt3.gridy = 2;
+		gbc_txt3.gridy = 3;
 		panelConfiguracao.add(txt3, gbc_txt3);
 		txt3.setColumns(10);
 
@@ -242,7 +272,7 @@ public class TelaNova extends JFrame {
 		gbc_txt4.insets = new Insets(0, 0, 5, 5);
 		gbc_txt4.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txt4.gridx = 1;
-		gbc_txt4.gridy = 3;
+		gbc_txt4.gridy = 4;
 		panelConfiguracao.add(txt4, gbc_txt4);
 		txt4.setColumns(10);
 
@@ -251,7 +281,7 @@ public class TelaNova extends JFrame {
 		gbc_txt5.insets = new Insets(0, 0, 5, 5);
 		gbc_txt5.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txt5.gridx = 2;
-		gbc_txt5.gridy = 3;
+		gbc_txt5.gridy = 4;
 		panelConfiguracao.add(txt5, gbc_txt5);
 		txt5.setColumns(10);
 
@@ -260,7 +290,7 @@ public class TelaNova extends JFrame {
 		gbc_txt6.insets = new Insets(0, 0, 5, 0);
 		gbc_txt6.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txt6.gridx = 3;
-		gbc_txt6.gridy = 3;
+		gbc_txt6.gridy = 4;
 		panelConfiguracao.add(txt6, gbc_txt6);
 		txt6.setColumns(10);
 
@@ -269,7 +299,7 @@ public class TelaNova extends JFrame {
 		gbc_txt7.insets = new Insets(0, 0, 5, 5);
 		gbc_txt7.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txt7.gridx = 1;
-		gbc_txt7.gridy = 4;
+		gbc_txt7.gridy = 5;
 		panelConfiguracao.add(txt7, gbc_txt7);
 		txt7.setColumns(10);
 
@@ -278,7 +308,7 @@ public class TelaNova extends JFrame {
 		gbc_txt8.insets = new Insets(0, 0, 5, 5);
 		gbc_txt8.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txt8.gridx = 2;
-		gbc_txt8.gridy = 4;
+		gbc_txt8.gridy = 5;
 		panelConfiguracao.add(txt8, gbc_txt8);
 		txt8.setColumns(10);
 
@@ -287,16 +317,15 @@ public class TelaNova extends JFrame {
 		gbc_txt9.insets = new Insets(0, 0, 5, 0);
 		gbc_txt9.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txt9.gridx = 3;
-		gbc_txt9.gridy = 4;
+		gbc_txt9.gridy = 5;
 		panelConfiguracao.add(txt9, gbc_txt9);
 		txt9.setColumns(10);
 
 		JButton btnSalvar = new JButton("Salvar");
 
 		GridBagConstraints gbc_btnSalvar = new GridBagConstraints();
-		gbc_btnSalvar.anchor = GridBagConstraints.EAST;
 		gbc_btnSalvar.gridx = 3;
-		gbc_btnSalvar.gridy = 5;
+		gbc_btnSalvar.gridy = 6;
 		panelConfiguracao.add(btnSalvar, gbc_btnSalvar);
 		panelConfiguracao.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { comboBox,
 				textAreaPergunta, txt1, txt2, txt3, txt4, txt5, txt6, txt7, txt8, txt9, btnSalvar }));
@@ -491,6 +520,44 @@ public class TelaNova extends JFrame {
 		 * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 		 * 
 		 */
+		ButtonGroup groupConfig = new ButtonGroup();
+		groupConfig.add(radioRespostaFinal);
+		groupConfig.add(radioContinuacao);
+		
+		radioContinuacao.setSelected(true);
+		
+		AlternaRespostas(radioContinuacao, radioRespostaFinal);
+		
+		radioContinuacao.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				AlternaRespostas(radioContinuacao, radioRespostaFinal);
+			}
+		});
+		radioRespostaFinal.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				AlternaRespostas(radioContinuacao, radioRespostaFinal);
+			}
+		});
+		txtLink.setText("Adicione um Link");
+
+		txtLink.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				if (txtLink.getText().equals("Adicione um Link")) {
+					txtLink.setText("");
+				}
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (txtLink.getText().equals("")) {
+					txtLink.setText("Adicione um Link");
+				}
+			}
+		});
+
 		textAreaPergunta.setLineWrap(true);
 		textAreaPergunta.addKeyListener(new KeyAdapter() {
 			@Override
@@ -517,16 +584,16 @@ public class TelaNova extends JFrame {
 		 * 
 		 */
 		// panelStart.setBackground(Color.BLACK);
-		ButtonGroup group = new ButtonGroup();
-		group.add(radio1);
-		group.add(radio2);
-		group.add(radio3);
-		group.add(radio4);
-		group.add(radio5);
-		group.add(radio6);
-		group.add(radio7);
-		group.add(radio8);
-		group.add(radio9);
+		ButtonGroup groupStart = new ButtonGroup();
+		groupStart.add(radio1);
+		groupStart.add(radio2);
+		groupStart.add(radio3);
+		groupStart.add(radio4);
+		groupStart.add(radio5);
+		groupStart.add(radio6);
+		groupStart.add(radio7);
+		groupStart.add(radio8);
+		groupStart.add(radio9);
 
 		radio1.setVisible(false);
 		radio2.setVisible(false);
@@ -577,6 +644,36 @@ public class TelaNova extends JFrame {
 	 * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	 * 
 	 */
+	public void AlternaRespostas(JRadioButton r1, JRadioButton r2){
+		if (r1.isSelected()){
+			txtLink.setEnabled(false);
+			
+			txt1.setEnabled(true);
+			txt2.setEnabled(true);
+			txt3.setEnabled(true);
+			txt4.setEnabled(true);
+			txt5.setEnabled(true);
+			txt6.setEnabled(true);
+			txt7.setEnabled(true);
+			txt8.setEnabled(true);
+			txt9.setEnabled(true);
+			
+			
+		}else if(r2.isSelected()){
+			txtLink.setEnabled(true);
+			
+			txt1.setEnabled(false);
+			txt2.setEnabled(false);
+			txt3.setEnabled(false);
+			txt4.setEnabled(false);
+			txt5.setEnabled(false);
+			txt6.setEnabled(false);
+			txt7.setEnabled(false);
+			txt8.setEnabled(false);
+			txt9.setEnabled(false);
+		}
+		
+	}
 	public void ArmazenarDados(JTextArea txtA, JComboBox cb, LinkedHashMap<String, List<String>> mapa) {
 		List<String> lista = new ArrayList<>();
 
