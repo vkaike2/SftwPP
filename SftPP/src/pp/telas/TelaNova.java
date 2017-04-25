@@ -37,6 +37,7 @@ import java.awt.peer.TextAreaPeer;
 import java.awt.event.ActionEvent;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
+import java.awt.Desktop;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
@@ -208,7 +209,7 @@ public class TelaNova extends JFrame {
 		scrollPane.setViewportView(textAreaPergunta);
 
 		JRadioButton radioContinuacao = new JRadioButton("Continua\u00E7\u00E3o");
-	
+
 		GridBagConstraints gbc_radioContinuacao = new GridBagConstraints();
 		gbc_radioContinuacao.insets = new Insets(0, 0, 5, 5);
 		gbc_radioContinuacao.gridx = 1;
@@ -523,11 +524,11 @@ public class TelaNova extends JFrame {
 		ButtonGroup groupConfig = new ButtonGroup();
 		groupConfig.add(radioRespostaFinal);
 		groupConfig.add(radioContinuacao);
-		
+
 		radioContinuacao.setSelected(true);
-		
+
 		AlternaRespostas(radioContinuacao, radioRespostaFinal);
-		
+
 		radioContinuacao.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -644,10 +645,10 @@ public class TelaNova extends JFrame {
 	 * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	 * 
 	 */
-	public void AlternaRespostas(JRadioButton r1, JRadioButton r2){
-		if (r1.isSelected()){
+	public void AlternaRespostas(JRadioButton r1, JRadioButton r2) {
+		if (r1.isSelected()) {
 			txtLink.setEnabled(false);
-			
+
 			txt1.setEnabled(true);
 			txt2.setEnabled(true);
 			txt3.setEnabled(true);
@@ -657,11 +658,10 @@ public class TelaNova extends JFrame {
 			txt7.setEnabled(true);
 			txt8.setEnabled(true);
 			txt9.setEnabled(true);
-			
-			
-		}else if(r2.isSelected()){
+
+		} else if (r2.isSelected()) {
 			txtLink.setEnabled(true);
-			
+
 			txt1.setEnabled(false);
 			txt2.setEnabled(false);
 			txt3.setEnabled(false);
@@ -672,8 +672,9 @@ public class TelaNova extends JFrame {
 			txt8.setEnabled(false);
 			txt9.setEnabled(false);
 		}
-		
+
 	}
+
 	public void ArmazenarDados(JTextArea txtA, JComboBox cb, LinkedHashMap<String, List<String>> mapa) {
 		List<String> lista = new ArrayList<>();
 
@@ -873,7 +874,29 @@ public class TelaNova extends JFrame {
 				deixarRadiosInvisiveis(radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
 
 				for (Entry<String, List<String>> entry : mapaConfig.entrySet()) {
+
 					if (i == cont) {
+
+						if (entry.getValue().get(0).equals("+_+") && entry.getValue().get(1).equals("+_+")
+								&& entry.getValue().get(2).equals("+_+") && entry.getValue().get(3).equals("+_+")
+								&& entry.getValue().get(4).equals("+_+") && entry.getValue().get(5).equals("+_+")
+								&& entry.getValue().get(6).equals("+_+") && entry.getValue().get(7).equals("+_+")
+								&& entry.getValue().get(8).equals("+_+")) {
+							TelaRespostaFinal trf = new TelaRespostaFinal();
+							trf.setVisible(true);
+							trf.setLocationRelativeTo(contentPane);
+
+							trf.labelTexto.setText(entry.getKey());
+							trf.labelLink.setText(txtLink.getText());
+
+							Desktop desk = java.awt.Desktop.getDesktop();
+							try {
+								desk.browse(new java.net.URI("http://" + trf.labelLink.getText()));
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+							;
+						}
 
 						label.setText(entry.getKey());
 
