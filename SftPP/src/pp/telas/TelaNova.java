@@ -886,6 +886,7 @@ public class TelaNova extends JFrame {
 							trf.setVisible(true);
 							trf.setLocationRelativeTo(contentPane);
 
+							
 							trf.labelTexto.setText(entry.getKey());
 							trf.labelLink.setText(txtLink.getText());
 
