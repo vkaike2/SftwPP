@@ -76,6 +76,7 @@ public class TelaNova extends JFrame {
 			public void run() {
 				try {
 					TelaNova frame = new TelaNova();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -890,13 +891,8 @@ public class TelaNova extends JFrame {
 							trf.labelTexto.setText(entry.getKey());
 							trf.labelLink.setText(txtLink.getText());
 
-							Desktop desk = java.awt.Desktop.getDesktop();
-							try {
-								desk.browse(new java.net.URI("http://" + trf.labelLink.getText()));
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-							;
+							
+							
 						}
 
 						label.setText(entry.getKey());
