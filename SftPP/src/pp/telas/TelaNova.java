@@ -489,6 +489,7 @@ public class TelaNova extends JFrame {
 					txtUsuario.setText(null);
 					passwordField.setText(null);
 
+					
 					tabbedPane.remove(panelStart);
 					tabbedPane.remove(panelConfiguracao);
 
