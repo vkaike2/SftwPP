@@ -36,6 +36,10 @@ import java.awt.event.ActionListener;
 import java.awt.peer.TextAreaPeer;
 import java.awt.event.ActionEvent;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
+import org.w3c.dom.NodeList;
+
+import pp.auxiliares.SrXML;
+
 import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.event.KeyAdapter;
@@ -577,6 +581,9 @@ public class TelaNova extends JFrame {
 				ArmazenarDados(textAreaPergunta, comboBox, mapaConfig);
 
 				limparDados(textAreaPergunta);
+
+				SrXML xml = new SrXML();
+				xml.escreve(mapaConfig, listaPergAnteriro);
 			}
 		});
 
@@ -625,10 +632,28 @@ public class TelaNova extends JFrame {
 
 		btnComear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				SrXML xml = new SrXML();
+				xml.le(mapaConfig, listaPergAnteriro);
+
+				// for (Entry<String, List<String>> entry :
+				// mapaConfig.entrySet()) {
+				// System.out.println(entry.getKey());
+				// for (String string : entry.getValue()) {
+				// System.out.println(" t "+string);
+				// }
+				// }
+				// System.out.println();
+				// System.out.println("Lista");
+				// System.out.println();
+				// for (String string : listaPergAnteriro) {
+				// System.out.println(string);
+				// }
+
 				mostrarDados(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
 				btnProximaPergunta.setEnabled(true);
 				btnComear.setEnabled(false);
 				btnResetar.setEnabled(true);
+
 			}
 		});
 		btnResetar.addActionListener(new ActionListener() {
@@ -887,12 +912,9 @@ public class TelaNova extends JFrame {
 							trf.setVisible(true);
 							trf.setLocationRelativeTo(contentPane);
 
-							
 							trf.labelTexto.setText(entry.getKey());
 							trf.labelLink.setText(txtLink.getText());
 
-							
-							
 						}
 
 						label.setText(entry.getKey());
