@@ -68,6 +68,7 @@ public class TelaNova extends JFrame {
 	// private List<String> listaConfig = new ArrayList<>();
 	private List<String> listaCombobox = new ArrayList<>();
 	private LinkedList<String> listaPergAnteriro = new LinkedList<>();
+	private List<String> listaLinks = new ArrayList<>();
 	private JPasswordField passwordField;
 	private JTextField txtUsuario;
 	private JTextField txtLink;
@@ -479,6 +480,8 @@ public class TelaNova extends JFrame {
 			String s;
 
 			public void actionPerformed(ActionEvent arg0) {
+				SrXML xml = new SrXML();
+				xml.le(mapaConfig, listaPergAnteriro,listaLinks);
 				if (!txtUsuario.isEnabled()) {
 
 					txtUsuario.setEnabled(true);
@@ -583,7 +586,8 @@ public class TelaNova extends JFrame {
 				limparDados(textAreaPergunta);
 
 				SrXML xml = new SrXML();
-				xml.escreve(mapaConfig, listaPergAnteriro);
+				xml.escreve(mapaConfig, listaPergAnteriro,listaLinks);
+				//xml.le(mapaConfig, listaPergAnteriro);
 			}
 		});
 
@@ -632,8 +636,8 @@ public class TelaNova extends JFrame {
 
 		btnComear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				SrXML xml = new SrXML();
-				xml.le(mapaConfig, listaPergAnteriro);
+				//SrXML xml = new SrXML();
+				//xml.le(mapaConfig, listaPergAnteriro);
 
 				// for (Entry<String, List<String>> entry :
 				// mapaConfig.entrySet()) {
@@ -658,6 +662,8 @@ public class TelaNova extends JFrame {
 		});
 		btnResetar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				SrXML xml = new SrXML();
+				xml.le(mapaConfig, listaPergAnteriro,listaLinks);
 				limparRadios(radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
 				mostrarDados(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
 				btnProximaPergunta.setEnabled(true);
@@ -754,6 +760,7 @@ public class TelaNova extends JFrame {
 		String TextoDoComboBox = String.valueOf(cb.getSelectedItem());
 
 		listaPergAnteriro.add(TextoDoComboBox);
+		listaLinks.add(TextoDoComboBox + "Ä" + txtLink.getText());
 
 		if (!TextoDoComboBox.equals(null)) {
 			// tentando remover do combobox
@@ -788,7 +795,7 @@ public class TelaNova extends JFrame {
 		txt7.setText(null);
 		txt8.setText(null);
 		txt9.setText(null);
-
+		txtLink.setText("Adicione um Link");
 		txtA.setText(null);
 	}
 
@@ -908,12 +915,23 @@ public class TelaNova extends JFrame {
 								&& entry.getValue().get(4).equals("+_+") && entry.getValue().get(5).equals("+_+")
 								&& entry.getValue().get(6).equals("+_+") && entry.getValue().get(7).equals("+_+")
 								&& entry.getValue().get(8).equals("+_+")) {
-							TelaRespostaFinal trf = new TelaRespostaFinal();
-							trf.setVisible(true);
-							trf.setLocationRelativeTo(contentPane);
 
-							trf.labelTexto.setText(entry.getKey());
-							trf.labelLink.setText(txtLink.getText());
+							// System.out.println("abriu");
+
+							for (String string : listaLinks) {
+								if (listaPergAnteriro.get(i).equals(string.substring(0, string.indexOf("Ä")))) {
+									TelaRespostaFinal trf = new TelaRespostaFinal();
+									trf.setVisible(true);
+
+									trf.setLocationRelativeTo(contentPane);
+
+									trf.labelTexto.setText(entry.getKey());
+									int um = string.lastIndexOf("Ä");
+
+									trf.labelLink.setText(string.substring(um + 1));
+									break;
+								}
+							}
 
 						}
 

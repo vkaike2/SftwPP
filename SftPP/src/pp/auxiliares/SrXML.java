@@ -23,7 +23,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class SrXML {
-	public void escreve(LinkedHashMap<String, List<String>> mapa, LinkedList<String> list) {
+	public void escreve(LinkedHashMap<String, List<String>> mapa, LinkedList<String> list, List<String> linke) {
 		try {
 
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -59,7 +59,15 @@ public class SrXML {
 				ra.appendChild(docXML.createTextNode(string));
 				lista.appendChild(ra);
 			}
+			
+			Element link = docXML.createElement("Link");
+			root.appendChild(link);
 
+			for (String string : linke) {
+				Element ra = docXML.createElement("url");
+				ra.appendChild(docXML.createTextNode(string));
+				link.appendChild(ra);
+			}
 			TransformerFactory tf = TransformerFactory.newInstance();
 			Transformer t = tf.newTransformer();
 
@@ -76,7 +84,7 @@ public class SrXML {
 
 	}
 
-	public void le(LinkedHashMap<String, List<String>> mapa, LinkedList<String> li) {
+	public void le(LinkedHashMap<String, List<String>> mapa, LinkedList<String> li, List<String> linke) {
 		String perg = null;
 
 		try {
@@ -152,6 +160,31 @@ public class SrXML {
 
 							if (eFilhoLista.getTagName().equals("ra")) {
 								li.add(eFilhoLista.getTextContent());
+							}
+						}
+					}
+				}
+
+			}
+			
+			NodeList listaLink = docXML.getElementsByTagName("Link");
+
+			for (int i = 0; i < listaLink.getLength(); i++) {
+				Node noLink = listaLink.item(i);
+
+				if (noLink.getNodeType() == Node.ELEMENT_NODE) {
+					Element eLink = (Element) noLink;
+
+					NodeList listaFilhoLink = eLink.getChildNodes();
+
+					for (int j = 0; j < listaFilhoLink.getLength(); j++) {
+						Node noFilhoLink = listaFilhoLink.item(j);
+
+						if (noFilhoLink.getNodeType() == Node.ELEMENT_NODE) {
+							Element eFilhoLink = (Element) noFilhoLink;
+
+							if (eFilhoLink.getTagName().equals("url")) {
+								li.add(eFilhoLink.getTextContent());
 							}
 						}
 					}
