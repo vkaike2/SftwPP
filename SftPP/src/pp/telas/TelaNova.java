@@ -519,6 +519,7 @@ public class TelaNova extends JFrame {
 				} else if (txtUsuario.getText().equals("") && passwordField.getText().equals("")) {
 
 					JOptionPane.showMessageDialog(contentPane, "O usuário " + s + " deslogou com sucesso");
+					btnConectar.setText("Conectar");
 				} else {
 					JOptionPane.showMessageDialog(contentPane, "Usuário ou senha incorretos");
 				}
