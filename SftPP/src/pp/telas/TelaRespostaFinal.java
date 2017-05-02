@@ -24,6 +24,7 @@ public class TelaRespostaFinal extends JFrame {
 	public JPanel contentPane;
 	public JLabel labelLink;
 	public JLabel labelTexto;
+	public JLabel lblLink;
 
 	/**
 	 * Launch the application.
@@ -66,7 +67,7 @@ public class TelaRespostaFinal extends JFrame {
 		gbc_labelTexto.gridy = 0;
 		contentPane.add(labelTexto, gbc_labelTexto);
 		
-		JLabel lblLink = new JLabel("Para mais informa\u00E7\u00F5es acesse: ");
+		lblLink = new JLabel("Para mais informa\u00E7\u00F5es acesse: ");
 		GridBagConstraints gbc_lblLink = new GridBagConstraints();
 		gbc_lblLink.anchor = GridBagConstraints.NORTHEAST;
 		gbc_lblLink.insets = new Insets(0, 0, 5, 5);

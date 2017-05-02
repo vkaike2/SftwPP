@@ -148,6 +148,7 @@ public class TelaNova extends JFrame {
 		panelPrincipal.add(lblSenha, gbc_lblSenha);
 
 		passwordField = new JPasswordField();
+
 		GridBagConstraints gbc_passwordField = new GridBagConstraints();
 		gbc_passwordField.gridwidth = 2;
 		gbc_passwordField.fill = GridBagConstraints.HORIZONTAL;
@@ -488,53 +489,18 @@ public class TelaNova extends JFrame {
 		ImageIcon icon = new ImageIcon(".\\Dente.png");
 		label_1.setIcon(icon);
 
+		passwordField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent k) {
+				if (k.getKeyCode() == KeyEvent.VK_ENTER) {
+					logar(tabbedPane, panelStart, panelConfiguracao, btnConectar);
+				}
+			}
+		});
+
 		btnConectar.addActionListener(new ActionListener() {
-			String s;
-
 			public void actionPerformed(ActionEvent arg0) {
-				// SrXML xml = new SrXML();
-				// xml.le(mapaConfig, listaPergAnteriro, listaLinks);
-
-				if (!txtUsuario.isEnabled()) {
-
-					txtUsuario.setEnabled(true);
-					passwordField.setEnabled(true);
-					txtUsuario.setText(null);
-					passwordField.setText(null);
-
-					tabbedPane.remove(panelStart);
-					tabbedPane.remove(panelConfiguracao);
-
-				}
-
-				if (txtUsuario.getText().equals("admin") && passwordField.getText().equals("admin")) {
-					tabbedPane.add("Configuração", panelConfiguracao);
-					tabbedPane.add("Começar", panelStart);
-
-					s = txtUsuario.getText();
-					txtUsuario.setEnabled(false);
-					passwordField.setEnabled(false);
-					tabbedPane.setSelectedIndex(1);
-
-					btnConectar.setText("Desconectar");
-				} else if (txtUsuario.getText().equals("user") && passwordField.getText().equals("user")) {
-					tabbedPane.add("Começar", panelStart);
-
-					s = txtUsuario.getText();
-
-					txtUsuario.setEnabled(false);
-					passwordField.setEnabled(false);
-					tabbedPane.setSelectedIndex(1);
-
-					btnConectar.setText("Desconectar");
-
-				} else if (txtUsuario.getText().equals("") && passwordField.getText().equals("")) {
-
-					JOptionPane.showMessageDialog(contentPane, "O usuário " + s + " deslogou com sucesso");
-					btnConectar.setText("Conectar");
-				} else {
-					JOptionPane.showMessageDialog(contentPane, "Usuário ou senha incorretos");
-				}
+				logar(tabbedPane, panelStart, panelConfiguracao, btnConectar);
 
 			}
 		});
@@ -543,6 +509,7 @@ public class TelaNova extends JFrame {
 		 * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 		 * 
 		 */
+		btnEditar.setEnabled(false);
 		ButtonGroup groupConfig = new ButtonGroup();
 		groupConfig.add(radioRespostaFinal);
 		groupConfig.add(radioContinuacao);
@@ -596,17 +563,6 @@ public class TelaNova extends JFrame {
 
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
-				System.out.println();
-				for (String string : listaPergAnteriro) {
-					System.out.println(string);
-				}
-				for (Entry<String, List<String>> entry : mapaConfig.entrySet()) {
-					System.out.println(entry.getKey());
-					for (String string : entry.getValue()) {
-						System.out.println("    " + string);
-					}
-				}
 
 			}
 		});
@@ -955,24 +911,43 @@ public class TelaNova extends JFrame {
 							for (String string : listaLinks) {
 
 								if (listaPergAnteriro.get(i).equals(string.substring(0, string.indexOf("Ä")))) {
-
-									TelaRespostaFinal trf = new TelaRespostaFinal();
-									trf.setVisible(true);
-
-									trf.setLocationRelativeTo(contentPane);
-
-									trf.labelTexto.setText(entry.getKey());
 									int um = string.lastIndexOf("Ä");
+									if (string.substring(um + 1).equals("Adicione um Link")) {
+										TelaRespostaFinal trf = new TelaRespostaFinal();
+										trf.setVisible(true);
 
-									trf.labelLink.setText(string.substring(um + 1));
+										trf.setLocationRelativeTo(contentPane);
 
-									label.setText(null);
+										trf.labelTexto.setText(entry.getKey());
+										
+										trf.lblLink.setVisible(false);
+										trf.labelLink.setVisible(false);
+										
+										label.setText(null);
 
-									resetar.setEnabled(false);
-									proxPerg.setEnabled(false);
+										resetar.setEnabled(false);
+										proxPerg.setEnabled(false);
 
-									comecar.setEnabled(true);
+										comecar.setEnabled(true);
+									} else {
 
+										TelaRespostaFinal trf = new TelaRespostaFinal();
+										trf.setVisible(true);
+
+										trf.setLocationRelativeTo(contentPane);
+
+										trf.labelTexto.setText(entry.getKey());
+										// int um = string.lastIndexOf("Ä");
+
+										trf.labelLink.setText(string.substring(um + 1));
+
+										label.setText(null);
+
+										resetar.setEnabled(false);
+										proxPerg.setEnabled(false);
+
+										comecar.setEnabled(true);
+									}
 								}
 
 							}
@@ -1055,5 +1030,54 @@ public class TelaNova extends JFrame {
 		radio7.setText(null);
 		radio8.setText(null);
 		radio9.setText(null);
+	}
+	/*
+	 * mHOME
+	 * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	 * 
+	 */
+
+	public void logar(JTabbedPane tabbedPane, JPanel panelStart, JPanel panelConfiguracao, JButton btnConectar) {
+		String s = null;
+		if (!txtUsuario.isEnabled()) {
+
+			txtUsuario.setEnabled(true);
+			passwordField.setEnabled(true);
+			txtUsuario.setText(null);
+			passwordField.setText(null);
+
+			tabbedPane.remove(panelStart);
+			tabbedPane.remove(panelConfiguracao);
+
+		}
+
+		if (txtUsuario.getText().equals("admin") && passwordField.getText().equals("admin")) {
+			tabbedPane.add("Configuração", panelConfiguracao);
+			tabbedPane.add("Começar", panelStart);
+
+			s = txtUsuario.getText();
+			txtUsuario.setEnabled(false);
+			passwordField.setEnabled(false);
+			tabbedPane.setSelectedIndex(1);
+
+			btnConectar.setText("Desconectar");
+		} else if (txtUsuario.getText().equals("user") && passwordField.getText().equals("user")) {
+			tabbedPane.add("Começar", panelStart);
+
+			s = txtUsuario.getText();
+
+			txtUsuario.setEnabled(false);
+			passwordField.setEnabled(false);
+			tabbedPane.setSelectedIndex(1);
+
+			btnConectar.setText("Desconectar");
+
+		} else if (txtUsuario.getText().equals("") && passwordField.getText().equals("")) {
+
+			JOptionPane.showMessageDialog(contentPane, "O usuário " + s + " deslogou com sucesso");
+			btnConectar.setText("Conectar");
+		} else {
+			JOptionPane.showMessageDialog(contentPane, "Usuário ou senha incorretos");
+		}
 	}
 }
