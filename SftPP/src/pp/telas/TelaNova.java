@@ -914,9 +914,9 @@ public class TelaNova extends JFrame {
 									int um = string.lastIndexOf("Ä");
 									if (string.substring(um + 1).equals("Adicione um Link")) {
 										TelaRespostaFinal trf = new TelaRespostaFinal();
-										trf.setVisible(true);
-
 										trf.setLocationRelativeTo(contentPane);
+										
+										trf.setVisible(true);
 
 										trf.labelTexto.setText(entry.getKey());
 										
@@ -932,9 +932,9 @@ public class TelaNova extends JFrame {
 									} else {
 
 										TelaRespostaFinal trf = new TelaRespostaFinal();
-										trf.setVisible(true);
-
 										trf.setLocationRelativeTo(contentPane);
+
+										trf.setVisible(true);
 
 										trf.labelTexto.setText(entry.getKey());
 										// int um = string.lastIndexOf("Ä");
