@@ -184,7 +184,7 @@ public class SrXML {
 							Element eFilhoLink = (Element) noFilhoLink;
 
 							if (eFilhoLink.getTagName().equals("url")) {
-								li.add(eFilhoLink.getTextContent());
+								linke.add(eFilhoLink.getTextContent());
 							}
 						}
 					}
@@ -195,4 +195,5 @@ public class SrXML {
 			// TODO: handle exception
 		}
 	}
+	
 }

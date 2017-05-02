@@ -331,8 +331,9 @@ public class TelaNova extends JFrame {
 		gbc_txt9.gridy = 5;
 		panelConfiguracao.add(txt9, gbc_txt9);
 		txt9.setColumns(10);
-		
+
 		JButton btnEditar = new JButton("Editar");
+
 		GridBagConstraints gbc_btnEditar = new GridBagConstraints();
 		gbc_btnEditar.insets = new Insets(0, 0, 0, 5);
 		gbc_btnEditar.gridx = 3;
@@ -491,8 +492,9 @@ public class TelaNova extends JFrame {
 			String s;
 
 			public void actionPerformed(ActionEvent arg0) {
-				SrXML xml = new SrXML();
-				xml.le(mapaConfig, listaPergAnteriro,listaLinks);
+				// SrXML xml = new SrXML();
+				// xml.le(mapaConfig, listaPergAnteriro, listaLinks);
+
 				if (!txtUsuario.isEnabled()) {
 
 					txtUsuario.setEnabled(true);
@@ -500,7 +502,6 @@ public class TelaNova extends JFrame {
 					txtUsuario.setText(null);
 					passwordField.setText(null);
 
-					
 					tabbedPane.remove(panelStart);
 					tabbedPane.remove(panelConfiguracao);
 
@@ -592,7 +593,23 @@ public class TelaNova extends JFrame {
 		});
 		ImageIcon imgIc = new ImageIcon(".\\editar.png");
 		imgIc.setImage(imgIc.getImage().getScaledInstance(49, 49, 100));
-		
+
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				System.out.println();
+				for (String string : listaPergAnteriro) {
+					System.out.println(string);
+				}
+				for (Entry<String, List<String>> entry : mapaConfig.entrySet()) {
+					System.out.println(entry.getKey());
+					for (String string : entry.getValue()) {
+						System.out.println("    " + string);
+					}
+				}
+
+			}
+		});
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -601,8 +618,8 @@ public class TelaNova extends JFrame {
 				limparDados(textAreaPergunta);
 
 				SrXML xml = new SrXML();
-				xml.escreve(mapaConfig, listaPergAnteriro,listaLinks);
-				//xml.le(mapaConfig, listaPergAnteriro);
+				xml.escreve(mapaConfig, listaPergAnteriro, listaLinks);
+
 			}
 		});
 
@@ -644,29 +661,18 @@ public class TelaNova extends JFrame {
 		btnProximaPergunta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				proximaPergunta(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
+				proximaPergunta(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9,
+						btnComear, btnResetar, btnProximaPergunta);
 
 			}
 		});
 
 		btnComear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//SrXML xml = new SrXML();
-				//xml.le(mapaConfig, listaPergAnteriro);
-
-				// for (Entry<String, List<String>> entry :
-				// mapaConfig.entrySet()) {
-				// System.out.println(entry.getKey());
-				// for (String string : entry.getValue()) {
-				// System.out.println(" t "+string);
-				// }
-				// }
-				// System.out.println();
-				// System.out.println("Lista");
-				// System.out.println();
-				// for (String string : listaPergAnteriro) {
-				// System.out.println(string);
-				// }
+				listaLinks.clear();
+				listaPergAnteriro.clear();
+				SrXML xml = new SrXML();
+				xml.le(mapaConfig, listaPergAnteriro, listaLinks);
 
 				mostrarDados(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
 				btnProximaPergunta.setEnabled(true);
@@ -677,8 +683,11 @@ public class TelaNova extends JFrame {
 		});
 		btnResetar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				listaLinks.clear();
+				listaPergAnteriro.clear();
 				SrXML xml = new SrXML();
-				xml.le(mapaConfig, listaPergAnteriro,listaLinks);
+				xml.le(mapaConfig, listaPergAnteriro, listaLinks);
+
 				limparRadios(radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
 				mostrarDados(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
 				btnProximaPergunta.setEnabled(true);
@@ -879,46 +888,56 @@ public class TelaNova extends JFrame {
 
 	public void proximaPergunta(JLabel label, JRadioButton radio1, JRadioButton radio2, JRadioButton radio3,
 			JRadioButton radio4, JRadioButton radio5, JRadioButton radio6, JRadioButton radio7, JRadioButton radio8,
-			JRadioButton radio9) {
+			JRadioButton radio9, JButton comecar, JButton resetar, JButton proxPerg) {
 		int cont = 0;
 
 		if (radio1.isSelected()) {
-			dentroDoIF(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9, cont, radio1);
+			dentroDoIF(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9, cont, radio1,
+					comecar, resetar, proxPerg);
 		}
 		if (radio2.isSelected()) {
-			dentroDoIF(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9, cont, radio2);
+			dentroDoIF(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9, cont, radio2,
+					comecar, resetar, proxPerg);
 		}
 		if (radio3.isSelected()) {
-			dentroDoIF(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9, cont, radio3);
+			dentroDoIF(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9, cont, radio3,
+					comecar, resetar, proxPerg);
 		}
 		if (radio4.isSelected()) {
-			dentroDoIF(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9, cont, radio4);
+			dentroDoIF(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9, cont, radio4,
+					comecar, resetar, proxPerg);
 		}
 		if (radio5.isSelected()) {
-			dentroDoIF(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9, cont, radio5);
+			dentroDoIF(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9, cont, radio5,
+					comecar, resetar, proxPerg);
 		}
 		if (radio6.isSelected()) {
-			dentroDoIF(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9, cont, radio6);
+			dentroDoIF(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9, cont, radio6,
+					comecar, resetar, proxPerg);
 		}
 		if (radio7.isSelected()) {
-			dentroDoIF(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9, cont, radio7);
+			dentroDoIF(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9, cont, radio7,
+					comecar, resetar, proxPerg);
 		}
 		if (radio8.isSelected()) {
-			dentroDoIF(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9, cont, radio8);
+			dentroDoIF(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9, cont, radio8,
+					comecar, resetar, proxPerg);
 		}
 		if (radio9.isSelected()) {
-			dentroDoIF(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9, cont, radio9);
+			dentroDoIF(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9, cont, radio9,
+					comecar, resetar, proxPerg);
 		}
 
 	}
 
 	public void dentroDoIF(JLabel label, JRadioButton radio1, JRadioButton radio2, JRadioButton radio3,
 			JRadioButton radio4, JRadioButton radio5, JRadioButton radio6, JRadioButton radio7, JRadioButton radio8,
-			JRadioButton radio9, int cont, JRadioButton radiao) {
+			JRadioButton radio9, int cont, JRadioButton radiao, JButton comecar, JButton resetar, JButton proxPerg) {
 
 		for (int i = 0; i < listaPergAnteriro.size(); i++) {
 
 			if (radiao.getText().equals(listaPergAnteriro.get(i))) {
+
 				deixarRadiosInvisiveis(radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
 
 				for (Entry<String, List<String>> entry : mapaConfig.entrySet()) {
@@ -932,9 +951,11 @@ public class TelaNova extends JFrame {
 								&& entry.getValue().get(8).equals("+_+")) {
 
 							// System.out.println("abriu");
-
+							// System.out.println("entrou 1");
 							for (String string : listaLinks) {
+
 								if (listaPergAnteriro.get(i).equals(string.substring(0, string.indexOf("Ä")))) {
+
 									TelaRespostaFinal trf = new TelaRespostaFinal();
 									trf.setVisible(true);
 
@@ -944,51 +965,59 @@ public class TelaNova extends JFrame {
 									int um = string.lastIndexOf("Ä");
 
 									trf.labelLink.setText(string.substring(um + 1));
-									break;
+
+									label.setText(null);
+
+									resetar.setEnabled(false);
+									proxPerg.setEnabled(false);
+
+									comecar.setEnabled(true);
+
 								}
+
 							}
 
-						}
+						} else {
 
-						label.setText(entry.getKey());
+							label.setText(entry.getKey());
 
-						if (!entry.getValue().get(0).equals("+_+")) {
-							radio1.setVisible(true);
-							radio1.setText(entry.getValue().get(0));
+							if (!entry.getValue().get(0).equals("+_+")) {
+								radio1.setVisible(true);
+								radio1.setText(entry.getValue().get(0));
+							}
+							if (!entry.getValue().get(1).equals("+_+")) {
+								radio2.setVisible(true);
+								radio2.setText(entry.getValue().get(1));
+							}
+							if (!entry.getValue().get(2).equals("+_+")) {
+								radio3.setVisible(true);
+								radio3.setText(entry.getValue().get(2));
+							}
+							if (!entry.getValue().get(3).equals("+_+")) {
+								radio4.setVisible(true);
+								radio4.setText(entry.getValue().get(3));
+							}
+							if (!entry.getValue().get(4).equals("+_+")) {
+								radio5.setVisible(true);
+								radio5.setText(entry.getValue().get(4));
+							}
+							if (!entry.getValue().get(5).equals("+_+")) {
+								radio6.setVisible(true);
+								radio6.setText(entry.getValue().get(5));
+							}
+							if (!entry.getValue().get(6).equals("+_+")) {
+								radio7.setVisible(true);
+								radio7.setText(entry.getValue().get(6));
+							}
+							if (!entry.getValue().get(7).equals("+_+")) {
+								radio8.setVisible(true);
+								radio8.setText(entry.getValue().get(7));
+							}
+							if (!entry.getValue().get(8).equals("+_+")) {
+								radio9.setVisible(true);
+								radio9.setText(entry.getValue().get(8));
+							}
 						}
-						if (!entry.getValue().get(1).equals("+_+")) {
-							radio2.setVisible(true);
-							radio2.setText(entry.getValue().get(1));
-						}
-						if (!entry.getValue().get(2).equals("+_+")) {
-							radio3.setVisible(true);
-							radio3.setText(entry.getValue().get(2));
-						}
-						if (!entry.getValue().get(3).equals("+_+")) {
-							radio4.setVisible(true);
-							radio4.setText(entry.getValue().get(3));
-						}
-						if (!entry.getValue().get(4).equals("+_+")) {
-							radio5.setVisible(true);
-							radio5.setText(entry.getValue().get(4));
-						}
-						if (!entry.getValue().get(5).equals("+_+")) {
-							radio6.setVisible(true);
-							radio6.setText(entry.getValue().get(5));
-						}
-						if (!entry.getValue().get(6).equals("+_+")) {
-							radio7.setVisible(true);
-							radio7.setText(entry.getValue().get(6));
-						}
-						if (!entry.getValue().get(7).equals("+_+")) {
-							radio8.setVisible(true);
-							radio8.setText(entry.getValue().get(7));
-						}
-						if (!entry.getValue().get(8).equals("+_+")) {
-							radio9.setVisible(true);
-							radio9.setText(entry.getValue().get(8));
-						}
-
 					}
 					cont++;
 				}
