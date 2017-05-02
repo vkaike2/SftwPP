@@ -170,9 +170,9 @@ public class TelaNova extends JFrame {
 		JPanel panelConfiguracao = new JPanel();
 		tabbedPane.addTab("New tab", null, panelConfiguracao, null);
 		GridBagLayout gbl_panelConfiguracao = new GridBagLayout();
-		gbl_panelConfiguracao.columnWidths = new int[] { 0, 0, 0, 0, 0 };
+		gbl_panelConfiguracao.columnWidths = new int[] { 0, 0, 0, 0, 0, 0 };
 		gbl_panelConfiguracao.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
-		gbl_panelConfiguracao.columnWeights = new double[] { 0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
+		gbl_panelConfiguracao.columnWeights = new double[] { 0.0, 1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
 		gbl_panelConfiguracao.rowWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panelConfiguracao.setLayout(gbl_panelConfiguracao);
 
@@ -186,7 +186,7 @@ public class TelaNova extends JFrame {
 
 		JComboBox comboBox = new JComboBox();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.gridwidth = 3;
+		gbc_comboBox.gridwidth = 4;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 1;
@@ -203,7 +203,7 @@ public class TelaNova extends JFrame {
 
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.gridwidth = 3;
+		gbc_scrollPane.gridwidth = 4;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 1;
@@ -232,6 +232,7 @@ public class TelaNova extends JFrame {
 		txtLink = new JTextField();
 
 		GridBagConstraints gbc_txtLink = new GridBagConstraints();
+		gbc_txtLink.gridwidth = 2;
 		gbc_txtLink.insets = new Insets(0, 0, 5, 0);
 		gbc_txtLink.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtLink.gridx = 3;
@@ -267,6 +268,7 @@ public class TelaNova extends JFrame {
 
 		txt3 = new JTextField();
 		GridBagConstraints gbc_txt3 = new GridBagConstraints();
+		gbc_txt3.gridwidth = 2;
 		gbc_txt3.insets = new Insets(0, 0, 5, 0);
 		gbc_txt3.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txt3.gridx = 3;
@@ -294,6 +296,7 @@ public class TelaNova extends JFrame {
 
 		txt6 = new JTextField();
 		GridBagConstraints gbc_txt6 = new GridBagConstraints();
+		gbc_txt6.gridwidth = 2;
 		gbc_txt6.insets = new Insets(0, 0, 5, 0);
 		gbc_txt6.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txt6.gridx = 3;
@@ -321,17 +324,25 @@ public class TelaNova extends JFrame {
 
 		txt9 = new JTextField();
 		GridBagConstraints gbc_txt9 = new GridBagConstraints();
+		gbc_txt9.gridwidth = 2;
 		gbc_txt9.insets = new Insets(0, 0, 5, 0);
 		gbc_txt9.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txt9.gridx = 3;
 		gbc_txt9.gridy = 5;
 		panelConfiguracao.add(txt9, gbc_txt9);
 		txt9.setColumns(10);
+		
+		JButton btnEditar = new JButton("Editar");
+		GridBagConstraints gbc_btnEditar = new GridBagConstraints();
+		gbc_btnEditar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnEditar.gridx = 3;
+		gbc_btnEditar.gridy = 6;
+		panelConfiguracao.add(btnEditar, gbc_btnEditar);
 
 		JButton btnSalvar = new JButton("Salvar");
 
 		GridBagConstraints gbc_btnSalvar = new GridBagConstraints();
-		gbc_btnSalvar.gridx = 3;
+		gbc_btnSalvar.gridx = 4;
 		gbc_btnSalvar.gridy = 6;
 		panelConfiguracao.add(btnSalvar, gbc_btnSalvar);
 		panelConfiguracao.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { comboBox,
@@ -579,7 +590,9 @@ public class TelaNova extends JFrame {
 				}
 			}
 		});
-
+		ImageIcon imgIc = new ImageIcon(".\\editar.png");
+		imgIc.setImage(imgIc.getImage().getScaledInstance(49, 49, 100));
+		
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
