@@ -142,7 +142,7 @@ public class TabelaEditar extends JDialog {
 				PreencheTabela.add(entry.getKey());
 
 			}
-
+			cont =0;
 		}
 
 		for (String str : PreencheTabela) {

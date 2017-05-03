@@ -96,7 +96,7 @@ public class TelaNova extends JFrame {
 	 */
 	public TelaNova() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 560, 410);
+		setBounds(100, 100, 544, 410);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -173,43 +173,94 @@ public class TelaNova extends JFrame {
 		tabbedPane.addTab("New tab", null, panelConfiguracao, null);
 		GridBagLayout gbl_panelConfiguracao = new GridBagLayout();
 		gbl_panelConfiguracao.columnWidths = new int[] { 0, 0, 0, 0, 0, 0 };
-		gbl_panelConfiguracao.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
-		gbl_panelConfiguracao.columnWeights = new double[] { 0.0, 1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
-		gbl_panelConfiguracao.rowWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panelConfiguracao.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_panelConfiguracao.columnWeights = new double[] { 0.0, 0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
+		gbl_panelConfiguracao.rowWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panelConfiguracao.setLayout(gbl_panelConfiguracao);
+
+		JButton btnBaixar = new JButton("B");
+
+		GridBagConstraints gbc_btnBaixar = new GridBagConstraints();
+		gbc_btnBaixar.insets = new Insets(0, 0, 5, 5);
+		gbc_btnBaixar.gridx = 0;
+		gbc_btnBaixar.gridy = 0;
+		panelConfiguracao.add(btnBaixar, gbc_btnBaixar);
+
+		JButton btnSalvar = new JButton("S");
+
+		GridBagConstraints gbc_btnSalvar = new GridBagConstraints();
+		gbc_btnSalvar.insets = new Insets(0, 0, 5, 5);
+		gbc_btnSalvar.gridx = 1;
+		gbc_btnSalvar.gridy = 0;
+		panelConfiguracao.add(btnSalvar, gbc_btnSalvar);
+
+		JButton btnEditar = new JButton("E");
+
+		GridBagConstraints gbc_btnEditar = new GridBagConstraints();
+		gbc_btnEditar.anchor = GridBagConstraints.WEST;
+		gbc_btnEditar.insets = new Insets(0, 0, 5, 5);
+		gbc_btnEditar.gridx = 2;
+		gbc_btnEditar.gridy = 0;
+		panelConfiguracao.add(btnEditar, gbc_btnEditar);
+
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig);
+
+				TabelaEditar telaEditar = new TabelaEditar();
+
+				telaEditar.setLocationRelativeTo(contentPane);
+				telaEditar.iniciarTabela(mapaConfig);
+
+				telaEditar.table.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent arg0) {
+						if (arg0.getClickCount() > 1) {
+							PreencheDados(telaEditar);
+
+						}
+					}
+				});
+
+				telaEditar.setVisible(true);
+
+			}
+		});
 
 		JLabel lblRespostaAnterior = new JLabel("Resposta Anterior:");
 		GridBagConstraints gbc_lblRespostaAnterior = new GridBagConstraints();
+		gbc_lblRespostaAnterior.gridwidth = 2;
 		gbc_lblRespostaAnterior.insets = new Insets(0, 0, 5, 5);
 		gbc_lblRespostaAnterior.anchor = GridBagConstraints.EAST;
 		gbc_lblRespostaAnterior.gridx = 0;
-		gbc_lblRespostaAnterior.gridy = 0;
+		gbc_lblRespostaAnterior.gridy = 1;
 		panelConfiguracao.add(lblRespostaAnterior, gbc_lblRespostaAnterior);
 
 		JComboBox comboBox = new JComboBox();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.gridwidth = 4;
+		gbc_comboBox.gridwidth = 3;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.gridx = 1;
-		gbc_comboBox.gridy = 0;
+		gbc_comboBox.gridx = 2;
+		gbc_comboBox.gridy = 1;
 		panelConfiguracao.add(comboBox, gbc_comboBox);
 
 		JLabel lblPergunta = new JLabel("Pergunta:");
 		GridBagConstraints gbc_lblPergunta = new GridBagConstraints();
+		gbc_lblPergunta.gridwidth = 2;
 		gbc_lblPergunta.anchor = GridBagConstraints.EAST;
 		gbc_lblPergunta.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPergunta.gridx = 0;
-		gbc_lblPergunta.gridy = 1;
+		gbc_lblPergunta.gridy = 2;
 		panelConfiguracao.add(lblPergunta, gbc_lblPergunta);
 
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.gridwidth = 4;
+		gbc_scrollPane.gridwidth = 3;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.gridx = 1;
-		gbc_scrollPane.gridy = 1;
+		gbc_scrollPane.gridx = 2;
+		gbc_scrollPane.gridy = 2;
 		panelConfiguracao.add(scrollPane, gbc_scrollPane);
 
 		JTextArea textAreaPergunta = new JTextArea();
@@ -220,42 +271,42 @@ public class TelaNova extends JFrame {
 
 		GridBagConstraints gbc_radioContinuacao = new GridBagConstraints();
 		gbc_radioContinuacao.insets = new Insets(0, 0, 5, 5);
-		gbc_radioContinuacao.gridx = 1;
-		gbc_radioContinuacao.gridy = 2;
+		gbc_radioContinuacao.gridx = 2;
+		gbc_radioContinuacao.gridy = 3;
 		panelConfiguracao.add(radioContinuacao, gbc_radioContinuacao);
 
 		JRadioButton radioRespostaFinal = new JRadioButton("Resposta Final");
 		GridBagConstraints gbc_radioRespostaFinal = new GridBagConstraints();
 		gbc_radioRespostaFinal.insets = new Insets(0, 0, 5, 5);
-		gbc_radioRespostaFinal.gridx = 2;
-		gbc_radioRespostaFinal.gridy = 2;
+		gbc_radioRespostaFinal.gridx = 3;
+		gbc_radioRespostaFinal.gridy = 3;
 		panelConfiguracao.add(radioRespostaFinal, gbc_radioRespostaFinal);
 
 		txtLink = new JTextField();
 
 		GridBagConstraints gbc_txtLink = new GridBagConstraints();
-		gbc_txtLink.gridwidth = 2;
 		gbc_txtLink.insets = new Insets(0, 0, 5, 0);
 		gbc_txtLink.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtLink.gridx = 3;
-		gbc_txtLink.gridy = 2;
+		gbc_txtLink.gridx = 4;
+		gbc_txtLink.gridy = 3;
 		panelConfiguracao.add(txtLink, gbc_txtLink);
 		txtLink.setColumns(10);
 
 		JLabel lblRespostas = new JLabel("Respostas: ");
 		GridBagConstraints gbc_lblRespostas = new GridBagConstraints();
+		gbc_lblRespostas.gridwidth = 2;
 		gbc_lblRespostas.anchor = GridBagConstraints.EAST;
 		gbc_lblRespostas.insets = new Insets(0, 0, 5, 5);
 		gbc_lblRespostas.gridx = 0;
-		gbc_lblRespostas.gridy = 3;
+		gbc_lblRespostas.gridy = 4;
 		panelConfiguracao.add(lblRespostas, gbc_lblRespostas);
 
 		txt1 = new JTextField();
 		GridBagConstraints gbc_txt1 = new GridBagConstraints();
 		gbc_txt1.insets = new Insets(0, 0, 5, 5);
 		gbc_txt1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txt1.gridx = 1;
-		gbc_txt1.gridy = 3;
+		gbc_txt1.gridx = 2;
+		gbc_txt1.gridy = 4;
 		panelConfiguracao.add(txt1, gbc_txt1);
 		txt1.setColumns(10);
 
@@ -263,18 +314,17 @@ public class TelaNova extends JFrame {
 		GridBagConstraints gbc_txt2 = new GridBagConstraints();
 		gbc_txt2.insets = new Insets(0, 0, 5, 5);
 		gbc_txt2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txt2.gridx = 2;
-		gbc_txt2.gridy = 3;
+		gbc_txt2.gridx = 3;
+		gbc_txt2.gridy = 4;
 		panelConfiguracao.add(txt2, gbc_txt2);
 		txt2.setColumns(10);
 
 		txt3 = new JTextField();
 		GridBagConstraints gbc_txt3 = new GridBagConstraints();
-		gbc_txt3.gridwidth = 2;
 		gbc_txt3.insets = new Insets(0, 0, 5, 0);
 		gbc_txt3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txt3.gridx = 3;
-		gbc_txt3.gridy = 3;
+		gbc_txt3.gridx = 4;
+		gbc_txt3.gridy = 4;
 		panelConfiguracao.add(txt3, gbc_txt3);
 		txt3.setColumns(10);
 
@@ -282,8 +332,8 @@ public class TelaNova extends JFrame {
 		GridBagConstraints gbc_txt4 = new GridBagConstraints();
 		gbc_txt4.insets = new Insets(0, 0, 5, 5);
 		gbc_txt4.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txt4.gridx = 1;
-		gbc_txt4.gridy = 4;
+		gbc_txt4.gridx = 2;
+		gbc_txt4.gridy = 5;
 		panelConfiguracao.add(txt4, gbc_txt4);
 		txt4.setColumns(10);
 
@@ -291,18 +341,17 @@ public class TelaNova extends JFrame {
 		GridBagConstraints gbc_txt5 = new GridBagConstraints();
 		gbc_txt5.insets = new Insets(0, 0, 5, 5);
 		gbc_txt5.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txt5.gridx = 2;
-		gbc_txt5.gridy = 4;
+		gbc_txt5.gridx = 3;
+		gbc_txt5.gridy = 5;
 		panelConfiguracao.add(txt5, gbc_txt5);
 		txt5.setColumns(10);
 
 		txt6 = new JTextField();
 		GridBagConstraints gbc_txt6 = new GridBagConstraints();
-		gbc_txt6.gridwidth = 2;
 		gbc_txt6.insets = new Insets(0, 0, 5, 0);
 		gbc_txt6.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txt6.gridx = 3;
-		gbc_txt6.gridy = 4;
+		gbc_txt6.gridx = 4;
+		gbc_txt6.gridy = 5;
 		panelConfiguracao.add(txt6, gbc_txt6);
 		txt6.setColumns(10);
 
@@ -310,8 +359,8 @@ public class TelaNova extends JFrame {
 		GridBagConstraints gbc_txt7 = new GridBagConstraints();
 		gbc_txt7.insets = new Insets(0, 0, 5, 5);
 		gbc_txt7.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txt7.gridx = 1;
-		gbc_txt7.gridy = 5;
+		gbc_txt7.gridx = 2;
+		gbc_txt7.gridy = 6;
 		panelConfiguracao.add(txt7, gbc_txt7);
 		txt7.setColumns(10);
 
@@ -319,37 +368,19 @@ public class TelaNova extends JFrame {
 		GridBagConstraints gbc_txt8 = new GridBagConstraints();
 		gbc_txt8.insets = new Insets(0, 0, 5, 5);
 		gbc_txt8.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txt8.gridx = 2;
-		gbc_txt8.gridy = 5;
+		gbc_txt8.gridx = 3;
+		gbc_txt8.gridy = 6;
 		panelConfiguracao.add(txt8, gbc_txt8);
 		txt8.setColumns(10);
 
 		txt9 = new JTextField();
 		GridBagConstraints gbc_txt9 = new GridBagConstraints();
-		gbc_txt9.gridwidth = 2;
 		gbc_txt9.insets = new Insets(0, 0, 5, 0);
 		gbc_txt9.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txt9.gridx = 3;
-		gbc_txt9.gridy = 5;
+		gbc_txt9.gridx = 4;
+		gbc_txt9.gridy = 6;
 		panelConfiguracao.add(txt9, gbc_txt9);
 		txt9.setColumns(10);
-
-		JButton btnEditar = new JButton("Editar");
-
-		GridBagConstraints gbc_btnEditar = new GridBagConstraints();
-		gbc_btnEditar.insets = new Insets(0, 0, 0, 5);
-		gbc_btnEditar.gridx = 3;
-		gbc_btnEditar.gridy = 6;
-		panelConfiguracao.add(btnEditar, gbc_btnEditar);
-
-		JButton btnSalvar = new JButton("Salvar");
-
-		GridBagConstraints gbc_btnSalvar = new GridBagConstraints();
-		gbc_btnSalvar.gridx = 4;
-		gbc_btnSalvar.gridy = 6;
-		panelConfiguracao.add(btnSalvar, gbc_btnSalvar);
-		panelConfiguracao.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { comboBox,
-				textAreaPergunta, txt1, txt2, txt3, txt4, txt5, txt6, txt7, txt8, txt9, btnSalvar }));
 		tabbedPane.setTitleAt(1, "Configuração");
 
 		JPanel panelStart = new JPanel();
@@ -548,8 +579,40 @@ public class TelaNova extends JFrame {
 				}
 			}
 		});
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				xml.escreve(mapaConfig, listaPergAnteriro, listaLinks);
+			}
+		});
+		btnBaixar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig);
+				
+
+			}
+		});
 
 		textAreaPergunta.setLineWrap(true);
+
+		JButton btnContinuar = new JButton("Continuar");
+
+		GridBagConstraints gbc_btnContinuar = new GridBagConstraints();
+		gbc_btnContinuar.gridx = 4;
+		gbc_btnContinuar.gridy = 7;
+		panelConfiguracao.add(btnContinuar, gbc_btnContinuar);
+		panelConfiguracao.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { comboBox,
+				textAreaPergunta, txt1, txt2, txt3, txt4, txt5, txt6, txt7, txt8, txt9, btnContinuar }));
+		btnContinuar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				// xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig);
+
+				ArmazenarDados(textAreaPergunta, comboBox, mapaConfig);
+
+				limparDados(textAreaPergunta);
+
+			}
+		});
 		textAreaPergunta.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent k) {
@@ -561,42 +624,6 @@ public class TelaNova extends JFrame {
 		});
 		ImageIcon imgIc = new ImageIcon(".\\editar.png");
 		imgIc.setImage(imgIc.getImage().getScaledInstance(49, 49, 100));
-
-		btnEditar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig);
-
-				TabelaEditar telaEditar = new TabelaEditar();
-
-				telaEditar.setLocationRelativeTo(contentPane);
-				telaEditar.iniciarTabela(mapaConfig);
-
-				telaEditar.table.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent arg0) {
-						if (arg0.getClickCount() > 1) {
-							PreencheDados(telaEditar);
-
-						}
-					}
-				});
-
-				telaEditar.setVisible(true);
-
-			}
-		});
-		btnSalvar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-				SrXML xml = new SrXML();
-				xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig);
-
-				ArmazenarDados(textAreaPergunta, comboBox, mapaConfig);
-
-				limparDados(textAreaPergunta);
-
-			}
-		});
 
 		/*
 		 * btSTART
@@ -1075,7 +1102,7 @@ public class TelaNova extends JFrame {
 
 	public void logar(JTabbedPane tabbedPane, JPanel panelStart, JPanel panelConfiguracao, JButton btnConectar) {
 		String s = null;
-		xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig);
+
 		if (!txtUsuario.isEnabled()) {
 
 			txtUsuario.setEnabled(true);
