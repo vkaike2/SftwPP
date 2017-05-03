@@ -7,34 +7,51 @@ import javax.swing.table.AbstractTableModel;
 
 public class testeTableModel extends AbstractTableModel {
 
-	private List<String> linhas = new ArrayList<>();
-	private String[] colunas = { "coluna1", "coluna2" };
+	private ArrayList<String> lista;
+	private String[] colunas = { "nome" };
 
-	@Override
-	public int getColumnCount() {
-		// TODO Auto-generated method stub
-		return linhas.size();
+	public testeTableModel() {
+		lista = new ArrayList<>();
+	}
+
+	public void addLinha(String str) {
+		this.lista.add(str);
+		fireTableDataChanged();
+	}
+
+	public String getLinha(int rowIndex) {
+		return this.lista.get(rowIndex);
+		
 	}
 
 	@Override
-	public int getRowCount() {
+	public int getColumnCount() {
 		// TODO Auto-generated method stub
 		return colunas.length;
 	}
 
 	@Override
+	public int getRowCount() {
+		// TODO Auto-generated method stub
+		return this.lista.size();
+	}
+
+	@Override
 	public Object getValueAt(int linha, int coluna) {
 		// TODO Auto-generated method stub
+
 		switch (coluna) {
 		case 0:
-			return linhas.get(linha);
-		case 1:	
+			return this.lista.get(linha);
 
-		default:
-			break;
 		}
 		return null;
 	}
-	// https://www.youtube.com/watch?v=wK_rDHZkLdY
+
+	@Override
+	public String getColumnName(int column) {
+		// TODO Auto-generated method stub
+		return this.colunas[column];
+	}
 
 }
