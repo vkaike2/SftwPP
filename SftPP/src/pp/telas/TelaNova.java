@@ -65,7 +65,7 @@ public class TelaNova extends JFrame {
 	private JTextField txt9;
 	private SrXML xml = new SrXML();
 
-	private LinkedHashMap<String, List<String>> mapaConfig = new LinkedHashMap<>();
+	public LinkedHashMap<String, List<String>> mapaConfig = new LinkedHashMap<>();
 	// private List<String> listaConfig = new ArrayList<>();
 	private List<String> listaCombobox = new ArrayList<>();
 	private LinkedList<String> listaPergAnteriro = new LinkedList<>();
@@ -208,6 +208,7 @@ public class TelaNova extends JFrame {
 				// xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig);
 
 				TabelaEditar telaEditar = new TabelaEditar();
+				telaEdicao tEdicao = new telaEdicao();
 
 				telaEditar.setLocationRelativeTo(contentPane);
 				telaEditar.iniciarTabela(mapaConfig);
@@ -219,6 +220,23 @@ public class TelaNova extends JFrame {
 							PreencheDados(telaEditar);
 
 						}
+					}
+				});
+				telaEditar.okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent a) {
+
+					}
+				});
+				tEdicao.btnSalvar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						try {
+							tEdicao.salvaEdicao(mapaConfig);
+							tEdicao.limparDados();
+							JOptionPane.showMessageDialog(telaEditar, "Os dados foram Editados com sucesso");
+						} catch (Exception e) {
+							// TODO: handle exception
+						}
+
 					}
 				});
 
@@ -581,13 +599,15 @@ public class TelaNova extends JFrame {
 		});
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				xml.escreve(mapaConfig, listaPergAnteriro, listaLinks);
+				xml.escreve(mapaConfig, listaPergAnteriro, listaLinks, listaCombobox);
 			}
 		});
 		btnBaixar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig);
-				
+				xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig, listaCombobox);
+				for (String string : listaCombobox) {
+					comboBox.addItem(string);
+				}
 
 			}
 		});
@@ -671,7 +691,7 @@ public class TelaNova extends JFrame {
 
 		btnComear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig);
+				xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig, listaCombobox);
 				// listaLinks.clear();
 				// listaPergAnteriro.clear();
 				// SrXML xml = new SrXML();
@@ -686,7 +706,7 @@ public class TelaNova extends JFrame {
 		});
 		btnResetar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig);
+				xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig, listaCombobox);
 				// listaLinks.clear();
 				// listaPergAnteriro.clear();
 				// SrXML xml = new SrXML();
@@ -705,6 +725,7 @@ public class TelaNova extends JFrame {
 	 * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	 * 
 	 */
+
 	public void PreencheDados(TabelaEditar telaEditar) {
 		telaEdicao tEdicao = new telaEdicao();
 		for (Entry<String, List<String>> entry : mapaConfig.entrySet()) {

@@ -23,7 +23,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class SrXML {
-	public void escreve(LinkedHashMap<String, List<String>> mapa, LinkedList<String> list, List<String> linke) {
+	public void escreve(LinkedHashMap<String, List<String>> mapa, LinkedList<String> list, List<String> linke,
+			List<String> listCombo) {
 		try {
 
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -69,6 +70,15 @@ public class SrXML {
 				link.appendChild(ra);
 			}
 
+			Element combo = docXML.createElement("Combo");
+			root.appendChild(combo);
+
+			for (String string : listCombo) {
+				Element ra = docXML.createElement("cb");
+				ra.appendChild(docXML.createTextNode(string));
+				combo.appendChild(ra);
+			}
+
 			TransformerFactory tf = TransformerFactory.newInstance();
 			Transformer t = tf.newTransformer();
 
@@ -85,7 +95,8 @@ public class SrXML {
 
 	}
 
-	public void le(LinkedHashMap<String, List<String>> mapa, LinkedList<String> li, List<String> linke) {
+	public void le(LinkedHashMap<String, List<String>> mapa, LinkedList<String> li, List<String> linke,
+			List<String> listaCombo) {
 		String perg = null;
 
 		try {
@@ -192,17 +203,43 @@ public class SrXML {
 				}
 
 			}
+
+			NodeList listCombo = docXML.getElementsByTagName("Combo");
+
+			for (int i = 0; i < listCombo.getLength(); i++) {
+				Node noCombo = listCombo.item(i);
+
+				if (noCombo.getNodeType() == Node.ELEMENT_NODE) {
+					Element eCombo = (Element) noCombo;
+
+					NodeList listaFilhoCombo = eCombo.getChildNodes();
+
+					for (int j = 0; j < listaFilhoCombo.getLength(); j++) {
+						Node noFilhoCombo = listaFilhoCombo.item(j);
+
+						if (noFilhoCombo.getNodeType() == Node.ELEMENT_NODE) {
+							Element eFilhoCombo = (Element) noFilhoCombo;
+
+							if (eFilhoCombo.getTagName().equals("cb")) {
+								listaCombo.add(eFilhoCombo.getTextContent());
+							}
+						}
+					}
+				}
+
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
 
 	public void atualizar(List<String> listaLinks, LinkedList<String> listaPergAnteriro,
-			LinkedHashMap<String, List<String>> mapaConfig) {
+			LinkedHashMap<String, List<String>> mapaConfig, List<String> listaCombo) {
 		listaLinks.clear();
 		listaPergAnteriro.clear();
+		listaCombo.clear();
 
-		le(mapaConfig, listaPergAnteriro,listaLinks);
+		le(mapaConfig, listaPergAnteriro, listaLinks, listaCombo);
 		;
 	}
 

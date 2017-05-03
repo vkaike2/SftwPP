@@ -7,16 +7,24 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import org.w3c.dom.ls.LSInput;
+
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import javax.swing.JScrollPane;
 import java.awt.Insets;
+import java.awt.TextField;
+
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map.Entry;
 import java.awt.event.ActionEvent;
 
 public class telaEdicao extends JDialog {
@@ -32,7 +40,9 @@ public class telaEdicao extends JDialog {
 	private JTextField txt8;
 	private JTextField txt9;
 	private JTextArea textAreaPergunta;
-	private String PerguntaPesquisada;
+	public String perguntaPesquisada;
+	public JButton btnSalvar;
+	public JButton btnVoltar;
 
 	/**
 	 * Launch the application.
@@ -188,11 +198,22 @@ public class telaEdicao extends JDialog {
 			txt9.setColumns(10);
 		}
 		{
-			JButton btnSalvar = new JButton("Salvar");
+			btnSalvar = new JButton("Salvar");
 			btnSalvar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
+				public void actionPerformed(ActionEvent e) {
+					TelaNova tn = new TelaNova();
+					salvaEdicao(tn.mapaConfig);
+					System.out.println("passou aqui");
+					
+					for (Entry<String, List<String>> entry : tn.mapaConfig.entrySet()) {
+						System.out.println(entry.getKey()+entry.getValue());
+						
+					}
+					
 				}
 			});
+			
+
 			GridBagConstraints gbc_btnSalvar = new GridBagConstraints();
 			gbc_btnSalvar.insets = new Insets(0, 0, 0, 5);
 			gbc_btnSalvar.gridx = 3;
@@ -200,7 +221,8 @@ public class telaEdicao extends JDialog {
 			contentPanel.add(btnSalvar, gbc_btnSalvar);
 		}
 		{
-			JButton btnVoltar = new JButton("Voltar");
+			btnVoltar = new JButton("Voltar");
+			
 			GridBagConstraints gbc_btnVoltar = new GridBagConstraints();
 			gbc_btnVoltar.gridx = 4;
 			gbc_btnVoltar.gridy = 4;
@@ -208,14 +230,111 @@ public class telaEdicao extends JDialog {
 		}
 	}
 
-	public void salvaEdição(LinkedHashMap<String, List<String>> mapa) {
+	public void salvaEdicao(LinkedHashMap<String, List<String>> mapa) {
+		LinkedHashMap<String, List<String>> copiaMapa = new LinkedHashMap<>();
+		List<String> lista = new ArrayList<>();
 
+		for (Entry<String, List<String>> entry : mapa.entrySet()) {
+			lista.add(entry.getKey());
+			if (perguntaPesquisada.equals(entry.getKey())) {
+				String key = entry.getKey();
+				LinkedList<String> value = new LinkedList<>();
+				key = textAreaPergunta.getText();
+
+				ifDoSalvaEdicao(value);
+
+				copiaMapa.put(key, value);
+
+			} else {
+				String key = entry.getKey();
+				LinkedList<String> value = new LinkedList<>();
+				for (String str : entry.getValue()) {
+					value.add(str);
+				}
+				copiaMapa.put(key, value);
+			}
+
+		}
+		for (String string : lista) {
+			mapa.remove(string);
+		}
+		mapa.putAll(copiaMapa);
+	}
+
+	public void ifDoSalvaEdicao(LinkedList<String> value) {
+
+		if (txt1.getText().equals("")) {
+			value.add("+_+");
+		} else {
+			value.add(txt1.getText());
+		}
+		if (txt2.getText().equals("")) {
+			value.add("+_+");
+		} else {
+			value.add(txt2.getText());
+		}
+		if (txt3.getText().equals("")) {
+			value.add("+_+");
+		} else {
+			value.add(txt3.getText());
+		}
+		if (txt4.getText().equals("")) {
+			value.add("+_+");
+		} else {
+			value.add(txt4.getText());
+		}
+		if (txt5.getText().equals("")) {
+			value.add("+_+");
+		} else {
+			value.add(txt5.getText());
+		}
+		if (txt6.getText().equals("")) {
+			value.add("+_+");
+		} else {
+			value.add(txt6.getText());
+		}
+		if (txt7.getText().equals("")) {
+			value.add("+_+");
+		} else {
+			value.add(txt7.getText());
+		}
+		if (txt8.getText().equals("")) {
+			value.add("+_+");
+		} else {
+			value.add(txt8.getText());
+		}
+		if (txt9.getText().equals("")) {
+			value.add("+_+");
+		} else {
+			value.add(txt9.getText());
+		}
+		if (txt1.getText().equals("")) {
+			value.add("+_+");
+		} else {
+			value.add(txt1.getText());
+		}
+
+	}
+
+	public void limparDados() {
+
+		txt1.setText(null);
+		txt2.setText(null);
+		txt3.setText(null);
+		txt4.setText(null);
+		txt5.setText(null);
+		txt6.setText(null);
+		txt7.setText(null);
+		txt8.setText(null);
+		txt9.setText(null);
+
+		textAreaPergunta.setText(null);
 	}
 
 	public void escreverPergunta(String perg, String resp1, String resp2, String resp3, String resp4, String resp5,
 			String resp6, String resp7, String resp8, String resp9) {
 		textAreaPergunta.setText(perg);
-		PerguntaPesquisada = perg;
+		perguntaPesquisada = perg;
 		if (!resp1.equals("+_+")) {
 			txt1.setText(resp1);
 		}

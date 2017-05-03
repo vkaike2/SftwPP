@@ -33,6 +33,7 @@ public class TabelaEditar extends JDialog {
 	public JTable table;
 	private JTextField txtPesquisar;
 	private tableModelEditar modelEditar = new tableModelEditar();
+	public JButton okButton;
 
 	/**
 	 * Launch the application.
@@ -110,7 +111,8 @@ public class TabelaEditar extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("Editar");
+				okButton = new JButton("Editar");
+				
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
