@@ -23,7 +23,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class SrXML {
-	public void escreve(LinkedHashMap<String, List<String>> mapa, LinkedList<String> list, List<String> linke) {
+	public void escreve(LinkedHashMap<String, List<String>> mapa, LinkedList<String> list) {
 		try {
 
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -59,15 +59,16 @@ public class SrXML {
 				ra.appendChild(docXML.createTextNode(string));
 				lista.appendChild(ra);
 			}
-			
-			Element link = docXML.createElement("Link");
-			root.appendChild(link);
 
-			for (String string : linke) {
-				Element ra = docXML.createElement("url");
-				ra.appendChild(docXML.createTextNode(string));
-				link.appendChild(ra);
-			}
+//			Element link = docXML.createElement("Link");
+//			root.appendChild(link);
+//
+//			for (String string : linke) {
+//				Element ra = docXML.createElement("url");
+//				ra.appendChild(docXML.createTextNode(string));
+//				link.appendChild(ra);
+//			}
+			
 			TransformerFactory tf = TransformerFactory.newInstance();
 			Transformer t = tf.newTransformer();
 
@@ -84,7 +85,7 @@ public class SrXML {
 
 	}
 
-	public void le(LinkedHashMap<String, List<String>> mapa, LinkedList<String> li, List<String> linke) {
+	public void le(LinkedHashMap<String, List<String>> mapa, LinkedList<String> li) {
 		String perg = null;
 
 		try {
@@ -113,7 +114,7 @@ public class SrXML {
 							Element eFilhoPerguntas = (Element) noFilhoPerguntas;
 
 							NodeList listaFilhoP1 = eFilhoPerguntas.getChildNodes();
-							
+
 							List<String> lista = new ArrayList<>();
 
 							for (int k = 0; k < listaFilhoP1.getLength(); k++) {
@@ -166,6 +167,72 @@ public class SrXML {
 				}
 
 			}
+
+//			NodeList listaLink = docXML.getElementsByTagName("Link");
+//
+//			for (int i = 0; i < listaLink.getLength(); i++) {
+//				Node noLink = listaLink.item(i);
+//
+//				if (noLink.getNodeType() == Node.ELEMENT_NODE) {
+//					Element eLink = (Element) noLink;
+//
+//					NodeList listaFilhoLink = eLink.getChildNodes();
+//
+//					for (int j = 0; j < listaFilhoLink.getLength(); j++) {
+//						Node noFilhoLink = listaFilhoLink.item(j);
+//
+//						if (noFilhoLink.getNodeType() == Node.ELEMENT_NODE) {
+//							Element eFilhoLink = (Element) noFilhoLink;
+//
+//							if (eFilhoLink.getTagName().equals("url")) {
+//								linke.add(eFilhoLink.getTextContent());
+//							}
+//						}
+//					}
+//				}
+//
+//			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	public void escreveLink(List<String> linke) {
+		try {
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			Document docXML = db.newDocument();
+
+			Element root = docXML.createElement("Root");
+			docXML.appendChild(root);
+
+			Element link = docXML.createElement("Link");
+			root.appendChild(link);
+
+			for (String string : linke) {
+				Element ra = docXML.createElement("url");
+				ra.appendChild(docXML.createTextNode(string));
+				link.appendChild(ra);
+			}
+			TransformerFactory tf = TransformerFactory.newInstance();
+			Transformer t = tf.newTransformer();
+
+			DOMSource docFonte = new DOMSource(docXML);
+
+			StreamResult docFinal = new StreamResult(new File(".\\saveLink.xml"));
+
+			t.transform(docFonte, docFinal);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	public void leLink(List<String> linke){
+		try {
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+
+			Document docXML = db.parse(".\\saveLink.xml");
 			
 			NodeList listaLink = docXML.getElementsByTagName("Link");
 
@@ -191,9 +258,19 @@ public class SrXML {
 				}
 
 			}
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
-	
+
+	public void atualizar(List<String> listaLinks, LinkedList<String> listaPergAnteriro,
+			LinkedHashMap<String, List<String>> mapaConfig) {
+		listaLinks.clear();
+		listaPergAnteriro.clear();
+
+		le(mapaConfig, listaPergAnteriro);
+		leLink(listaLinks);
+	}
+
 }

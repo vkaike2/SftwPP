@@ -63,6 +63,7 @@ public class TelaNova extends JFrame {
 	private JTextField txt7;
 	private JTextField txt8;
 	private JTextField txt9;
+	private SrXML xml = new SrXML();
 
 	private LinkedHashMap<String, List<String>> mapaConfig = new LinkedHashMap<>();
 	// private List<String> listaConfig = new ArrayList<>();
@@ -95,7 +96,7 @@ public class TelaNova extends JFrame {
 	 */
 	public TelaNova() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 512, 412);
+		setBounds(100, 100, 560, 410);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -509,7 +510,7 @@ public class TelaNova extends JFrame {
 		 * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 		 * 
 		 */
-		btnEditar.setEnabled(false);
+		// btnEditar.setEnabled(false);
 		ButtonGroup groupConfig = new ButtonGroup();
 		groupConfig.add(radioRespostaFinal);
 		groupConfig.add(radioContinuacao);
@@ -563,18 +564,36 @@ public class TelaNova extends JFrame {
 
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig);
+
+				TabelaEditar telaEditar = new TabelaEditar();
+
+				telaEditar.setLocationRelativeTo(contentPane);
+				telaEditar.iniciarTabela(mapaConfig);
+
+				telaEditar.table.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent arg0) {
+						if (arg0.getClickCount() > 1) {
+							PreencheDados(telaEditar);
+
+						}
+					}
+				});
+
+				telaEditar.setVisible(true);
 
 			}
 		});
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
+				SrXML xml = new SrXML();
+				xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig);
+
 				ArmazenarDados(textAreaPergunta, comboBox, mapaConfig);
 
 				limparDados(textAreaPergunta);
-
-				SrXML xml = new SrXML();
-				xml.escreve(mapaConfig, listaPergAnteriro, listaLinks);
 
 			}
 		});
@@ -625,10 +644,11 @@ public class TelaNova extends JFrame {
 
 		btnComear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				listaLinks.clear();
-				listaPergAnteriro.clear();
-				SrXML xml = new SrXML();
-				xml.le(mapaConfig, listaPergAnteriro, listaLinks);
+				xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig);
+				// listaLinks.clear();
+				// listaPergAnteriro.clear();
+				// SrXML xml = new SrXML();
+				// xml.le(mapaConfig, listaPergAnteriro, listaLinks);
 
 				mostrarDados(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
 				btnProximaPergunta.setEnabled(true);
@@ -639,10 +659,11 @@ public class TelaNova extends JFrame {
 		});
 		btnResetar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				listaLinks.clear();
-				listaPergAnteriro.clear();
-				SrXML xml = new SrXML();
-				xml.le(mapaConfig, listaPergAnteriro, listaLinks);
+				xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig);
+				// listaLinks.clear();
+				// listaPergAnteriro.clear();
+				// SrXML xml = new SrXML();
+				// xml.le(mapaConfig, listaPergAnteriro, listaLinks);
 
 				limparRadios(radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
 				mostrarDados(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
@@ -657,6 +678,21 @@ public class TelaNova extends JFrame {
 	 * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	 * 
 	 */
+	public void PreencheDados(TabelaEditar telaEditar) {
+		telaEdicao tEdicao = new telaEdicao();
+		for (Entry<String, List<String>> entry : mapaConfig.entrySet()) {
+			if (entry.getKey().equals(telaEditar.retornaLinhaClicada())) {
+				tEdicao.escreverPergunta(entry.getKey(), entry.getValue().get(0), entry.getValue().get(1),
+						entry.getValue().get(2), entry.getValue().get(3), entry.getValue().get(4),
+						entry.getValue().get(5), entry.getValue().get(6), entry.getValue().get(7),
+						entry.getValue().get(8));
+				tEdicao.setLocationRelativeTo(telaEditar);
+				tEdicao.setVisible(true);
+			}
+		}
+
+	}
+
 	public void AlternaRespostas(JRadioButton r1, JRadioButton r2) {
 		if (r1.isSelected()) {
 			txtLink.setEnabled(false);
@@ -915,14 +951,14 @@ public class TelaNova extends JFrame {
 									if (string.substring(um + 1).equals("Adicione um Link")) {
 										TelaRespostaFinal trf = new TelaRespostaFinal();
 										trf.setLocationRelativeTo(contentPane);
-										
+
 										trf.setVisible(true);
 
 										trf.labelTexto.setText(entry.getKey());
-										
+
 										trf.lblLink.setVisible(false);
 										trf.labelLink.setVisible(false);
-										
+
 										label.setText(null);
 
 										resetar.setEnabled(false);
@@ -1039,6 +1075,7 @@ public class TelaNova extends JFrame {
 
 	public void logar(JTabbedPane tabbedPane, JPanel panelStart, JPanel panelConfiguracao, JButton btnConectar) {
 		String s = null;
+		xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig);
 		if (!txtUsuario.isEnabled()) {
 
 			txtUsuario.setEnabled(true);
