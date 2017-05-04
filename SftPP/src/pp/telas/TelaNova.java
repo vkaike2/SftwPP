@@ -119,7 +119,7 @@ public class TelaNova extends JFrame {
 			} catch (Exception e) {
 			   // If Nimbus is not available, you can set the GUI to another look and feel.
 			}
-
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 544, 410);
 		contentPane = new JPanel();
@@ -659,7 +659,7 @@ public class TelaNova extends JFrame {
 
 			}
 		});
-
+		//getRootPane().setDefaultButton(btnContinuar);
 		btnContinuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
