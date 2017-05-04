@@ -75,11 +75,7 @@ public class TabelaEditar extends JDialog {
 		}
 		{
 			txtPesquisar = new JTextField();
-			txtPesquisar.addKeyListener(new KeyAdapter() {
-				@Override
-				public void keyPressed(KeyEvent arg0) {
-				}
-			});
+			
 			GridBagConstraints gbc_txtPesquisar = new GridBagConstraints();
 			gbc_txtPesquisar.insets = new Insets(0, 0, 5, 5);
 			gbc_txtPesquisar.fill = GridBagConstraints.HORIZONTAL;
@@ -95,6 +91,7 @@ public class TabelaEditar extends JDialog {
 			gbc_btnBuscar.insets = new Insets(0, 0, 5, 0);
 			gbc_btnBuscar.gridx = 2;
 			gbc_btnBuscar.gridy = 0;
+
 			contentPanel.add(btnBuscar, gbc_btnBuscar);
 		}
 		{

@@ -100,14 +100,14 @@ public class TelaNova extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaNova() {
-		
+
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			SwingUtilities.updateComponentTreeUI(this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 544, 410);
 		contentPane = new JPanel();
@@ -183,6 +183,7 @@ public class TelaNova extends JFrame {
 		tabbedPane.setTitleAt(0, "Home");
 
 		JPanel panelConfiguracao = new JPanel();
+	
 		tabbedPane.addTab("New tab", null, panelConfiguracao, null);
 		GridBagLayout gbl_panelConfiguracao = new GridBagLayout();
 		gbl_panelConfiguracao.columnWidths = new int[] { 0, 0, 0, 0, 0, 0 };
@@ -613,23 +614,20 @@ public class TelaNova extends JFrame {
 				telaEditar.setLocationRelativeTo(contentPane);
 				telaEditar.iniciarTabela(mapaConfig);
 
+				telaEditar.txtPesquisar.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyPressed(KeyEvent e) {
+						if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+
+							FiltarEdiçãoPergunta(telaEditar);
+						}
+					}
+				});
 				telaEditar.btnBuscar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						telaEditar.modelEditar.limparTabela();
-						int cont = 0;
-						for (Entry<String, List<String>> entry : mapaConfig.entrySet()) {
-							for (String string : entry.getValue()) {
-								if (string.equals("+_+")) {
-									cont++;
-								}
-							}
-							if (cont < 9 && entry.getKey().toLowerCase()
-									.contains(telaEditar.txtPesquisar.getText().toLowerCase().trim())) {
-								telaEditar.modelEditar.addLinha(entry.getKey());
-							}
-							cont = 0;
-						}
-						
+
+						FiltarEdiçãoPergunta(telaEditar);
+
 					}
 				});
 				telaEditar.table.addMouseListener(new MouseAdapter() {
@@ -769,6 +767,23 @@ public class TelaNova extends JFrame {
 	 * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	 * 
 	 */
+	public void FiltarEdiçãoPergunta(TabelaEditar telaEditar) {
+		telaEditar.modelEditar.limparTabela();
+		int cont = 0;
+		for (Entry<String, List<String>> entry : mapaConfig.entrySet()) {
+			for (String string : entry.getValue()) {
+				if (string.equals("+_+")) {
+					cont++;
+				}
+			}
+			if (cont < 9
+					&& entry.getKey().toLowerCase().contains(telaEditar.txtPesquisar.getText().toLowerCase().trim())) {
+				telaEditar.modelEditar.addLinha(entry.getKey());
+			}
+			cont = 0;
+		}
+	}
+
 	public void salvaEdicao(JTextArea txtArea) {
 		LinkedHashMap<String, List<String>> copiaMapa = new LinkedHashMap<>();
 		List<String> lista = new ArrayList<>();
