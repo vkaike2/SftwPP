@@ -670,7 +670,7 @@ public class TelaNova extends JFrame {
 							txt7.setEnabled(true);
 							txt8.setEnabled(true);
 							txt9.setEnabled(true);
-							
+
 							PreencheDados(telaEditar, textAreaPergunta);
 
 							btnContinuar.setText("Salvar");
@@ -1062,109 +1062,133 @@ public class TelaNova extends JFrame {
 				if (!entry.getValue().get(0).equals("+_+")) {
 					int cont = 0;
 					for (String string : listaCombobox) {
-
 						if (string.equals(entry.getValue().get(0))) {
-							System.out.println(string);
 							txt1.setText(entry.getValue().get(0));
 							cont = 1;
 							break;
-						} else {
-							//arrumar
-							if(cont == 0){								
-								System.out.println(string + "1");
-								txt1.setText(entry.getValue().get(0));
-								txt1.setEnabled(false);
-							}
 						}
+					}
+					if (cont == 0) {
+						txt1.setText(entry.getValue().get(0));
+						txt1.setEnabled(false);
 					}
 
 				}
+
 				if (!entry.getValue().get(1).equals("+_+")) {
+					int cont = 0;
 					for (String string : listaCombobox) {
 						if (string.equals(entry.getValue().get(1))) {
 							txt2.setText(entry.getValue().get(1));
+							cont = 1;
 							break;
-						} else {
-							txt2.setText(entry.getValue().get(1));
-							txt2.setEnabled(false);
 						}
 					}
+					if (cont == 0) {
+						txt2.setText(entry.getValue().get(1));
+						txt2.setEnabled(false);
+					}
 				}
+
 				if (!entry.getValue().get(2).equals("+_+")) {
+					int cont = 0;
 					for (String string : listaCombobox) {
 						if (!string.equals(entry.getValue().get(2))) {
 							txt3.setText(entry.getValue().get(2));
+							cont = 1;
 							break;
-						} else {
-							txt3.setText(entry.getValue().get(2));
-							txt3.setEnabled(false);
 						}
 					}
+					if (cont == 0) {
+						txt3.setText(entry.getValue().get(2));
+						txt3.setEnabled(false);
+					}
 				}
+
 				if (!entry.getValue().get(3).equals("+_+")) {
+					int cont = 0;
 					for (String string : listaCombobox) {
 						if (!string.equals(entry.getValue().get(3))) {
 							txt4.setText(entry.getValue().get(3));
+							cont = 1;
 							break;
-						} else {
-							txt4.setEnabled(false);
-							txt4.setText(entry.getValue().get(3));
 						}
 					}
+					if (cont == 0) {
+						txt4.setEnabled(false);
+						txt4.setText(entry.getValue().get(3));
+					}
 				}
+
 				if (!entry.getValue().get(4).equals("+_+")) {
+					int cont = 0;
 					for (String string : listaCombobox) {
 						if (!string.equals(entry.getValue().get(4))) {
 							txt5.setText(entry.getValue().get(4));
+							cont = 1;
 							break;
-						} else {
-							txt5.setText(entry.getValue().get(4));
-							txt5.setEnabled(false);
 						}
 					}
+					if (cont == 0) {
+						txt5.setText(entry.getValue().get(4));
+						txt5.setEnabled(false);
+					}
 				}
+
 				if (!entry.getValue().get(5).equals("+_+")) {
+					int cont = 0;
 					for (String string : listaCombobox) {
 						if (!string.equals(entry.getValue().get(5))) {
 							txt6.setText(entry.getValue().get(5));
+							cont = 1;
 							break;
-						} else {
-							txt6.setText(entry.getValue().get(5));
-							txt6.setEnabled(false);
 						}
+					}
+					if (cont == 0) {
+						txt6.setText(entry.getValue().get(5));
+						txt6.setEnabled(false);
 					}
 				}
 				if (!entry.getValue().get(6).equals("+_+")) {
+					int cont = 0;
 					for (String string : listaCombobox) {
 						if (!string.equals(entry.getValue().get(6))) {
 							txt7.setText(entry.getValue().get(6));
+							cont = 1;
 							break;
-						} else {
-							txt7.setText(entry.getValue().get(6));
-							txt7.setEnabled(false);
 						}
+					}
+					if (cont == 0) {
+						txt7.setText(entry.getValue().get(6));
+						txt7.setEnabled(false);
 					}
 				}
 				if (!entry.getValue().get(7).equals("+_+")) {
+					int cont = 0;
 					for (String string : listaCombobox) {
 						if (!string.equals(entry.getValue().get(7))) {
 							txt8.setText(entry.getValue().get(7));
+							cont = 1;
 							break;
-						} else {
-							txt8.setText(entry.getValue().get(7));
-							txt8.setEnabled(false);
 						}
+					}
+					if (cont == 0) {
+						txt8.setText(entry.getValue().get(7));
+						txt8.setEnabled(false);
 					}
 				}
 				if (!entry.getValue().get(8).equals("+_+")) {
+					int cont = 0;
 					for (String string : listaCombobox) {
 						if (!string.equals(entry.getValue().get(8))) {
 							txt9.setText(entry.getValue().get(8));
+							cont = 1;
 							break;
-						} else {
-							txt9.setText(entry.getValue().get(8));
-							txt9.setEnabled(false);
 						}
+					}
+					if (cont == 0) {
+						txt9.setText(entry.getValue().get(8));
+						txt9.setEnabled(false);
 					}
 				}
 			}
