@@ -33,6 +33,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
@@ -101,12 +102,23 @@ public class TelaNova extends JFrame {
 	 */
 	public TelaNova() {
 
+//		try {
+//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//			SwingUtilities.updateComponentTreeUI(this);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			SwingUtilities.updateComponentTreeUI(this);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+			    if ("Nimbus".equals(info.getName())) {
+			        UIManager.setLookAndFeel(info.getClassName());
+			        
+			        break;
+			    }
+			}
+			} catch (Exception e) {
+			   // If Nimbus is not available, you can set the GUI to another look and feel.
+			}
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 544, 410);
@@ -121,7 +133,7 @@ public class TelaNova extends JFrame {
 		JPanel panelPrincipal = new JPanel();
 		tabbedPane.addTab("New tab", null, panelPrincipal, null);
 		GridBagLayout gbl_panelPrincipal = new GridBagLayout();
-		gbl_panelPrincipal.columnWidths = new int[] { 173, 74, 76, 0 };
+		gbl_panelPrincipal.columnWidths = new int[] { 198, 74, 76, 0 };
 		gbl_panelPrincipal.rowHeights = new int[] { 134, 0, 0, 0, 40, 0 };
 		gbl_panelPrincipal.columnWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		gbl_panelPrincipal.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };

@@ -22,6 +22,9 @@ import java.util.Map.Entry;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -54,6 +57,16 @@ public class TabelaEditar extends JDialog {
 	 * Create the dialog.
 	 */
 	public TabelaEditar() {
+		try {
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+			    if ("Nimbus".equals(info.getName())) {
+			        UIManager.setLookAndFeel(info.getClassName());
+			        break;
+			    }
+			}
+			} catch (Exception e) {
+			   // If Nimbus is not available, you can set the GUI to another look and feel.
+			}
 		setBounds(100, 100, 470, 359);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
