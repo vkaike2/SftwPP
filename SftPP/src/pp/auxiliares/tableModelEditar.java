@@ -13,7 +13,9 @@ public class tableModelEditar extends AbstractTableModel {
 		lista.add(str);
 		fireTableDataChanged();
 	}
-
+	public void limparTabela(){
+		lista.clear();
+	}
 	public String pegarLinha(int linhaSelecionada) {
 		return lista.get(linhaSelecionada);
 	}

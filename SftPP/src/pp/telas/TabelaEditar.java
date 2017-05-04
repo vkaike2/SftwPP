@@ -26,14 +26,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class TabelaEditar extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	public JTable table;
-	private JTextField txtPesquisar;
-	private tableModelEditar modelEditar = new tableModelEditar();
-	public JButton okButton;
+	public JTextField txtPesquisar;
+	public tableModelEditar modelEditar = new tableModelEditar();
+	public JButton btnBuscar = new JButton("Buscar");
 
 	/**
 	 * Launch the application.
@@ -73,6 +75,11 @@ public class TabelaEditar extends JDialog {
 		}
 		{
 			txtPesquisar = new JTextField();
+			txtPesquisar.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent arg0) {
+				}
+			});
 			GridBagConstraints gbc_txtPesquisar = new GridBagConstraints();
 			gbc_txtPesquisar.insets = new Insets(0, 0, 5, 5);
 			gbc_txtPesquisar.fill = GridBagConstraints.HORIZONTAL;
@@ -82,7 +89,8 @@ public class TabelaEditar extends JDialog {
 			txtPesquisar.setColumns(10);
 		}
 		{
-			JButton btnBuscar = new JButton("Buscar");
+			
+			
 			GridBagConstraints gbc_btnBuscar = new GridBagConstraints();
 			gbc_btnBuscar.insets = new Insets(0, 0, 5, 0);
 			gbc_btnBuscar.gridx = 2;
@@ -104,28 +112,6 @@ public class TabelaEditar extends JDialog {
 
 				table.setModel(modelEditar);
 				scrollPane.setViewportView(table);
-			}
-		}
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				okButton = new JButton("Editar");
-				
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Voltar");
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						dispose();
-					}
-				});
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
 			}
 		}
 	}

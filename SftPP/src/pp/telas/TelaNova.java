@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
+import javax.swing.plaf.nimbus.NimbusStyle;
+import javax.swing.text.html.parser.Entity;
 
 import java.awt.GridLayout;
 import javax.swing.JTabbedPane;
@@ -29,6 +31,8 @@ import java.util.Map.Entry;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
@@ -64,6 +68,7 @@ public class TelaNova extends JFrame {
 	private JTextField txt8;
 	private JTextField txt9;
 	private SrXML xml = new SrXML();
+	private String salvaPergunta;
 
 	public LinkedHashMap<String, List<String>> mapaConfig = new LinkedHashMap<>();
 	// private List<String> listaConfig = new ArrayList<>();
@@ -95,6 +100,14 @@ public class TelaNova extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaNova() {
+		
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			SwingUtilities.updateComponentTreeUI(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 544, 410);
 		contentPane = new JPanel();
@@ -202,48 +215,6 @@ public class TelaNova extends JFrame {
 		gbc_btnEditar.gridx = 2;
 		gbc_btnEditar.gridy = 0;
 		panelConfiguracao.add(btnEditar, gbc_btnEditar);
-
-		btnEditar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				// xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig);
-
-				TabelaEditar telaEditar = new TabelaEditar();
-				telaEdicao tEdicao = new telaEdicao();
-
-				telaEditar.setLocationRelativeTo(contentPane);
-				telaEditar.iniciarTabela(mapaConfig);
-
-				telaEditar.table.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent arg0) {
-						if (arg0.getClickCount() > 1) {
-							PreencheDados(telaEditar);
-
-						}
-					}
-				});
-				telaEditar.okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent a) {
-
-					}
-				});
-				tEdicao.btnSalvar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						try {
-							tEdicao.salvaEdicao(mapaConfig);
-							tEdicao.limparDados();
-							JOptionPane.showMessageDialog(telaEditar, "Os dados foram Editados com sucesso");
-						} catch (Exception e) {
-							// TODO: handle exception
-						}
-
-					}
-				});
-
-				telaEditar.setVisible(true);
-
-			}
-		});
 
 		JLabel lblRespostaAnterior = new JLabel("Resposta Anterior:");
 		GridBagConstraints gbc_lblRespostaAnterior = new GridBagConstraints();
@@ -599,14 +570,25 @@ public class TelaNova extends JFrame {
 		});
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				xml.escreve(mapaConfig, listaPergAnteriro, listaLinks, listaCombobox);
+				try {
+					xml.escreve(mapaConfig, listaPergAnteriro, listaLinks, listaCombobox);
+
+					JOptionPane.showMessageDialog(contentPane, "Salva com sucesso");
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
 			}
 		});
 		btnBaixar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig, listaCombobox);
-				for (String string : listaCombobox) {
-					comboBox.addItem(string);
+				try {
+					xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig, listaCombobox);
+					for (String string : listaCombobox) {
+						comboBox.addItem(string);
+					}
+					JOptionPane.showMessageDialog(contentPane, "As Perguntas foram Atualizadas com sucesso");
+				} catch (Exception e2) {
+					// TODO: handle exception
 				}
 
 			}
@@ -622,14 +604,79 @@ public class TelaNova extends JFrame {
 		panelConfiguracao.add(btnContinuar, gbc_btnContinuar);
 		panelConfiguracao.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { comboBox,
 				textAreaPergunta, txt1, txt2, txt3, txt4, txt5, txt6, txt7, txt8, txt9, btnContinuar }));
+
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				TabelaEditar telaEditar = new TabelaEditar();
+
+				telaEditar.setLocationRelativeTo(contentPane);
+				telaEditar.iniciarTabela(mapaConfig);
+
+				telaEditar.btnBuscar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						telaEditar.modelEditar.limparTabela();
+						int cont = 0;
+						for (Entry<String, List<String>> entry : mapaConfig.entrySet()) {
+							for (String string : entry.getValue()) {
+								if (string.equals("+_+")) {
+									cont++;
+								}
+							}
+							if (cont < 9 && entry.getKey().toLowerCase()
+									.contains(telaEditar.txtPesquisar.getText().toLowerCase().trim())) {
+								telaEditar.modelEditar.addLinha(entry.getKey());
+							}
+							cont = 0;
+						}
+						
+					}
+				});
+				telaEditar.table.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent arg0) {
+						if (arg0.getClickCount() > 1) {
+							PreencheDados(telaEditar, textAreaPergunta);
+
+							btnContinuar.setText("Salvar");
+							telaEditar.dispose();
+
+						}
+					}
+				});
+
+				telaEditar.setVisible(true);
+
+			}
+		});
+
 		btnContinuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				// xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig);
+				if (btnContinuar.getText().equals("Continuar")) {
+					ArmazenarDados(textAreaPergunta, comboBox, mapaConfig);
 
-				ArmazenarDados(textAreaPergunta, comboBox, mapaConfig);
+					limparDados(textAreaPergunta);
+					radioRespostaFinal.setSelected(false);
+					radioContinuacao.setSelected(true);
+					AlternaRespostas(radioContinuacao, radioRespostaFinal);
+				} else {
+					try {
+						salvaEdicao(textAreaPergunta);
 
-				limparDados(textAreaPergunta);
+						JOptionPane.showMessageDialog(contentPane, "a Pergunta foi editada com sucesso");
+
+						limparDados(textAreaPergunta);
+
+						radioRespostaFinal.setSelected(false);
+						radioContinuacao.setSelected(true);
+						AlternaRespostas(radioContinuacao, radioRespostaFinal);
+
+						btnContinuar.setText("Continuar");
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+				}
 
 			}
 		});
@@ -691,11 +738,8 @@ public class TelaNova extends JFrame {
 
 		btnComear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+
 				xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig, listaCombobox);
-				// listaLinks.clear();
-				// listaPergAnteriro.clear();
-				// SrXML xml = new SrXML();
-				// xml.le(mapaConfig, listaPergAnteriro, listaLinks);
 
 				mostrarDados(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
 				btnProximaPergunta.setEnabled(true);
@@ -725,20 +769,128 @@ public class TelaNova extends JFrame {
 	 * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	 * 
 	 */
+	public void salvaEdicao(JTextArea txtArea) {
+		LinkedHashMap<String, List<String>> copiaMapa = new LinkedHashMap<>();
+		List<String> lista = new ArrayList<>();
 
-	public void PreencheDados(TabelaEditar telaEditar) {
-		telaEdicao tEdicao = new telaEdicao();
 		for (Entry<String, List<String>> entry : mapaConfig.entrySet()) {
-			if (entry.getKey().equals(telaEditar.retornaLinhaClicada())) {
-				tEdicao.escreverPergunta(entry.getKey(), entry.getValue().get(0), entry.getValue().get(1),
-						entry.getValue().get(2), entry.getValue().get(3), entry.getValue().get(4),
-						entry.getValue().get(5), entry.getValue().get(6), entry.getValue().get(7),
-						entry.getValue().get(8));
-				tEdicao.setLocationRelativeTo(telaEditar);
-				tEdicao.setVisible(true);
+			lista.add(entry.getKey());
+			if (salvaPergunta.equals(entry.getKey())) {
+				String key = entry.getKey();
+				LinkedList<String> value = new LinkedList<>();
+				key = txtArea.getText();
+
+				ifDoSalvaEdicao(value);
+
+				copiaMapa.put(key, value);
+
+			} else {
+				String key = entry.getKey();
+				LinkedList<String> value = new LinkedList<>();
+				for (String str : entry.getValue()) {
+					value.add(str);
+				}
+				copiaMapa.put(key, value);
 			}
+
+		}
+		for (String string : lista) {
+			mapaConfig.remove(string);
+		}
+		mapaConfig.putAll(copiaMapa);
+	}
+
+	public void ifDoSalvaEdicao(LinkedList<String> value) {
+
+		if (txt1.getText().equals("")) {
+			value.add("+_+");
+		} else {
+			value.add(txt1.getText());
+		}
+		if (txt2.getText().equals("")) {
+			value.add("+_+");
+		} else {
+			value.add(txt2.getText());
+		}
+		if (txt3.getText().equals("")) {
+			value.add("+_+");
+		} else {
+			value.add(txt3.getText());
+		}
+		if (txt4.getText().equals("")) {
+			value.add("+_+");
+		} else {
+			value.add(txt4.getText());
+		}
+		if (txt5.getText().equals("")) {
+			value.add("+_+");
+		} else {
+			value.add(txt5.getText());
+		}
+		if (txt6.getText().equals("")) {
+			value.add("+_+");
+		} else {
+			value.add(txt6.getText());
+		}
+		if (txt7.getText().equals("")) {
+			value.add("+_+");
+		} else {
+			value.add(txt7.getText());
+		}
+		if (txt8.getText().equals("")) {
+			value.add("+_+");
+		} else {
+			value.add(txt8.getText());
+		}
+		if (txt9.getText().equals("")) {
+			value.add("+_+");
+		} else {
+			value.add(txt9.getText());
+		}
+		if (txt1.getText().equals("")) {
+			value.add("+_+");
+		} else {
+			value.add(txt1.getText());
 		}
 
+	}
+
+	public void PreencheDados(TabelaEditar telaEditar, JTextArea txtArea) {
+
+		for (Entry<String, List<String>> entry : mapaConfig.entrySet()) {
+			if (entry.getKey().equals(telaEditar.retornaLinhaClicada())) {
+
+				txtArea.setText(entry.getKey());
+				if (!entry.getValue().get(0).equals("+_+")) {
+					txt1.setText(entry.getValue().get(0));
+				}
+				if (!entry.getValue().get(1).equals("+_+")) {
+					txt2.setText(entry.getValue().get(1));
+				}
+				if (!entry.getValue().get(2).equals("+_+")) {
+					txt3.setText(entry.getValue().get(2));
+				}
+				if (!entry.getValue().get(3).equals("+_+")) {
+					txt4.setText(entry.getValue().get(3));
+				}
+				if (!entry.getValue().get(4).equals("+_+")) {
+					txt5.setText(entry.getValue().get(4));
+				}
+				if (!entry.getValue().get(5).equals("+_+")) {
+					txt6.setText(entry.getValue().get(5));
+				}
+				if (!entry.getValue().get(6).equals("+_+")) {
+					txt7.setText(entry.getValue().get(6));
+				}
+				if (!entry.getValue().get(7).equals("+_+")) {
+					txt8.setText(entry.getValue().get(7));
+				}
+				if (!entry.getValue().get(8).equals("+_+")) {
+					txt9.setText(entry.getValue().get(8));
+				}
+			}
+		}
+		salvaPergunta = txtArea.getText();
 	}
 
 	public void AlternaRespostas(JRadioButton r1, JRadioButton r2) {
