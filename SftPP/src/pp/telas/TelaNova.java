@@ -70,6 +70,15 @@ public class TelaNova extends JFrame {
 	private JTextField txt9;
 	private SrXML xml = new SrXML();
 	private String salvaPergunta;
+	private String s1;
+	private String s2;
+	private String s3;
+	private String s4;
+	private String s5;
+	private String s6;
+	private String s7;
+	private String s8;
+	private String s9;
 
 	public LinkedHashMap<String, List<String>> mapaConfig = new LinkedHashMap<>();
 	// private List<String> listaConfig = new ArrayList<>();
@@ -102,24 +111,25 @@ public class TelaNova extends JFrame {
 	 */
 	public TelaNova() {
 
-//		try {
-//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//			SwingUtilities.updateComponentTreeUI(this);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		// try {
+		// UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		// SwingUtilities.updateComponentTreeUI(this);
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// }
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-			    if ("Nimbus".equals(info.getName())) {
-			        UIManager.setLookAndFeel(info.getClassName());
-			        
-			        break;
-			    }
+				if ("Nimbus".equals(info.getName())) {
+					UIManager.setLookAndFeel(info.getClassName());
+
+					break;
+				}
 			}
-			} catch (Exception e) {
-			   // If Nimbus is not available, you can set the GUI to another look and feel.
-			}
-		
+		} catch (Exception e) {
+			// If Nimbus is not available, you can set the GUI to another look
+			// and feel.
+		}
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 544, 410);
 		contentPane = new JPanel();
@@ -195,7 +205,7 @@ public class TelaNova extends JFrame {
 		tabbedPane.setTitleAt(0, "Home");
 
 		JPanel panelConfiguracao = new JPanel();
-	
+
 		tabbedPane.addTab("New tab", null, panelConfiguracao, null);
 		GridBagLayout gbl_panelConfiguracao = new GridBagLayout();
 		gbl_panelConfiguracao.columnWidths = new int[] { 0, 0, 0, 0, 0, 0 };
@@ -207,6 +217,8 @@ public class TelaNova extends JFrame {
 		JButton btnBaixar = new JButton("B");
 
 		GridBagConstraints gbc_btnBaixar = new GridBagConstraints();
+		gbc_btnBaixar.anchor = GridBagConstraints.EAST;
+		gbc_btnBaixar.fill = GridBagConstraints.VERTICAL;
 		gbc_btnBaixar.insets = new Insets(0, 0, 5, 5);
 		gbc_btnBaixar.gridx = 0;
 		gbc_btnBaixar.gridy = 0;
@@ -215,6 +227,7 @@ public class TelaNova extends JFrame {
 		JButton btnSalvar = new JButton("S");
 
 		GridBagConstraints gbc_btnSalvar = new GridBagConstraints();
+		gbc_btnSalvar.fill = GridBagConstraints.VERTICAL;
 		gbc_btnSalvar.insets = new Insets(0, 0, 5, 5);
 		gbc_btnSalvar.gridx = 1;
 		gbc_btnSalvar.gridy = 0;
@@ -223,6 +236,7 @@ public class TelaNova extends JFrame {
 		JButton btnEditar = new JButton("E");
 
 		GridBagConstraints gbc_btnEditar = new GridBagConstraints();
+		gbc_btnEditar.fill = GridBagConstraints.VERTICAL;
 		gbc_btnEditar.anchor = GridBagConstraints.WEST;
 		gbc_btnEditar.insets = new Insets(0, 0, 5, 5);
 		gbc_btnEditar.gridx = 2;
@@ -659,7 +673,7 @@ public class TelaNova extends JFrame {
 
 			}
 		});
-		//getRootPane().setDefaultButton(btnContinuar);
+		getRootPane().setDefaultButton(btnContinuar);
 		btnContinuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -672,7 +686,10 @@ public class TelaNova extends JFrame {
 					AlternaRespostas(radioContinuacao, radioRespostaFinal);
 				} else {
 					try {
-						salvaEdicao(textAreaPergunta);
+
+						salvaEdicao(textAreaPergunta, comboBox);
+						// JOptionPane.showMessageDialog(contentPane,
+						// "funcionou");
 
 						JOptionPane.showMessageDialog(contentPane, "a Pergunta foi editada com sucesso");
 
@@ -681,7 +698,15 @@ public class TelaNova extends JFrame {
 						radioRespostaFinal.setSelected(false);
 						radioContinuacao.setSelected(true);
 						AlternaRespostas(radioContinuacao, radioRespostaFinal);
-
+						txt1.setEnabled(true);
+						txt2.setEnabled(true);
+						txt3.setEnabled(true);
+						txt4.setEnabled(true);
+						txt5.setEnabled(true);
+						txt6.setEnabled(true);
+						txt7.setEnabled(true);
+						txt8.setEnabled(true);
+						txt9.setEnabled(true);
 						btnContinuar.setText("Continuar");
 					} catch (Exception e) {
 						// TODO: handle exception
@@ -699,8 +724,21 @@ public class TelaNova extends JFrame {
 				}
 			}
 		});
-		ImageIcon imgIc = new ImageIcon(".\\editar.png");
-		imgIc.setImage(imgIc.getImage().getScaledInstance(49, 49, 100));
+		btnEditar.setText(null);
+		ImageIcon imgIcEditar = new ImageIcon(".\\lapis.png");
+		imgIcEditar.setImage(imgIcEditar.getImage().getScaledInstance(15, 15, 100));
+		btnEditar.setIcon(imgIcEditar);
+		
+		btnSalvar.setText(null);
+		ImageIcon imgIcSalvar = new ImageIcon(".\\salvar.png");
+		imgIcSalvar.setImage(imgIcSalvar.getImage().getScaledInstance(15, 15, 100));
+		btnSalvar.setIcon(imgIcSalvar);
+		
+		btnBaixar.setText(null);
+		btnBaixar.setText(null);
+		ImageIcon imgIcBaixar = new ImageIcon(".\\atualizar.png");
+		imgIcBaixar.setImage(imgIcBaixar.getImage().getScaledInstance(15, 15, 100));
+		btnBaixar.setIcon(imgIcBaixar);
 
 		/*
 		 * btSTART
@@ -796,7 +834,7 @@ public class TelaNova extends JFrame {
 		}
 	}
 
-	public void salvaEdicao(JTextArea txtArea) {
+	public void salvaEdicao(JTextArea txtArea, JComboBox cb) {
 		LinkedHashMap<String, List<String>> copiaMapa = new LinkedHashMap<>();
 		List<String> lista = new ArrayList<>();
 
@@ -825,6 +863,11 @@ public class TelaNova extends JFrame {
 			mapaConfig.remove(string);
 		}
 		mapaConfig.putAll(copiaMapa);
+		cb.removeAllItems();
+
+		for (String string : listaCombobox) {
+			cb.addItem(string);
+		}
 	}
 
 	public void ifDoSalvaEdicao(LinkedList<String> value) {
@@ -833,51 +876,165 @@ public class TelaNova extends JFrame {
 			value.add("+_+");
 		} else {
 			value.add(txt1.getText());
+			if (txt1.isEnabled()) {
+				int cont = 0;
+				for (String string : listaCombobox) {
+					if (txt1.getText().trim().equals(string) && s1.equals(string)) {
+						cont = 1;
+					} else if (s1.equals(string) && !txt1.getText().trim().equals(string)) {
+						listaCombobox.remove(string);
+						listaCombobox.add(txt1.getText());
+
+					}
+				}
+				if (cont == 1 && !txt1.getText().equals("")) {
+					listaCombobox.add(txt1.getText());
+				}
+			}
 		}
+
 		if (txt2.getText().equals("")) {
 			value.add("+_+");
 		} else {
 			value.add(txt2.getText());
+			if (txt2.isEnabled()) {
+				int cont = 0;
+				for (String string : listaCombobox) {
+					if (txt2.getText().trim().equals(string) && s2.equals(string)) {
+						cont = 1;
+					}
+				}
+				if (cont == 0 && !txt2.getText().equals("")) {
+					listaCombobox.remove(s2);
+					listaCombobox.add(txt2.getText());
+				}
+			}
 		}
+
 		if (txt3.getText().equals("")) {
 			value.add("+_+");
 		} else {
 			value.add(txt3.getText());
+			if (txt3.isEnabled()) {
+				int cont = 0;
+				for (String string : listaCombobox) {
+					if (txt3.getText().trim().equals(string) && s3.equals(string)) {
+						cont = 1;
+					}
+				}
+				if (cont == 0 && !txt3.getText().equals("")) {
+					listaCombobox.remove(s3);
+					listaCombobox.add(txt3.getText());
+				}
+			}
 		}
+
 		if (txt4.getText().equals("")) {
 			value.add("+_+");
 		} else {
 			value.add(txt4.getText());
+			if (txt4.isEnabled()) {
+				int cont = 0;
+				for (String string : listaCombobox) {
+					if (txt4.getText().trim().equals(string) && s4.equals(string)) {
+						cont = 1;
+					}
+				}
+				if (cont == 0 && !txt4.getText().equals("")) {
+					listaCombobox.remove(s4);
+					listaCombobox.add(txt4.getText());
+				}
+			}
 		}
+
 		if (txt5.getText().equals("")) {
 			value.add("+_+");
 		} else {
 			value.add(txt5.getText());
+			if (txt5.isEnabled()) {
+				int cont = 0;
+				for (String string : listaCombobox) {
+					if (txt5.getText().trim().equals(string) && s5.equals(string)) {
+						cont = 1;
+					}
+				}
+
+				if (cont == 0 && !txt5.getText().equals("")) {
+					listaCombobox.remove(s5);
+					listaCombobox.add(txt5.getText());
+				}
+			}
 		}
 		if (txt6.getText().equals("")) {
 			value.add("+_+");
 		} else {
 			value.add(txt6.getText());
+			if (txt6.isEnabled()) {
+				int cont = 0;
+				for (String string : listaCombobox) {
+					if (txt6.getText().trim().equals(string) && s6.equals(string)) {
+						cont = 1;
+					}
+				}
+				if (cont == 1 && !txt6.getText().equals("")) {
+					listaCombobox.remove(s6);
+					listaCombobox.add(txt6.getText());
+				}
+			}
 		}
+
 		if (txt7.getText().equals("")) {
 			value.add("+_+");
 		} else {
 			value.add(txt7.getText());
+			if (txt7.isEnabled()) {
+				int cont = 0;
+				for (String string : listaCombobox) {
+					if (txt7.getText().trim().equals(string) && s7.equals(string)) {
+						cont = 1;
+					}
+				}
+				if (cont == 1 && !txt7.getText().equals("")) {
+					listaCombobox.remove(s7);
+					listaCombobox.add(txt7.getText());
+				}
+			}
 		}
+
 		if (txt8.getText().equals("")) {
 			value.add("+_+");
 		} else {
 			value.add(txt8.getText());
+			if (txt8.isEnabled()) {
+				int cont = 0;
+				for (String string : listaCombobox) {
+					if (txt8.getText().trim().equals(string) && s8.equals(string)) {
+						cont = 1;
+					}
+				}
+				if (cont == 1 && !txt8.getText().equals("")) {
+					listaCombobox.remove(s8);
+					listaCombobox.add(txt8.getText());
+				}
+			}
 		}
+
 		if (txt9.getText().equals("")) {
 			value.add("+_+");
 		} else {
 			value.add(txt9.getText());
-		}
-		if (txt1.getText().equals("")) {
-			value.add("+_+");
-		} else {
-			value.add(txt1.getText());
+			if (txt9.isEnabled()) {
+				int cont = 0;
+				for (String string : listaCombobox) {
+					if (txt9.getText().trim().equals(string) && s9.equals(string)) {
+						cont = 1;
+					}
+				}
+				if (cont == 1 && !txt9.getText().equals("")) {
+					listaCombobox.remove(s9);
+					listaCombobox.add(txt9.getText());
+				}
+			}
 		}
 
 	}
@@ -888,35 +1045,118 @@ public class TelaNova extends JFrame {
 			if (entry.getKey().equals(telaEditar.retornaLinhaClicada())) {
 
 				txtArea.setText(entry.getKey());
+
 				if (!entry.getValue().get(0).equals("+_+")) {
-					txt1.setText(entry.getValue().get(0));
+					for (String string : listaCombobox) {
+						if (string.equals(entry.getValue().get(0))) {
+							txt1.setText(entry.getValue().get(0));
+							break;
+						} else {
+							txt1.setText(entry.getValue().get(0));
+							txt1.setEnabled(false);
+						}
+					}
+
 				}
 				if (!entry.getValue().get(1).equals("+_+")) {
-					txt2.setText(entry.getValue().get(1));
+					for (String string : listaCombobox) {
+						if (string.equals(entry.getValue().get(1))) {
+							txt2.setText(entry.getValue().get(1));
+							break;
+						} else {
+							txt2.setText(entry.getValue().get(1));
+							txt2.setEnabled(false);
+						}
+					}
 				}
 				if (!entry.getValue().get(2).equals("+_+")) {
-					txt3.setText(entry.getValue().get(2));
+					for (String string : listaCombobox) {
+						if (!string.equals(entry.getValue().get(2))) {
+							txt3.setText(entry.getValue().get(2));
+							break;
+						} else {
+							txt3.setText(entry.getValue().get(2));
+							txt3.setEnabled(false);
+						}
+					}
 				}
 				if (!entry.getValue().get(3).equals("+_+")) {
-					txt4.setText(entry.getValue().get(3));
+					for (String string : listaCombobox) {
+						if (!string.equals(entry.getValue().get(3))) {
+							txt4.setText(entry.getValue().get(3));
+							break;
+						} else {
+							txt4.setEnabled(false);
+							txt4.setText(entry.getValue().get(3));
+						}
+					}
 				}
 				if (!entry.getValue().get(4).equals("+_+")) {
-					txt5.setText(entry.getValue().get(4));
+					for (String string : listaCombobox) {
+						if (!string.equals(entry.getValue().get(4))) {
+							txt5.setText(entry.getValue().get(4));
+							break;
+						} else {
+							txt5.setText(entry.getValue().get(4));
+							txt5.setEnabled(false);
+						}
+					}
 				}
 				if (!entry.getValue().get(5).equals("+_+")) {
-					txt6.setText(entry.getValue().get(5));
+					for (String string : listaCombobox) {
+						if (!string.equals(entry.getValue().get(5))) {
+							txt6.setText(entry.getValue().get(5));
+							break;
+						} else {
+							txt6.setText(entry.getValue().get(5));
+							txt6.setEnabled(false);
+						}
+					}
 				}
 				if (!entry.getValue().get(6).equals("+_+")) {
-					txt7.setText(entry.getValue().get(6));
+					for (String string : listaCombobox) {
+						if (!string.equals(entry.getValue().get(6))) {
+							txt7.setText(entry.getValue().get(6));
+							break;
+						} else {
+							txt7.setText(entry.getValue().get(6));
+							txt7.setEnabled(false);
+						}
+					}
 				}
 				if (!entry.getValue().get(7).equals("+_+")) {
-					txt8.setText(entry.getValue().get(7));
+					for (String string : listaCombobox) {
+						if (!string.equals(entry.getValue().get(7))) {
+							txt8.setText(entry.getValue().get(7));
+							break;
+						} else {
+							txt8.setText(entry.getValue().get(7));
+							txt8.setEnabled(false);
+						}
+					}
 				}
 				if (!entry.getValue().get(8).equals("+_+")) {
-					txt9.setText(entry.getValue().get(8));
+					for (String string : listaCombobox) {
+						if (!string.equals(entry.getValue().get(8))) {
+							txt9.setText(entry.getValue().get(8));
+							break;
+						} else {
+							txt9.setText(entry.getValue().get(8));
+							txt9.setEnabled(false);
+						}
+					}
 				}
 			}
 		}
+		s1 = txt1.getText();
+		s2 = txt2.getText();
+		s3 = txt3.getText();
+		s4 = txt4.getText();
+		s5 = txt5.getText();
+		s6 = txt6.getText();
+		s7 = txt7.getText();
+		s8 = txt8.getText();
+		s9 = txt9.getText();
 		salvaPergunta = txtArea.getText();
 	}
 
