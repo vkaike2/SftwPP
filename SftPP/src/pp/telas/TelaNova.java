@@ -660,6 +660,17 @@ public class TelaNova extends JFrame {
 					@Override
 					public void mouseClicked(MouseEvent arg0) {
 						if (arg0.getClickCount() > 1) {
+							limparDados(textAreaPergunta);
+							txt1.setEnabled(true);
+							txt2.setEnabled(true);
+							txt3.setEnabled(true);
+							txt4.setEnabled(true);
+							txt5.setEnabled(true);
+							txt6.setEnabled(true);
+							txt7.setEnabled(true);
+							txt8.setEnabled(true);
+							txt9.setEnabled(true);
+							
 							PreencheDados(telaEditar, textAreaPergunta);
 
 							btnContinuar.setText("Salvar");
@@ -699,6 +710,7 @@ public class TelaNova extends JFrame {
 						radioRespostaFinal.setSelected(false);
 						radioContinuacao.setSelected(true);
 						AlternaRespostas(radioContinuacao, radioRespostaFinal);
+
 						txt1.setEnabled(true);
 						txt2.setEnabled(true);
 						txt3.setEnabled(true);
@@ -791,7 +803,7 @@ public class TelaNova extends JFrame {
 				xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig, listaCombobox);
 
 				mostrarDados(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
-				
+
 				btnProximaPergunta.setEnabled(true);
 				btnComear.setEnabled(false);
 				btnResetar.setEnabled(true);
@@ -805,7 +817,7 @@ public class TelaNova extends JFrame {
 				limparRadios(radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
 				deixarRadiosInvisiveis(radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
 				mostrarDados(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
-				
+
 				btnProximaPergunta.setEnabled(true);
 				btnComear.setEnabled(false);
 			}
@@ -900,6 +912,7 @@ public class TelaNova extends JFrame {
 			if (txt2.isEnabled()) {
 				int cont = 0;
 				for (String string : listaCombobox) {
+
 					if (txt2.getText().trim().equals(string) && s2.equals(string)) {
 						cont = 1;
 					}
@@ -1047,13 +1060,21 @@ public class TelaNova extends JFrame {
 				txtArea.setText(entry.getKey());
 
 				if (!entry.getValue().get(0).equals("+_+")) {
+					int cont = 0;
 					for (String string : listaCombobox) {
+
 						if (string.equals(entry.getValue().get(0))) {
+							System.out.println(string);
 							txt1.setText(entry.getValue().get(0));
+							cont = 1;
 							break;
 						} else {
-							txt1.setText(entry.getValue().get(0));
-							txt1.setEnabled(false);
+							//arrumar
+							if(cont == 0){								
+								System.out.println(string + "1");
+								txt1.setText(entry.getValue().get(0));
+								txt1.setEnabled(false);
+							}
 						}
 					}
 
@@ -1533,7 +1554,7 @@ public class TelaNova extends JFrame {
 		radio7.setText(null);
 		radio8.setText(null);
 		radio9.setText(null);
-		
+
 	}
 	/*
 	 * mHOME
