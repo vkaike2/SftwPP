@@ -600,7 +600,7 @@ public class TelaNova extends JFrame {
 				try {
 					xml.escreve(mapaConfig, listaPergAnteriro, listaLinks, listaCombobox);
 
-					JOptionPane.showMessageDialog(contentPane, "Salva com sucesso");
+					JOptionPane.showMessageDialog(contentPane, "Salvo com sucesso");
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
@@ -624,6 +624,7 @@ public class TelaNova extends JFrame {
 		textAreaPergunta.setLineWrap(true);
 
 		JButton btnContinuar = new JButton("Continuar");
+		
 
 		GridBagConstraints gbc_btnContinuar = new GridBagConstraints();
 		gbc_btnContinuar.gridx = 4;
@@ -674,17 +675,18 @@ public class TelaNova extends JFrame {
 			}
 		});
 		getRootPane().setDefaultButton(btnContinuar);
+		
 		btnContinuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				if (btnContinuar.getText().equals("Continuar")) {
+				if (btnContinuar.getText().equals("Continuar") && !textAreaPergunta.getText().trim().equals("")) {
 					ArmazenarDados(textAreaPergunta, comboBox, mapaConfig);
 
 					limparDados(textAreaPergunta);
 					radioRespostaFinal.setSelected(false);
 					radioContinuacao.setSelected(true);
 					AlternaRespostas(radioContinuacao, radioRespostaFinal);
-				} else {
+				} else if(btnContinuar.getText().equals("Salvar") && !textAreaPergunta.getText().trim().equals("")){
 					try {
 
 						salvaEdicao(textAreaPergunta, comboBox);

@@ -237,8 +237,8 @@ public class SrXML {
 			LinkedHashMap<String, List<String>> mapaConfig, List<String> listaCombo) 
 	{
 		listaLinks.clear();
-		//listaPergAnteriro.clear();
-		//listaCombo.clear();
+		listaPergAnteriro.clear();
+		listaCombo.clear();
 
 		le(mapaConfig, listaPergAnteriro, listaLinks, listaCombo);
 		;
