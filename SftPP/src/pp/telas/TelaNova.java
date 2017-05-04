@@ -624,7 +624,6 @@ public class TelaNova extends JFrame {
 		textAreaPergunta.setLineWrap(true);
 
 		JButton btnContinuar = new JButton("Continuar");
-		
 
 		GridBagConstraints gbc_btnContinuar = new GridBagConstraints();
 		gbc_btnContinuar.gridx = 4;
@@ -675,7 +674,7 @@ public class TelaNova extends JFrame {
 			}
 		});
 		getRootPane().setDefaultButton(btnContinuar);
-		
+
 		btnContinuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -686,7 +685,7 @@ public class TelaNova extends JFrame {
 					radioRespostaFinal.setSelected(false);
 					radioContinuacao.setSelected(true);
 					AlternaRespostas(radioContinuacao, radioRespostaFinal);
-				} else if(btnContinuar.getText().equals("Salvar") && !textAreaPergunta.getText().trim().equals("")){
+				} else if (btnContinuar.getText().equals("Salvar") && !textAreaPergunta.getText().trim().equals("")) {
 					try {
 
 						salvaEdicao(textAreaPergunta, comboBox);
@@ -730,12 +729,12 @@ public class TelaNova extends JFrame {
 		ImageIcon imgIcEditar = new ImageIcon(".\\lapis.png");
 		imgIcEditar.setImage(imgIcEditar.getImage().getScaledInstance(15, 15, 100));
 		btnEditar.setIcon(imgIcEditar);
-		
+
 		btnSalvar.setText(null);
 		ImageIcon imgIcSalvar = new ImageIcon(".\\salvar.png");
 		imgIcSalvar.setImage(imgIcSalvar.getImage().getScaledInstance(15, 15, 100));
 		btnSalvar.setIcon(imgIcSalvar);
-		
+
 		btnBaixar.setText(null);
 		btnBaixar.setText(null);
 		ImageIcon imgIcBaixar = new ImageIcon(".\\atualizar.png");
@@ -792,6 +791,7 @@ public class TelaNova extends JFrame {
 				xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig, listaCombobox);
 
 				mostrarDados(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
+				
 				btnProximaPergunta.setEnabled(true);
 				btnComear.setEnabled(false);
 				btnResetar.setEnabled(true);
@@ -801,13 +801,11 @@ public class TelaNova extends JFrame {
 		btnResetar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig, listaCombobox);
-				// listaLinks.clear();
-				// listaPergAnteriro.clear();
-				// SrXML xml = new SrXML();
-				// xml.le(mapaConfig, listaPergAnteriro, listaLinks);
 
 				limparRadios(radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
+				deixarRadiosInvisiveis(radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
 				mostrarDados(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
+				
 				btnProximaPergunta.setEnabled(true);
 				btnComear.setEnabled(false);
 			}
@@ -1535,6 +1533,7 @@ public class TelaNova extends JFrame {
 		radio7.setText(null);
 		radio8.setText(null);
 		radio9.setText(null);
+		
 	}
 	/*
 	 * mHOME
