@@ -656,6 +656,19 @@ public class TelaNova extends JFrame {
 
 					}
 				});
+				telaEditar.radioPergunta.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						telaEditar.iniciarTabela(mapaConfig);
+					}
+				});
+				telaEditar.radioRespostaFinal.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						telaEditar.iniciarTabela(mapaConfig);
+					}
+				});
+
 				telaEditar.table.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent arg0) {
@@ -671,7 +684,7 @@ public class TelaNova extends JFrame {
 							txt8.setEnabled(true);
 							txt9.setEnabled(true);
 
-							PreencheDados(telaEditar, textAreaPergunta);
+							PreencheDados(telaEditar, textAreaPergunta, radioContinuacao, radioRespostaFinal);
 
 							btnContinuar.setText("Salvar");
 							telaEditar.dispose();
@@ -1052,13 +1065,59 @@ public class TelaNova extends JFrame {
 
 	}
 
-	public void PreencheDados(TabelaEditar telaEditar, JTextArea txtArea) {
+	public void PreencheDados(TabelaEditar telaEditar, JTextArea txtArea, JRadioButton r1, JRadioButton r2) {
+		txt1.setEnabled(true);
+		txt2.setEnabled(true);
+		txt3.setEnabled(true);
+		txt4.setEnabled(true);
+		txt5.setEnabled(true);
+		txt6.setEnabled(true);
+		txt7.setEnabled(true);
+		txt8.setEnabled(true);
+		txt9.setEnabled(true);
+
+		int um;
 
 		for (Entry<String, List<String>> entry : mapaConfig.entrySet()) {
 			if (entry.getKey().equals(telaEditar.retornaLinhaClicada())) {
 
 				txtArea.setText(entry.getKey());
 
+				if (entry.getValue().get(0).equals("+_+") && entry.getValue().get(2).equals("+_+")
+						&& entry.getValue().get(3).equals("+_+") && entry.getValue().get(4).equals("+_+")
+						&& entry.getValue().get(5).equals("+_+") && entry.getValue().get(6).equals("+_+")
+						&& entry.getValue().get(7).equals("+_+") && entry.getValue().get(8).equals("+_+")) {
+
+					txt1.setEnabled(false);
+					txt2.setEnabled(false);
+					txt3.setEnabled(false);
+					txt4.setEnabled(false);
+					txt5.setEnabled(false);
+					txt6.setEnabled(false);
+					txt7.setEnabled(false);
+					txt8.setEnabled(false);
+					txt9.setEnabled(false);
+
+					r2.setSelected(true);
+					AlternaRespostas(r1, r2);
+					for (Entry<String, List<String>> ent : mapaConfig.entrySet()) {
+						int validador = 0;
+						for (String string : ent.getValue()) {
+							if (!string.equals("+_+")) {
+								validador = 1;
+							}
+						}
+						//ARRUMAR
+						for (String string : listaLinks) {
+							if(validador == 0){
+								um = string.lastIndexOf("Ä");
+								txtLink.setText(string.substring(um + 1));								
+							}
+
+						}
+					}
+
+				}
 				if (!entry.getValue().get(0).equals("+_+")) {
 					int cont = 0;
 					for (String string : listaCombobox) {
@@ -1454,8 +1513,6 @@ public class TelaNova extends JFrame {
 								&& entry.getValue().get(6).equals("+_+") && entry.getValue().get(7).equals("+_+")
 								&& entry.getValue().get(8).equals("+_+")) {
 
-							// System.out.println("abriu");
-							// System.out.println("entrou 1");
 							for (String string : listaLinks) {
 
 								if (listaPergAnteriro.get(i).equals(string.substring(0, string.indexOf("Ä")))) {
