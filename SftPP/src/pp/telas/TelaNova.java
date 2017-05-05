@@ -89,6 +89,9 @@ public class TelaNova extends JFrame {
 	private JPasswordField passwordField;
 	private JTextField txtUsuario;
 	private JTextField txtLink;
+	private JTextField txtUsuarioC;
+	private JPasswordField pswSenhaC;
+	private JPasswordField pswConfirmaSenhaC;
 
 	/**
 	 * Launch the application.
@@ -546,6 +549,103 @@ public class TelaNova extends JFrame {
 		tabbedPane.remove(panelStart);
 		tabbedPane.remove(panelConfiguracao);
 		tabbedPane.remove(panelCadastro);
+		GridBagLayout gbl_panelCadastro = new GridBagLayout();
+		gbl_panelCadastro.columnWidths = new int[]{0, 94, 75, 0, 0, 0, 0};
+		gbl_panelCadastro.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panelCadastro.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panelCadastro.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		panelCadastro.setLayout(gbl_panelCadastro);
+		
+		JLabel lblUsurio_1 = new JLabel("Usu\u00E1rio:");
+		GridBagConstraints gbc_lblUsurio_1 = new GridBagConstraints();
+		gbc_lblUsurio_1.anchor = GridBagConstraints.EAST;
+		gbc_lblUsurio_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblUsurio_1.gridx = 1;
+		gbc_lblUsurio_1.gridy = 1;
+		panelCadastro.add(lblUsurio_1, gbc_lblUsurio_1);
+		
+		txtUsuarioC = new JTextField();
+		GridBagConstraints gbc_txtUsuarioC = new GridBagConstraints();
+		gbc_txtUsuarioC.gridwidth = 3;
+		gbc_txtUsuarioC.insets = new Insets(0, 0, 5, 5);
+		gbc_txtUsuarioC.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtUsuarioC.gridx = 2;
+		gbc_txtUsuarioC.gridy = 1;
+		panelCadastro.add(txtUsuarioC, gbc_txtUsuarioC);
+		txtUsuarioC.setColumns(10);
+		
+		JLabel lblSenha_1 = new JLabel("Senha:");
+		GridBagConstraints gbc_lblSenha_1 = new GridBagConstraints();
+		gbc_lblSenha_1.anchor = GridBagConstraints.EAST;
+		gbc_lblSenha_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSenha_1.gridx = 1;
+		gbc_lblSenha_1.gridy = 2;
+		panelCadastro.add(lblSenha_1, gbc_lblSenha_1);
+		
+		pswSenhaC = new JPasswordField();
+		GridBagConstraints gbc_pswSenhaC = new GridBagConstraints();
+		gbc_pswSenhaC.gridwidth = 3;
+		gbc_pswSenhaC.insets = new Insets(0, 0, 5, 5);
+		gbc_pswSenhaC.fill = GridBagConstraints.HORIZONTAL;
+		gbc_pswSenhaC.gridx = 2;
+		gbc_pswSenhaC.gridy = 2;
+		panelCadastro.add(pswSenhaC, gbc_pswSenhaC);
+		
+		JLabel lblConfirmarSenha = new JLabel("Confirmar Senha:");
+		GridBagConstraints gbc_lblConfirmarSenha = new GridBagConstraints();
+		gbc_lblConfirmarSenha.insets = new Insets(0, 0, 5, 5);
+		gbc_lblConfirmarSenha.anchor = GridBagConstraints.EAST;
+		gbc_lblConfirmarSenha.gridx = 1;
+		gbc_lblConfirmarSenha.gridy = 3;
+		panelCadastro.add(lblConfirmarSenha, gbc_lblConfirmarSenha);
+		
+		pswConfirmaSenhaC = new JPasswordField();
+		GridBagConstraints gbc_pswConfirmaSenhaC = new GridBagConstraints();
+		gbc_pswConfirmaSenhaC.gridwidth = 3;
+		gbc_pswConfirmaSenhaC.insets = new Insets(0, 0, 5, 5);
+		gbc_pswConfirmaSenhaC.fill = GridBagConstraints.HORIZONTAL;
+		gbc_pswConfirmaSenhaC.gridx = 2;
+		gbc_pswConfirmaSenhaC.gridy = 3;
+		panelCadastro.add(pswConfirmaSenhaC, gbc_pswConfirmaSenhaC);
+		
+		JLabel lblPermissao = new JLabel("Permiss\u00E3o:");
+		GridBagConstraints gbc_lblPermissao = new GridBagConstraints();
+		gbc_lblPermissao.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPermissao.anchor = GridBagConstraints.EAST;
+		gbc_lblPermissao.gridx = 1;
+		gbc_lblPermissao.gridy = 5;
+		panelCadastro.add(lblPermissao, gbc_lblPermissao);
+		
+		JRadioButton rdbtnComum = new JRadioButton("Comum");
+		GridBagConstraints gbc_rdbtnComum = new GridBagConstraints();
+		gbc_rdbtnComum.insets = new Insets(0, 0, 5, 5);
+		gbc_rdbtnComum.gridx = 2;
+		gbc_rdbtnComum.gridy = 5;
+		panelCadastro.add(rdbtnComum, gbc_rdbtnComum);
+		
+		JRadioButton rdbtnAdministrador = new JRadioButton("Administrador");
+		GridBagConstraints gbc_rdbtnAdministrador = new GridBagConstraints();
+		gbc_rdbtnAdministrador.insets = new Insets(0, 0, 5, 5);
+		gbc_rdbtnAdministrador.gridx = 4;
+		gbc_rdbtnAdministrador.gridy = 5;
+		panelCadastro.add(rdbtnAdministrador, gbc_rdbtnAdministrador);
+		
+		JButton btnCadastrar_1 = new JButton("Cadastrar");
+		GridBagConstraints gbc_btnCadastrar_1 = new GridBagConstraints();
+		gbc_btnCadastrar_1.anchor = GridBagConstraints.EAST;
+		gbc_btnCadastrar_1.gridwidth = 2;
+		gbc_btnCadastrar_1.insets = new Insets(0, 0, 5, 5);
+		gbc_btnCadastrar_1.gridx = 1;
+		gbc_btnCadastrar_1.gridy = 7;
+		panelCadastro.add(btnCadastrar_1, gbc_btnCadastrar_1);
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
+		gbc_btnCancelar.gridwidth = 2;
+		gbc_btnCancelar.insets = new Insets(0, 0, 5, 5);
+		gbc_btnCancelar.gridx = 3;
+		gbc_btnCancelar.gridy = 7;
+		panelCadastro.add(btnCancelar, gbc_btnCancelar);
 
 		// ImageIcon icon = new ImageIcon(".\\Dente.png");
 		ImageIcon imgIcLogo = new ImageIcon(".\\Logo.png");
