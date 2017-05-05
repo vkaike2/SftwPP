@@ -79,12 +79,13 @@ public class TelaNova extends JFrame {
 	private String s7;
 	private String s8;
 	private String s9;
+	private String slink;
 
 	public LinkedHashMap<String, List<String>> mapaConfig = new LinkedHashMap<>();
 	// private List<String> listaConfig = new ArrayList<>();
 	private List<String> listaCombobox = new ArrayList<>();
 	private LinkedList<String> listaPergAnteriro = new LinkedList<>();
-	private List<String> listaLinks = new ArrayList<>();
+	private LinkedList<String> listaLinks = new LinkedList<>();
 	private JPasswordField passwordField;
 	private JTextField txtUsuario;
 	private JTextField txtLink;
@@ -143,35 +144,44 @@ public class TelaNova extends JFrame {
 		JPanel panelPrincipal = new JPanel();
 		tabbedPane.addTab("New tab", null, panelPrincipal, null);
 		GridBagLayout gbl_panelPrincipal = new GridBagLayout();
-		gbl_panelPrincipal.columnWidths = new int[] { 198, 74, 76, 0 };
-		gbl_panelPrincipal.rowHeights = new int[] { 134, 0, 0, 0, 40, 0 };
-		gbl_panelPrincipal.columnWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
-		gbl_panelPrincipal.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panelPrincipal.columnWidths = new int[] { 94, 71, 114, 74, 0, 0 };
+		gbl_panelPrincipal.rowHeights = new int[] { 0, 134, 0, 0, 0, 40, 0 };
+		gbl_panelPrincipal.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gbl_panelPrincipal.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panelPrincipal.setLayout(gbl_panelPrincipal);
+
+		JButton btnCadastrar = new JButton("Cadastrar");
+
+		GridBagConstraints gbc_btnCadastrar = new GridBagConstraints();
+		gbc_btnCadastrar.anchor = GridBagConstraints.NORTHEAST;
+		gbc_btnCadastrar.insets = new Insets(0, 0, 5, 0);
+		gbc_btnCadastrar.gridx = 4;
+		gbc_btnCadastrar.gridy = 0;
+		panelPrincipal.add(btnCadastrar, gbc_btnCadastrar);
 
 		JLabel label_1 = new JLabel("");
 		GridBagConstraints gbc_label_1 = new GridBagConstraints();
 		gbc_label_1.gridwidth = 2;
-		gbc_label_1.insets = new Insets(0, 0, 5, 0);
-		gbc_label_1.gridx = 1;
-		gbc_label_1.gridy = 0;
+		gbc_label_1.insets = new Insets(0, 0, 5, 5);
+		gbc_label_1.gridx = 2;
+		gbc_label_1.gridy = 1;
 		panelPrincipal.add(label_1, gbc_label_1);
 
 		JLabel lblUsurio = new JLabel("Usu\u00E1rio:");
 		GridBagConstraints gbc_lblUsurio = new GridBagConstraints();
 		gbc_lblUsurio.insets = new Insets(0, 0, 5, 5);
 		gbc_lblUsurio.anchor = GridBagConstraints.SOUTHEAST;
-		gbc_lblUsurio.gridx = 0;
-		gbc_lblUsurio.gridy = 1;
+		gbc_lblUsurio.gridx = 1;
+		gbc_lblUsurio.gridy = 2;
 		panelPrincipal.add(lblUsurio, gbc_lblUsurio);
 
 		txtUsuario = new JTextField();
 		GridBagConstraints gbc_txtUsuario = new GridBagConstraints();
 		gbc_txtUsuario.gridwidth = 2;
-		gbc_txtUsuario.insets = new Insets(0, 0, 5, 0);
+		gbc_txtUsuario.insets = new Insets(0, 0, 5, 5);
 		gbc_txtUsuario.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtUsuario.gridx = 1;
-		gbc_txtUsuario.gridy = 1;
+		gbc_txtUsuario.gridx = 2;
+		gbc_txtUsuario.gridy = 2;
 		panelPrincipal.add(txtUsuario, gbc_txtUsuario);
 		txtUsuario.setColumns(10);
 
@@ -179,8 +189,8 @@ public class TelaNova extends JFrame {
 		GridBagConstraints gbc_lblSenha = new GridBagConstraints();
 		gbc_lblSenha.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSenha.anchor = GridBagConstraints.SOUTHEAST;
-		gbc_lblSenha.gridx = 0;
-		gbc_lblSenha.gridy = 2;
+		gbc_lblSenha.gridx = 1;
+		gbc_lblSenha.gridy = 3;
 		panelPrincipal.add(lblSenha, gbc_lblSenha);
 
 		passwordField = new JPasswordField();
@@ -189,18 +199,17 @@ public class TelaNova extends JFrame {
 		gbc_passwordField.gridwidth = 2;
 		gbc_passwordField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_passwordField.anchor = GridBagConstraints.SOUTH;
-		gbc_passwordField.insets = new Insets(0, 0, 5, 0);
-		gbc_passwordField.gridx = 1;
-		gbc_passwordField.gridy = 2;
+		gbc_passwordField.insets = new Insets(0, 0, 5, 5);
+		gbc_passwordField.gridx = 2;
+		gbc_passwordField.gridy = 3;
 		panelPrincipal.add(passwordField, gbc_passwordField);
 
 		JButton btnConectar = new JButton("Conectar");
 
 		GridBagConstraints gbc_btnConectar = new GridBagConstraints();
-		gbc_btnConectar.anchor = GridBagConstraints.SOUTH;
-		gbc_btnConectar.gridwidth = 2;
-		gbc_btnConectar.gridx = 1;
-		gbc_btnConectar.gridy = 4;
+		gbc_btnConectar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnConectar.gridx = 3;
+		gbc_btnConectar.gridy = 5;
 		panelPrincipal.add(btnConectar, gbc_btnConectar);
 		tabbedPane.setTitleAt(0, "Home");
 
@@ -525,6 +534,9 @@ public class TelaNova extends JFrame {
 		gbc_btnProximaPergunta.gridx = 2;
 		gbc_btnProximaPergunta.gridy = 10;
 		panelStart.add(btnProximaPergunta, gbc_btnProximaPergunta);
+
+		JPanel panelCadastro = new JPanel();
+		tabbedPane.addTab("Cadastro", null, panelCadastro, null);
 		/*
 		 * btHOME
 		 * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -533,9 +545,18 @@ public class TelaNova extends JFrame {
 
 		tabbedPane.remove(panelStart);
 		tabbedPane.remove(panelConfiguracao);
+		tabbedPane.remove(panelCadastro);
 
-		ImageIcon icon = new ImageIcon(".\\Dente.png");
-		label_1.setIcon(icon);
+		// ImageIcon icon = new ImageIcon(".\\Dente.png");
+		ImageIcon imgIcLogo = new ImageIcon(".\\Logo.png");
+		imgIcLogo.setImage(imgIcLogo.getImage().getScaledInstance(100, 100, 100));
+		label_1.setIcon(imgIcLogo);
+
+		ImageIcon imgIcCadastrar = new ImageIcon(".\\cadastro.png");
+		imgIcCadastrar.setImage(imgIcCadastrar.getImage().getScaledInstance(15, 15, 100));
+		btnCadastrar.setIcon(imgIcLogo);
+		btnCadastrar.setIcon(imgIcCadastrar);
+		btnCadastrar.setText(null);
 
 		passwordField.addKeyListener(new KeyAdapter() {
 			@Override
@@ -550,6 +571,12 @@ public class TelaNova extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				logar(tabbedPane, panelStart, panelConfiguracao, btnConectar);
 
+			}
+		});
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				tabbedPane.add("Cadastro", panelCadastro);
+				tabbedPane.setSelectedIndex(1);
 			}
 		});
 		/*
@@ -597,12 +624,16 @@ public class TelaNova extends JFrame {
 		});
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					xml.escreve(mapaConfig, listaPergAnteriro, listaLinks, listaCombobox);
-
-					JOptionPane.showMessageDialog(contentPane, "Salvo com sucesso");
-				} catch (Exception e) {
-					// TODO: handle exception
+				int val = JOptionPane.showOptionDialog(contentPane, "Deseja salvar e substituir o questionário atual?",
+						"Deseja Salvar", JOptionPane.YES_OPTION, JOptionPane.NO_OPTION, null, null, null);
+				if (val == 0) {
+					try {
+						xml.escreve(mapaConfig, listaPergAnteriro, listaLinks, listaCombobox);
+						limpaTodaLista();
+						JOptionPane.showMessageDialog(contentPane, "Salvo com sucesso");
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
 				}
 			}
 		});
@@ -674,15 +705,6 @@ public class TelaNova extends JFrame {
 					public void mouseClicked(MouseEvent arg0) {
 						if (arg0.getClickCount() > 1) {
 							limparDados(textAreaPergunta);
-							txt1.setEnabled(true);
-							txt2.setEnabled(true);
-							txt3.setEnabled(true);
-							txt4.setEnabled(true);
-							txt5.setEnabled(true);
-							txt6.setEnabled(true);
-							txt7.setEnabled(true);
-							txt8.setEnabled(true);
-							txt9.setEnabled(true);
 
 							PreencheDados(telaEditar, textAreaPergunta, radioContinuacao, radioRespostaFinal);
 
@@ -713,8 +735,6 @@ public class TelaNova extends JFrame {
 					try {
 
 						salvaEdicao(textAreaPergunta, comboBox);
-						// JOptionPane.showMessageDialog(contentPane,
-						// "funcionou");
 
 						JOptionPane.showMessageDialog(contentPane, "a Pergunta foi editada com sucesso");
 
@@ -844,24 +864,34 @@ public class TelaNova extends JFrame {
 	 */
 	public void FiltarEdiçãoPergunta(TabelaEditar telaEditar) {
 		telaEditar.modelEditar.limparTabela();
-		int cont = 0;
-		for (Entry<String, List<String>> entry : mapaConfig.entrySet()) {
-			for (String string : entry.getValue()) {
-				if (string.equals("+_+")) {
-					cont++;
+		if (telaEditar.radioPergunta.isSelected()) {
+			int cont = 0;
+			for (Entry<String, List<String>> entry : mapaConfig.entrySet()) {
+				for (String string : entry.getValue()) {
+					if (string.equals("+_+")) {
+						cont++;
+					}
+				}
+				if (cont < 9 && entry.getKey().toLowerCase()
+						.contains(telaEditar.txtPesquisar.getText().toLowerCase().trim())) {
+					telaEditar.modelEditar.addLinha(entry.getKey());
+				}
+				cont = 0;
+			}
+		} else {
+			for (Entry<String, List<String>> entry : mapaConfig.entrySet()) {
+				if (entry.getKey().toLowerCase().contains(telaEditar.txtPesquisar.getText().toLowerCase().trim())) {
+					telaEditar.modelEditar.addLinha(entry.getKey());
 				}
 			}
-			if (cont < 9
-					&& entry.getKey().toLowerCase().contains(telaEditar.txtPesquisar.getText().toLowerCase().trim())) {
-				telaEditar.modelEditar.addLinha(entry.getKey());
-			}
-			cont = 0;
 		}
+
 	}
 
 	public void salvaEdicao(JTextArea txtArea, JComboBox cb) {
 		LinkedHashMap<String, List<String>> copiaMapa = new LinkedHashMap<>();
 		List<String> lista = new ArrayList<>();
+		LinkedList<String> listaLinkNova = new LinkedList<>();
 
 		for (Entry<String, List<String>> entry : mapaConfig.entrySet()) {
 			lista.add(entry.getKey());
@@ -892,6 +922,30 @@ public class TelaNova extends JFrame {
 
 		for (String string : listaCombobox) {
 			cb.addItem(string);
+		}
+
+		if (!txtLink.getText().equals("Adicione um Link")) {
+
+			for (int i = 0; i < listaLinks.size(); i++) {
+				String link = listaLinks.get(i);
+				int um = link.lastIndexOf("Ä");
+				// System.out.println(" Comparando: " + link.substring(um + 1)+"
+				// com "+txtLink.getText());
+				if (slink.equals(link.substring(um + 1))) {
+					listaLinkNova.add(
+							listaLinks.get(i).substring(0, listaLinks.get(i).indexOf("Ä")) + "Ä" + txtLink.getText());
+					// System.out.println("passou aqui");
+				} else {
+					listaLinkNova.add(listaLinks.get(i));
+				}
+				// System.out.println(listaLinks.get(i));
+			}
+
+		}
+		listaLinks.clear();
+		listaLinks.addAll(listaLinkNova);
+		for (String string : listaLinks) {
+			System.out.println(string);
 		}
 	}
 
@@ -1100,168 +1154,190 @@ public class TelaNova extends JFrame {
 
 					r2.setSelected(true);
 					AlternaRespostas(r1, r2);
+
+					LinkedList<String> listaLinksNova = new LinkedList<>();
+					LinkedList<String> listaPerguntaNova = new LinkedList<>();
+					List<String> listaTodos = new ArrayList<>();
 					for (Entry<String, List<String>> ent : mapaConfig.entrySet()) {
-						int validador = 0;
+						int val = 0;
 						for (String string : ent.getValue()) {
-							if (!string.equals("+_+")) {
-								validador = 1;
+							if (string.equals("+_+")) {
+								val++;
 							}
 						}
-						//ARRUMAR
-						for (String string : listaLinks) {
-							if(validador == 0){
-								um = string.lastIndexOf("Ä");
-								txtLink.setText(string.substring(um + 1));								
-							}
+						if (val == 9) {
+							listaPerguntaNova.add(ent.getKey());
+						}
 
+					}
+					for (String string : listaLinks) {
+						um = string.lastIndexOf("Ä");
+						if (!string.substring(um + 1).equals("Adicione um Link")) {
+							listaLinksNova.add(string.substring(um + 1));
+						}
+					}
+					for (int i = 0; i < listaPerguntaNova.size(); i++) {
+						listaTodos.add(listaPerguntaNova.get(i) + "Ä" + listaLinksNova.get(i));
+					}
+
+					for (String string : listaTodos) {
+						um = string.lastIndexOf("Ä");
+						if (string.substring(0, string.indexOf("Ä")).equals(entry.getKey())) {
+							txtLink.setText(string.substring(um + 1));
 						}
 					}
 
-				}
-				if (!entry.getValue().get(0).equals("+_+")) {
-					int cont = 0;
-					for (String string : listaCombobox) {
-						if (string.equals(entry.getValue().get(0))) {
+				} else {
+					r1.setSelected(true);
+					txtLink.setText("Adicione um Link");
+					AlternaRespostas(r1, r2);
+
+					if (!entry.getValue().get(0).equals("+_+")) {
+						int cont = 0;
+						for (String string : listaCombobox) {
+							if (string.equals(entry.getValue().get(0))) {
+								txt1.setText(entry.getValue().get(0));
+								cont = 1;
+								break;
+							}
+						}
+						if (cont == 0) {
 							txt1.setText(entry.getValue().get(0));
-							cont = 1;
-							break;
+							txt1.setEnabled(false);
 						}
-					}
-					if (cont == 0) {
-						txt1.setText(entry.getValue().get(0));
-						txt1.setEnabled(false);
+
 					}
 
-				}
-
-				if (!entry.getValue().get(1).equals("+_+")) {
-					int cont = 0;
-					for (String string : listaCombobox) {
-						if (string.equals(entry.getValue().get(1))) {
+					if (!entry.getValue().get(1).equals("+_+")) {
+						int cont = 0;
+						for (String string : listaCombobox) {
+							if (string.equals(entry.getValue().get(1))) {
+								txt2.setText(entry.getValue().get(1));
+								cont = 1;
+								break;
+							}
+						}
+						if (cont == 0) {
 							txt2.setText(entry.getValue().get(1));
-							cont = 1;
-							break;
+							txt2.setEnabled(false);
 						}
 					}
-					if (cont == 0) {
-						txt2.setText(entry.getValue().get(1));
-						txt2.setEnabled(false);
-					}
-				}
 
-				if (!entry.getValue().get(2).equals("+_+")) {
-					int cont = 0;
-					for (String string : listaCombobox) {
-						if (!string.equals(entry.getValue().get(2))) {
+					if (!entry.getValue().get(2).equals("+_+")) {
+						int cont = 0;
+						for (String string : listaCombobox) {
+							if (!string.equals(entry.getValue().get(2))) {
+								txt3.setText(entry.getValue().get(2));
+								cont = 1;
+								break;
+							}
+						}
+						if (cont == 0) {
 							txt3.setText(entry.getValue().get(2));
-							cont = 1;
-							break;
+							txt3.setEnabled(false);
 						}
 					}
-					if (cont == 0) {
-						txt3.setText(entry.getValue().get(2));
-						txt3.setEnabled(false);
-					}
-				}
 
-				if (!entry.getValue().get(3).equals("+_+")) {
-					int cont = 0;
-					for (String string : listaCombobox) {
-						if (!string.equals(entry.getValue().get(3))) {
+					if (!entry.getValue().get(3).equals("+_+")) {
+						int cont = 0;
+						for (String string : listaCombobox) {
+							if (!string.equals(entry.getValue().get(3))) {
+								txt4.setText(entry.getValue().get(3));
+								cont = 1;
+								break;
+							}
+						}
+						if (cont == 0) {
+							txt4.setEnabled(false);
 							txt4.setText(entry.getValue().get(3));
-							cont = 1;
-							break;
 						}
 					}
-					if (cont == 0) {
-						txt4.setEnabled(false);
-						txt4.setText(entry.getValue().get(3));
-					}
-				}
 
-				if (!entry.getValue().get(4).equals("+_+")) {
-					int cont = 0;
-					for (String string : listaCombobox) {
-						if (!string.equals(entry.getValue().get(4))) {
+					if (!entry.getValue().get(4).equals("+_+")) {
+						int cont = 0;
+						for (String string : listaCombobox) {
+							if (!string.equals(entry.getValue().get(4))) {
+								txt5.setText(entry.getValue().get(4));
+								cont = 1;
+								break;
+							}
+						}
+						if (cont == 0) {
 							txt5.setText(entry.getValue().get(4));
-							cont = 1;
-							break;
+							txt5.setEnabled(false);
 						}
 					}
-					if (cont == 0) {
-						txt5.setText(entry.getValue().get(4));
-						txt5.setEnabled(false);
-					}
-				}
 
-				if (!entry.getValue().get(5).equals("+_+")) {
-					int cont = 0;
-					for (String string : listaCombobox) {
-						if (!string.equals(entry.getValue().get(5))) {
+					if (!entry.getValue().get(5).equals("+_+")) {
+						int cont = 0;
+						for (String string : listaCombobox) {
+							if (!string.equals(entry.getValue().get(5))) {
+								txt6.setText(entry.getValue().get(5));
+								cont = 1;
+								break;
+							}
+						}
+						if (cont == 0) {
 							txt6.setText(entry.getValue().get(5));
-							cont = 1;
-							break;
+							txt6.setEnabled(false);
 						}
 					}
-					if (cont == 0) {
-						txt6.setText(entry.getValue().get(5));
-						txt6.setEnabled(false);
-					}
-				}
-				if (!entry.getValue().get(6).equals("+_+")) {
-					int cont = 0;
-					for (String string : listaCombobox) {
-						if (!string.equals(entry.getValue().get(6))) {
+					if (!entry.getValue().get(6).equals("+_+")) {
+						int cont = 0;
+						for (String string : listaCombobox) {
+							if (!string.equals(entry.getValue().get(6))) {
+								txt7.setText(entry.getValue().get(6));
+								cont = 1;
+								break;
+							}
+						}
+						if (cont == 0) {
 							txt7.setText(entry.getValue().get(6));
-							cont = 1;
-							break;
+							txt7.setEnabled(false);
 						}
 					}
-					if (cont == 0) {
-						txt7.setText(entry.getValue().get(6));
-						txt7.setEnabled(false);
-					}
-				}
-				if (!entry.getValue().get(7).equals("+_+")) {
-					int cont = 0;
-					for (String string : listaCombobox) {
-						if (!string.equals(entry.getValue().get(7))) {
+					if (!entry.getValue().get(7).equals("+_+")) {
+						int cont = 0;
+						for (String string : listaCombobox) {
+							if (!string.equals(entry.getValue().get(7))) {
+								txt8.setText(entry.getValue().get(7));
+								cont = 1;
+								break;
+							}
+						}
+						if (cont == 0) {
 							txt8.setText(entry.getValue().get(7));
-							cont = 1;
-							break;
+							txt8.setEnabled(false);
 						}
 					}
-					if (cont == 0) {
-						txt8.setText(entry.getValue().get(7));
-						txt8.setEnabled(false);
-					}
-				}
-				if (!entry.getValue().get(8).equals("+_+")) {
-					int cont = 0;
-					for (String string : listaCombobox) {
-						if (!string.equals(entry.getValue().get(8))) {
+					if (!entry.getValue().get(8).equals("+_+")) {
+						int cont = 0;
+						for (String string : listaCombobox) {
+							if (!string.equals(entry.getValue().get(8))) {
+								txt9.setText(entry.getValue().get(8));
+								cont = 1;
+								break;
+							}
+						}
+						if (cont == 0) {
 							txt9.setText(entry.getValue().get(8));
-							cont = 1;
-							break;
+							txt9.setEnabled(false);
 						}
-					}
-					if (cont == 0) {
-						txt9.setText(entry.getValue().get(8));
-						txt9.setEnabled(false);
 					}
 				}
 			}
+			s1 = txt1.getText();
+			s2 = txt2.getText();
+			s3 = txt3.getText();
+			s4 = txt4.getText();
+			s5 = txt5.getText();
+			s6 = txt6.getText();
+			s7 = txt7.getText();
+			s8 = txt8.getText();
+			s9 = txt9.getText();
+			slink = txtLink.getText();
+			salvaPergunta = txtArea.getText();
 		}
-		s1 = txt1.getText();
-		s2 = txt2.getText();
-		s3 = txt3.getText();
-		s4 = txt4.getText();
-		s5 = txt5.getText();
-		s6 = txt6.getText();
-		s7 = txt7.getText();
-		s8 = txt8.getText();
-		s9 = txt9.getText();
-		salvaPergunta = txtArea.getText();
 	}
 
 	public void AlternaRespostas(JRadioButton r1, JRadioButton r2) {
@@ -1280,6 +1356,7 @@ public class TelaNova extends JFrame {
 
 		} else if (r2.isSelected()) {
 			txtLink.setEnabled(true);
+			txtLink.setText("Adicione um Link");
 
 			txt1.setEnabled(false);
 			txt2.setEnabled(false);
@@ -1384,6 +1461,19 @@ public class TelaNova extends JFrame {
 		txt9.setText(null);
 		txtLink.setText("Adicione um Link");
 		txtA.setText(null);
+	}
+
+	public void limpaTodaLista() {
+		List<String> lista = new ArrayList<>();
+		for (Entry<String, List<String>> entry : mapaConfig.entrySet()) {
+			lista.add(entry.getKey());
+		}
+		for (String string : lista) {
+			mapaConfig.remove(string);
+		}
+		listaLinks.clear();
+		listaPergAnteriro.clear();
+		listaCombobox.clear();
 	}
 
 	/*
@@ -1497,11 +1587,11 @@ public class TelaNova extends JFrame {
 			JRadioButton radio4, JRadioButton radio5, JRadioButton radio6, JRadioButton radio7, JRadioButton radio8,
 			JRadioButton radio9, int cont, JRadioButton radiao, JButton comecar, JButton resetar, JButton proxPerg) {
 
+		deixarRadiosInvisiveis(radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
+
 		for (int i = 0; i < listaPergAnteriro.size(); i++) {
 
 			if (radiao.getText().equals(listaPergAnteriro.get(i))) {
-
-				deixarRadiosInvisiveis(radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
 
 				for (Entry<String, List<String>> entry : mapaConfig.entrySet()) {
 

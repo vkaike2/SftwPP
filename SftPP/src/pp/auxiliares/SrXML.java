@@ -241,7 +241,17 @@ public class SrXML {
 		listaCombo.clear();
 
 		le(mapaConfig, listaPergAnteriro, listaLinks, listaCombo);
-		;
+		
+	}
+	public void atualizar1(List<String> listaLinks, LinkedList<String> listaPergAnteriro,
+			LinkedHashMap<String, List<String>> mapaConfig, List<String> listaCombo) 
+	{
+		listaLinks.clear();
+		listaPergAnteriro.clear();
+		listaCombo.clear();
+
+		le(mapaConfig, listaPergAnteriro, listaLinks, listaCombo);
+		
 	}
 
 }
