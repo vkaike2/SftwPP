@@ -23,6 +23,7 @@ import javax.swing.JComboBox;
 import java.awt.Insets;
 import java.awt.TextArea;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -43,6 +44,7 @@ import java.awt.event.ActionEvent;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 import org.w3c.dom.NodeList;
 
+import pp.auxiliares.Md5Util;
 import pp.auxiliares.SrXML;
 
 import java.awt.Component;
@@ -92,6 +94,10 @@ public class TelaNova extends JFrame {
 	private JTextField txtUsuarioC;
 	private JPasswordField pswSenhaC;
 	private JPasswordField pswConfirmaSenhaC;
+
+	private LinkedList<String> listaUsuario = new LinkedList<>();
+	private LinkedList<String> listaSenha = new LinkedList<>();
+	private LinkedList<Integer> listaPermicao = new LinkedList<>();
 
 	/**
 	 * Launch the application.
@@ -540,22 +546,16 @@ public class TelaNova extends JFrame {
 
 		JPanel panelCadastro = new JPanel();
 		tabbedPane.addTab("Cadastro", null, panelCadastro, null);
-		/*
-		 * btHOME
-		 * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-		 * 
-		 */
-
 		tabbedPane.remove(panelStart);
 		tabbedPane.remove(panelConfiguracao);
 		tabbedPane.remove(panelCadastro);
 		GridBagLayout gbl_panelCadastro = new GridBagLayout();
-		gbl_panelCadastro.columnWidths = new int[]{0, 94, 75, 0, 0, 0, 0};
-		gbl_panelCadastro.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panelCadastro.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_panelCadastro.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panelCadastro.columnWidths = new int[] { 0, 94, 75, 0, 0, 0, 0 };
+		gbl_panelCadastro.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_panelCadastro.columnWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gbl_panelCadastro.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		panelCadastro.setLayout(gbl_panelCadastro);
-		
+
 		JLabel lblUsurio_1 = new JLabel("Usu\u00E1rio:");
 		GridBagConstraints gbc_lblUsurio_1 = new GridBagConstraints();
 		gbc_lblUsurio_1.anchor = GridBagConstraints.EAST;
@@ -563,7 +563,7 @@ public class TelaNova extends JFrame {
 		gbc_lblUsurio_1.gridx = 1;
 		gbc_lblUsurio_1.gridy = 1;
 		panelCadastro.add(lblUsurio_1, gbc_lblUsurio_1);
-		
+
 		txtUsuarioC = new JTextField();
 		GridBagConstraints gbc_txtUsuarioC = new GridBagConstraints();
 		gbc_txtUsuarioC.gridwidth = 3;
@@ -573,7 +573,7 @@ public class TelaNova extends JFrame {
 		gbc_txtUsuarioC.gridy = 1;
 		panelCadastro.add(txtUsuarioC, gbc_txtUsuarioC);
 		txtUsuarioC.setColumns(10);
-		
+
 		JLabel lblSenha_1 = new JLabel("Senha:");
 		GridBagConstraints gbc_lblSenha_1 = new GridBagConstraints();
 		gbc_lblSenha_1.anchor = GridBagConstraints.EAST;
@@ -581,7 +581,7 @@ public class TelaNova extends JFrame {
 		gbc_lblSenha_1.gridx = 1;
 		gbc_lblSenha_1.gridy = 2;
 		panelCadastro.add(lblSenha_1, gbc_lblSenha_1);
-		
+
 		pswSenhaC = new JPasswordField();
 		GridBagConstraints gbc_pswSenhaC = new GridBagConstraints();
 		gbc_pswSenhaC.gridwidth = 3;
@@ -590,7 +590,7 @@ public class TelaNova extends JFrame {
 		gbc_pswSenhaC.gridx = 2;
 		gbc_pswSenhaC.gridy = 2;
 		panelCadastro.add(pswSenhaC, gbc_pswSenhaC);
-		
+
 		JLabel lblConfirmarSenha = new JLabel("Confirmar Senha:");
 		GridBagConstraints gbc_lblConfirmarSenha = new GridBagConstraints();
 		gbc_lblConfirmarSenha.insets = new Insets(0, 0, 5, 5);
@@ -598,7 +598,7 @@ public class TelaNova extends JFrame {
 		gbc_lblConfirmarSenha.gridx = 1;
 		gbc_lblConfirmarSenha.gridy = 3;
 		panelCadastro.add(lblConfirmarSenha, gbc_lblConfirmarSenha);
-		
+
 		pswConfirmaSenhaC = new JPasswordField();
 		GridBagConstraints gbc_pswConfirmaSenhaC = new GridBagConstraints();
 		gbc_pswConfirmaSenhaC.gridwidth = 3;
@@ -607,7 +607,7 @@ public class TelaNova extends JFrame {
 		gbc_pswConfirmaSenhaC.gridx = 2;
 		gbc_pswConfirmaSenhaC.gridy = 3;
 		panelCadastro.add(pswConfirmaSenhaC, gbc_pswConfirmaSenhaC);
-		
+
 		JLabel lblPermissao = new JLabel("Permiss\u00E3o:");
 		GridBagConstraints gbc_lblPermissao = new GridBagConstraints();
 		gbc_lblPermissao.insets = new Insets(0, 0, 5, 5);
@@ -615,39 +615,71 @@ public class TelaNova extends JFrame {
 		gbc_lblPermissao.gridx = 1;
 		gbc_lblPermissao.gridy = 5;
 		panelCadastro.add(lblPermissao, gbc_lblPermissao);
-		
-		JRadioButton rdbtnComum = new JRadioButton("Comum");
-		GridBagConstraints gbc_rdbtnComum = new GridBagConstraints();
-		gbc_rdbtnComum.insets = new Insets(0, 0, 5, 5);
-		gbc_rdbtnComum.gridx = 2;
-		gbc_rdbtnComum.gridy = 5;
-		panelCadastro.add(rdbtnComum, gbc_rdbtnComum);
-		
-		JRadioButton rdbtnAdministrador = new JRadioButton("Administrador");
-		GridBagConstraints gbc_rdbtnAdministrador = new GridBagConstraints();
-		gbc_rdbtnAdministrador.insets = new Insets(0, 0, 5, 5);
-		gbc_rdbtnAdministrador.gridx = 4;
-		gbc_rdbtnAdministrador.gridy = 5;
-		panelCadastro.add(rdbtnAdministrador, gbc_rdbtnAdministrador);
-		
-		JButton btnCadastrar_1 = new JButton("Cadastrar");
+
+		JRadioButton radioComum = new JRadioButton("Comum");
+		GridBagConstraints gbc_radioComum = new GridBagConstraints();
+		gbc_radioComum.insets = new Insets(0, 0, 5, 5);
+		gbc_radioComum.gridx = 2;
+		gbc_radioComum.gridy = 5;
+		panelCadastro.add(radioComum, gbc_radioComum);
+
+		JRadioButton radioAdministrador = new JRadioButton("Administrador");
+		GridBagConstraints gbc_radioAdministrador = new GridBagConstraints();
+		gbc_radioAdministrador.insets = new Insets(0, 0, 5, 5);
+		gbc_radioAdministrador.gridx = 4;
+		gbc_radioAdministrador.gridy = 5;
+		panelCadastro.add(radioAdministrador, gbc_radioAdministrador);
+
 		GridBagConstraints gbc_btnCadastrar_1 = new GridBagConstraints();
 		gbc_btnCadastrar_1.anchor = GridBagConstraints.EAST;
 		gbc_btnCadastrar_1.gridwidth = 2;
 		gbc_btnCadastrar_1.insets = new Insets(0, 0, 5, 5);
 		gbc_btnCadastrar_1.gridx = 1;
 		gbc_btnCadastrar_1.gridy = 7;
+		JButton btnCadastrar_1 = new JButton("Cadastrar");
 		panelCadastro.add(btnCadastrar_1, gbc_btnCadastrar_1);
-		
+
 		JButton btnCancelar = new JButton("Cancelar");
+
 		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
 		gbc_btnCancelar.gridwidth = 2;
 		gbc_btnCancelar.insets = new Insets(0, 0, 5, 5);
 		gbc_btnCancelar.gridx = 3;
 		gbc_btnCancelar.gridy = 7;
 		panelCadastro.add(btnCancelar, gbc_btnCancelar);
+		/*
+		 * btCADASTRO
+		 * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+		 * 
+		 */
+		ButtonGroup groupCadastro = new ButtonGroup();
+		groupCadastro.add(radioComum);
+		groupCadastro.add(radioAdministrador);
 
-		// ImageIcon icon = new ImageIcon(".\\Dente.png");
+		radioComum.setSelected(true);
+		radioAdministrador.setEnabled(false);
+
+		btnCadastrar_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Cadastro(radioComum, radioAdministrador);
+					JOptionPane.showMessageDialog(contentPane, "Usuario cadastrado com sucesso");
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+			}
+		});
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tabbedPane.remove(panelCadastro);
+			}
+		});
+		/*
+		 * btHOME
+		 * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+		 * 
+		 */
+
 		ImageIcon imgIcLogo = new ImageIcon(".\\Logo.png");
 		imgIcLogo.setImage(imgIcLogo.getImage().getScaledInstance(100, 100, 100));
 		label_1.setIcon(imgIcLogo);
@@ -676,7 +708,7 @@ public class TelaNova extends JFrame {
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				tabbedPane.add("Cadastro", panelCadastro);
-				tabbedPane.setSelectedIndex(1);
+				tabbedPane.setSelectedIndex(tabbedPane.getTabCount() - 1);
 			}
 		});
 		/*
@@ -684,7 +716,7 @@ public class TelaNova extends JFrame {
 		 * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 		 * 
 		 */
-		// btnEditar.setEnabled(false);
+
 		ButtonGroup groupConfig = new ButtonGroup();
 		groupConfig.add(radioRespostaFinal);
 		groupConfig.add(radioContinuacao);
@@ -730,6 +762,7 @@ public class TelaNova extends JFrame {
 					try {
 						xml.escreve(mapaConfig, listaPergAnteriro, listaLinks, listaCombobox);
 						limpaTodaLista();
+						xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig, listaCombobox);
 						JOptionPane.showMessageDialog(contentPane, "Salvo com sucesso");
 					} catch (Exception e) {
 						// TODO: handle exception
@@ -934,6 +967,7 @@ public class TelaNova extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 
 				xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig, listaCombobox);
+				comboBox.removeAllItems();
 
 				mostrarDados(label, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9);
 
@@ -955,6 +989,36 @@ public class TelaNova extends JFrame {
 				btnComear.setEnabled(false);
 			}
 		});
+	}
+
+	/*
+	 * mCADASTRO
+	 * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	 * 
+	 */
+	public void Cadastro(JRadioButton comum, JRadioButton adm) {
+		try {
+			Md5Util md5 = new Md5Util();
+			String senhaS = pswSenhaC.getText();
+			byte[] senha = md5.escondeSenha(senhaS);
+			int valPerm = 0;
+
+			if (comum.isSelected()) {
+				valPerm = 0;
+			} else if (adm.isSelected()) {
+				valPerm = 1;
+			}
+			listaUsuario.add(txtUsuarioC.getText());
+			listaSenha.add(Arrays.toString(senha));
+			listaPermicao.add(valPerm);
+
+			xml.escreveUsuario(listaUsuario, listaSenha, listaPermicao);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	/*

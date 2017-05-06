@@ -2,6 +2,7 @@ package pp.auxiliares;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -93,6 +94,142 @@ public class SrXML {
 			e.printStackTrace();
 		}
 
+	}
+
+	public void escreveUsuario(LinkedList<String> usuario, LinkedList<String> senha, LinkedList<Integer> permicao) {
+		try {
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			Document docXML = db.newDocument();
+
+			Element root = docXML.createElement("Root");
+			docXML.appendChild(root);
+
+			Element id = docXML.createElement("Usuario");
+			root.appendChild(id);
+
+			for (String string : usuario) {
+				Element user = docXML.createElement("user");
+				user.appendChild(docXML.createTextNode(string));
+				id.appendChild(user);
+			}
+
+			Element psw = docXML.createElement("Senha");
+			root.appendChild(psw);
+
+			for (String string : senha) {
+				Element password = docXML.createElement("psw");
+				password.appendChild(docXML.createTextNode(string));
+				psw.appendChild(password);
+			}
+			Element perm = docXML.createElement("Permicoes");
+			root.appendChild(perm);
+
+			for (Integer string : permicao) {
+				Element cao = docXML.createElement("p");
+				cao.appendChild(docXML.createTextNode(String.valueOf(string)));
+				perm.appendChild(cao);
+			}
+
+			TransformerFactory tf = TransformerFactory.newInstance();
+			Transformer t = tf.newTransformer();
+
+			DOMSource docFonte = new DOMSource(docXML);
+
+			StreamResult docFinal = new StreamResult(new File(".\\user.xml"));
+
+			t.transform(docFonte, docFinal);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	public void leUsuario(LinkedList<String> usuario, LinkedList<String> senha, LinkedList<Integer> permicao) {
+		try {
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+
+			Document docXML = db.parse(".\\user.xml");
+
+			NodeList listaUsuario = docXML.getElementsByTagName("Usuario");
+
+			for (int i = 0; i < listaUsuario.getLength(); i++) {
+				Node noListaUsuario = listaUsuario.item(i);
+
+				if (noListaUsuario.getNodeType() == Node.ELEMENT_NODE) {
+					Element eListaUsuario = (Element) noListaUsuario;
+
+					NodeList listaFilhoListaUsuario = eListaUsuario.getChildNodes();
+
+					for (int j = 0; j < listaFilhoListaUsuario.getLength(); j++) {
+						Node noFilhoListaUsuario = listaFilhoListaUsuario.item(j);
+
+						if (noFilhoListaUsuario.getNodeType() == Node.ELEMENT_NODE) {
+							Element eFilhoListaUsuario = (Element) noFilhoListaUsuario;
+
+							if (eFilhoListaUsuario.getTagName().equals("user")) {
+								usuario.add(eFilhoListaUsuario.getTextContent());
+							}
+						}
+					}
+				}
+
+			}
+
+			NodeList listaSenha = docXML.getElementsByTagName("Senha");
+
+			for (int i = 0; i < listaSenha.getLength(); i++) {
+				Node noListaSenha = listaSenha.item(i);
+
+				if (noListaSenha.getNodeType() == Node.ELEMENT_NODE) {
+					Element eListaSenha = (Element) noListaSenha;
+
+					NodeList listaFilhoListaSenha = eListaSenha.getChildNodes();
+
+					for (int j = 0; j < listaFilhoListaSenha.getLength(); j++) {
+						Node noFilhoListaSenha = listaFilhoListaSenha.item(j);
+
+						if (noFilhoListaSenha.getNodeType() == Node.ELEMENT_NODE) {
+							Element eFilhoListaSenha = (Element) noFilhoListaSenha;
+
+							if (eFilhoListaSenha.getTagName().equals("psw")) {
+								senha.add(eFilhoListaSenha.getTextContent());
+							}
+						}
+					}
+				}
+
+			}
+
+			NodeList listaListaPermicao = docXML.getElementsByTagName("Permicoes");
+
+			for (int i = 0; i < listaListaPermicao.getLength(); i++) {
+				Node noListaPermicao = listaListaPermicao.item(i);
+
+				if (noListaPermicao.getNodeType() == Node.ELEMENT_NODE) {
+					Element eListaPermicao = (Element) noListaPermicao;
+
+					NodeList listaFilhoListaPermicao = eListaPermicao.getChildNodes();
+
+					for (int j = 0; j < listaFilhoListaPermicao.getLength(); j++) {
+						Node noFilhoListaPermicao = listaFilhoListaPermicao.item(j);
+
+						if (noFilhoListaPermicao.getNodeType() == Node.ELEMENT_NODE) {
+							Element eFilhoListaPermicao = (Element) noFilhoListaPermicao;
+
+							if (eFilhoListaPermicao.getTagName().equals("p")) {
+								permicao.add(Integer.valueOf(eFilhoListaPermicao.getTextContent()));
+							}
+						}
+					}
+				}
+
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 	public void le(LinkedHashMap<String, List<String>> mapa, LinkedList<String> li, List<String> linke,
@@ -234,24 +371,23 @@ public class SrXML {
 	}
 
 	public void atualizar(List<String> listaLinks, LinkedList<String> listaPergAnteriro,
-			LinkedHashMap<String, List<String>> mapaConfig, List<String> listaCombo) 
-	{
+			LinkedHashMap<String, List<String>> mapaConfig, List<String> listaCombo) {
 		listaLinks.clear();
 		listaPergAnteriro.clear();
 		listaCombo.clear();
 
 		le(mapaConfig, listaPergAnteriro, listaLinks, listaCombo);
-		
-	}
-	public void atualizar1(List<String> listaLinks, LinkedList<String> listaPergAnteriro,
-			LinkedHashMap<String, List<String>> mapaConfig, List<String> listaCombo) 
-	{
-		listaLinks.clear();
-		listaPergAnteriro.clear();
-		listaCombo.clear();
 
-		le(mapaConfig, listaPergAnteriro, listaLinks, listaCombo);
-		
 	}
+
+	public void atualizaUsuario(LinkedList<String> usuario, LinkedList<String> senha, LinkedList<Integer> permicao) {
+		usuario.clear();
+		senha.clear();
+		permicao.clear();
+
+		leUsuario(usuario, senha, permicao);
+	}
+
+
 
 }
