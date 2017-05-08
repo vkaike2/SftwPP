@@ -228,9 +228,9 @@ public class TelaNova extends JFrame {
 
 		tabbedPane.addTab("New tab", null, panelConfiguracao, null);
 		GridBagLayout gbl_panelConfiguracao = new GridBagLayout();
-		gbl_panelConfiguracao.columnWidths = new int[] { 0, 0, 0, 0, 0, 0 };
+		gbl_panelConfiguracao.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0 };
 		gbl_panelConfiguracao.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gbl_panelConfiguracao.columnWeights = new double[] { 0.0, 0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
+		gbl_panelConfiguracao.columnWeights = new double[] { 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
 		gbl_panelConfiguracao.rowWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panelConfiguracao.setLayout(gbl_panelConfiguracao);
 
@@ -275,11 +275,19 @@ public class TelaNova extends JFrame {
 		JComboBox comboBox = new JComboBox();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.gridwidth = 3;
-		gbc_comboBox.insets = new Insets(0, 0, 5, 0);
+		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 2;
 		gbc_comboBox.gridy = 1;
 		panelConfiguracao.add(comboBox, gbc_comboBox);
+
+		JButton btnRespostaAnterior = new JButton("");
+
+		GridBagConstraints gbc_btnRespostaAnterior = new GridBagConstraints();
+		gbc_btnRespostaAnterior.insets = new Insets(0, 0, 5, 0);
+		gbc_btnRespostaAnterior.gridx = 5;
+		gbc_btnRespostaAnterior.gridy = 1;
+		panelConfiguracao.add(btnRespostaAnterior, gbc_btnRespostaAnterior);
 
 		JLabel lblPergunta = new JLabel("Pergunta:");
 		GridBagConstraints gbc_lblPergunta = new GridBagConstraints();
@@ -292,8 +300,8 @@ public class TelaNova extends JFrame {
 
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.gridwidth = 3;
-		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
+		gbc_scrollPane.gridwidth = 4;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 2;
 		gbc_scrollPane.gridy = 2;
@@ -321,7 +329,8 @@ public class TelaNova extends JFrame {
 		txtLink = new JTextField();
 
 		GridBagConstraints gbc_txtLink = new GridBagConstraints();
-		gbc_txtLink.insets = new Insets(0, 0, 5, 0);
+		gbc_txtLink.gridwidth = 2;
+		gbc_txtLink.insets = new Insets(0, 0, 5, 5);
 		gbc_txtLink.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtLink.gridx = 4;
 		gbc_txtLink.gridy = 3;
@@ -357,7 +366,8 @@ public class TelaNova extends JFrame {
 
 		txt3 = new JTextField();
 		GridBagConstraints gbc_txt3 = new GridBagConstraints();
-		gbc_txt3.insets = new Insets(0, 0, 5, 0);
+		gbc_txt3.gridwidth = 2;
+		gbc_txt3.insets = new Insets(0, 0, 5, 5);
 		gbc_txt3.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txt3.gridx = 4;
 		gbc_txt3.gridy = 4;
@@ -384,7 +394,8 @@ public class TelaNova extends JFrame {
 
 		txt6 = new JTextField();
 		GridBagConstraints gbc_txt6 = new GridBagConstraints();
-		gbc_txt6.insets = new Insets(0, 0, 5, 0);
+		gbc_txt6.gridwidth = 2;
+		gbc_txt6.insets = new Insets(0, 0, 5, 5);
 		gbc_txt6.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txt6.gridx = 4;
 		gbc_txt6.gridy = 5;
@@ -411,7 +422,8 @@ public class TelaNova extends JFrame {
 
 		txt9 = new JTextField();
 		GridBagConstraints gbc_txt9 = new GridBagConstraints();
-		gbc_txt9.insets = new Insets(0, 0, 5, 0);
+		gbc_txt9.gridwidth = 2;
+		gbc_txt9.insets = new Insets(0, 0, 5, 5);
 		gbc_txt9.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txt9.gridx = 4;
 		gbc_txt9.gridy = 6;
@@ -780,6 +792,42 @@ public class TelaNova extends JFrame {
 				}
 			}
 		});
+		btnRespostaAnterior.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TabelaRespostaAnterior telaRespostaAnterior = new TabelaRespostaAnterior();
+
+				telaRespostaAnterior.iniciaTabela(listaCombobox);
+
+				telaRespostaAnterior.setLocationRelativeTo(contentPane);
+				telaRespostaAnterior.setVisible(true);
+
+				telaRespostaAnterior.table.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent arg0) {
+						// telaRespostaAnterior.modelRespostaAnterior.pegarLinha(linhaSelecionada)
+						if (arg0.getClickCount() > 1) {
+							String resposta = telaRespostaAnterior.pegarLinhaClicada();
+							comboBox.setSelectedItem(resposta);
+							telaRespostaAnterior.dispose();
+						}
+					}
+				});
+				telaRespostaAnterior.btnProcurar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						FiltrarRespostaAnterior(telaRespostaAnterior);
+					}
+				});
+				telaRespostaAnterior.txtProcurar.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyPressed(KeyEvent e) {
+						if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+
+							FiltrarRespostaAnterior(telaRespostaAnterior);
+						}
+					}
+				});
+			}
+		});
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int val = JOptionPane.showOptionDialog(contentPane, "Deseja salvar e substituir o questionário atual?",
@@ -801,7 +849,8 @@ public class TelaNova extends JFrame {
 				try {
 					xml.atualizar(listaLinks, listaPergAnteriro, mapaConfig, listaCombobox);
 					for (String string : listaCombobox) {
-						comboBox.addItem(string);
+						int um = string.lastIndexOf("Ä");
+						comboBox.addItem(string.substring(um + 1));
 					}
 					JOptionPane.showMessageDialog(contentPane, "As Perguntas foram Atualizadas com sucesso");
 				} catch (Exception e2) {
@@ -816,6 +865,7 @@ public class TelaNova extends JFrame {
 		JButton btnContinuar = new JButton("Continuar");
 
 		GridBagConstraints gbc_btnContinuar = new GridBagConstraints();
+		gbc_btnContinuar.insets = new Insets(0, 0, 0, 5);
 		gbc_btnContinuar.gridx = 4;
 		gbc_btnContinuar.gridy = 7;
 		panelConfiguracao.add(btnContinuar, gbc_btnContinuar);
@@ -835,14 +885,14 @@ public class TelaNova extends JFrame {
 					public void keyPressed(KeyEvent e) {
 						if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 
-							FiltarEdiçãoPergunta(telaEditar);
+							FiltrarEdiçãoPergunta(telaEditar);
 						}
 					}
 				});
 				telaEditar.btnBuscar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 
-						FiltarEdiçãoPergunta(telaEditar);
+						FiltrarEdiçãoPergunta(telaEditar);
 
 					}
 				});
@@ -878,8 +928,49 @@ public class TelaNova extends JFrame {
 
 			}
 		});
-		getRootPane().setDefaultButton(btnContinuar);
+		// getRootPane().setDefaultButton(btnContinuar);
 
+		btnContinuar.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					if (btnContinuar.getText().equals("Continuar") && !textAreaPergunta.getText().trim().equals("")) {
+						ArmazenarDados(textAreaPergunta, comboBox, mapaConfig);
+
+						limparDados(textAreaPergunta);
+						radioRespostaFinal.setSelected(false);
+						radioContinuacao.setSelected(true);
+						AlternaRespostas(radioContinuacao, radioRespostaFinal);
+					} else if (btnContinuar.getText().equals("Salvar") && !textAreaPergunta.getText().trim().equals("")) {
+						try {
+
+							salvaEdicao(textAreaPergunta, comboBox);
+
+							JOptionPane.showMessageDialog(contentPane, "a Pergunta foi editada com sucesso");
+
+							limparDados(textAreaPergunta);
+
+							radioRespostaFinal.setSelected(false);
+							radioContinuacao.setSelected(true);
+							AlternaRespostas(radioContinuacao, radioRespostaFinal);
+
+							txt1.setEnabled(true);
+							txt2.setEnabled(true);
+							txt3.setEnabled(true);
+							txt4.setEnabled(true);
+							txt5.setEnabled(true);
+							txt6.setEnabled(true);
+							txt7.setEnabled(true);
+							txt8.setEnabled(true);
+							txt9.setEnabled(true);
+							btnContinuar.setText("Continuar");
+						} catch (Exception ea) {
+							// TODO: handle exception
+						}
+					}
+				}
+			}
+		});
 		btnContinuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -940,10 +1031,14 @@ public class TelaNova extends JFrame {
 		btnSalvar.setIcon(imgIcSalvar);
 
 		btnBaixar.setText(null);
-		btnBaixar.setText(null);
 		ImageIcon imgIcBaixar = new ImageIcon(".\\atualizar.png");
 		imgIcBaixar.setImage(imgIcBaixar.getImage().getScaledInstance(15, 15, 100));
 		btnBaixar.setIcon(imgIcBaixar);
+
+		btnRespostaAnterior.setText(null);
+		ImageIcon imgIcRespostaAnterior = new ImageIcon(".\\pesquisar.png");
+		imgIcRespostaAnterior.setImage(imgIcRespostaAnterior.getImage().getScaledInstance(15, 15, 100));
+		btnRespostaAnterior.setIcon(imgIcRespostaAnterior);
 
 		/*
 		 * btSTART
@@ -1040,7 +1135,7 @@ public class TelaNova extends JFrame {
 
 			xml.leUsuario(listaUsuario, listaSenha, listaPermicao);
 			xml.escreveUsuario(listaUsuario, listaSenha, listaPermicao);
-			
+
 			txtUsuarioC.setText(null);
 			pswSenhaC.setText(null);
 			pswConfirmaSenhaC.setText(null);
@@ -1056,7 +1151,19 @@ public class TelaNova extends JFrame {
 	 * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	 * 
 	 */
-	public void FiltarEdiçãoPergunta(TabelaEditar telaEditar) {
+	public void FiltrarRespostaAnterior(TabelaRespostaAnterior telaRespostaAnterior) {
+		telaRespostaAnterior.modelRespostaAnterior.limparTabela();
+		for (String string : listaCombobox) {
+			int um = string.lastIndexOf("Ä");
+			String pergunta = string.substring(0, string.indexOf("Ä"));
+			String resposta = string.substring(um + 1);
+			if (resposta.contains(telaRespostaAnterior.txtProcurar.getText())) {
+				telaRespostaAnterior.modelRespostaAnterior.addLinha(pergunta, resposta);
+			}
+		}
+	}
+
+	public void FiltrarEdiçãoPergunta(TabelaEditar telaEditar) {
 		telaEditar.modelEditar.limparTabela();
 		if (telaEditar.radioPergunta.isSelected()) {
 			int cont = 0;
@@ -1115,7 +1222,8 @@ public class TelaNova extends JFrame {
 		cb.removeAllItems();
 
 		for (String string : listaCombobox) {
-			cb.addItem(string);
+			int um = string.lastIndexOf("Ä");
+			cb.addItem(string.substring(um + 1));
 		}
 
 		if (!txtLink.getText().equals("Adicione um Link")) {
@@ -1138,9 +1246,7 @@ public class TelaNova extends JFrame {
 		}
 		listaLinks.clear();
 		listaLinks.addAll(listaLinkNova);
-		for (String string : listaLinks) {
-			System.out.println(string);
-		}
+
 	}
 
 	public void ifDoSalvaEdicao(LinkedList<String> value) {
@@ -1615,6 +1721,7 @@ public class TelaNova extends JFrame {
 		}
 
 		mapa.put(txtA.getText(), lista);
+
 		String TextoDoComboBox = String.valueOf(cb.getSelectedItem());
 
 		listaPergAnteriro.add(TextoDoComboBox);
@@ -1627,17 +1734,21 @@ public class TelaNova extends JFrame {
 
 		}
 		for (String string : lista) {
+
 			if (!string.equals("+_+"))
-				listaCombobox.add(string);
+				listaCombobox.add(txtA.getText() + "Ä" + string);
 		}
 		for (int i = 0; i < listaCombobox.size(); i++) {
-			if (listaCombobox.get(i).equals(TextoDoComboBox) && !listaCombobox.get(i).equals(null)) {
+			int um = listaCombobox.get(i).lastIndexOf("Ä");
+			if (listaCombobox.get(i).substring(um + 1).equals(TextoDoComboBox)
+					&& !listaCombobox.get(i).substring(um + 1).equals(null)) {
 				listaCombobox.remove(i);
 			}
 		}
 		cb.removeAllItems();
 		for (String string : listaCombobox) {
-			cb.addItem(string);
+			int um = string.lastIndexOf("Ä");
+			cb.addItem(string.substring(um + 1));
 		}
 
 	}
@@ -1785,6 +1896,8 @@ public class TelaNova extends JFrame {
 
 		for (int i = 0; i < listaPergAnteriro.size(); i++) {
 
+			// mudei adicionei for e if
+
 			if (radiao.getText().equals(listaPergAnteriro.get(i))) {
 
 				for (Entry<String, List<String>> entry : mapaConfig.entrySet()) {
@@ -1826,7 +1939,8 @@ public class TelaNova extends JFrame {
 										trf.setVisible(true);
 
 										trf.labelTexto.setText(entry.getKey());
-										// int um = string.lastIndexOf("Ä");
+										// int um =
+										// string.lastIndexOf("Ä");
 
 										trf.labelLink.setText(string.substring(um + 1));
 
@@ -1889,7 +2003,6 @@ public class TelaNova extends JFrame {
 			}
 
 		}
-
 	}
 
 	public void deixarRadiosInvisiveis(JRadioButton radio1, JRadioButton radio2, JRadioButton radio3,
