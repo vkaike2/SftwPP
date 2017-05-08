@@ -1,4 +1,4 @@
 # SftwPP
 Sftware de tomada de Decisão 
-teste
-teste
+
+pswConfirmaSenhaC.setToolTipText("ma oeee");
