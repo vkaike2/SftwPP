@@ -40,6 +40,7 @@ import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
 import java.awt.peer.TextAreaPeer;
+import java.io.UnsupportedEncodingException;
 import java.awt.event.ActionEvent;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 import org.w3c.dom.NodeList;
@@ -82,6 +83,7 @@ public class TelaNova extends JFrame {
 	private String s8;
 	private String s9;
 	private String slink;
+	private int validaPermicao = 0;
 
 	public LinkedHashMap<String, List<String>> mapaConfig = new LinkedHashMap<>();
 	// private List<String> listaConfig = new ArrayList<>();
@@ -600,6 +602,7 @@ public class TelaNova extends JFrame {
 		panelCadastro.add(lblConfirmarSenha, gbc_lblConfirmarSenha);
 
 		pswConfirmaSenhaC = new JPasswordField();
+
 		GridBagConstraints gbc_pswConfirmaSenhaC = new GridBagConstraints();
 		gbc_pswConfirmaSenhaC.gridwidth = 3;
 		gbc_pswConfirmaSenhaC.insets = new Insets(0, 0, 5, 5);
@@ -658,7 +661,15 @@ public class TelaNova extends JFrame {
 
 		radioComum.setSelected(true);
 		radioAdministrador.setEnabled(false);
-
+		pswConfirmaSenhaC.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				if (!pswSenhaC.getText().equals(pswConfirmaSenhaC.getText())) {
+					JOptionPane.showMessageDialog(contentPane,
+							"o campo Senha não pode ser diferente do campo Confirmar Senha");
+				}
+			}
+		});
 		btnCadastrar_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -694,14 +705,29 @@ public class TelaNova extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent k) {
 				if (k.getKeyCode() == KeyEvent.VK_ENTER) {
-					logar(tabbedPane, panelStart, panelConfiguracao, btnConectar);
+					try {
+						Login(tabbedPane, panelStart, panelConfiguracao, panelCadastro, btnConectar,
+								radioAdministrador);
+					} catch (UnsupportedEncodingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					// logar(tabbedPane, panelStart, panelConfiguracao,
+					// btnConectar);
 				}
 			}
 		});
 
 		btnConectar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				logar(tabbedPane, panelStart, panelConfiguracao, btnConectar);
+				try {
+					Login(tabbedPane, panelStart, panelConfiguracao, panelCadastro, btnConectar, radioAdministrador);
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				// logar(tabbedPane, panelStart, panelConfiguracao,
+				// btnConectar);
 
 			}
 		});
@@ -1012,8 +1038,12 @@ public class TelaNova extends JFrame {
 			listaSenha.add(Arrays.toString(senha));
 			listaPermicao.add(valPerm);
 
+			xml.leUsuario(listaUsuario, listaSenha, listaPermicao);
 			xml.escreveUsuario(listaUsuario, listaSenha, listaPermicao);
-
+			
+			txtUsuarioC.setText(null);
+			pswSenhaC.setText(null);
+			pswConfirmaSenhaC.setText(null);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1891,11 +1921,58 @@ public class TelaNova extends JFrame {
 		radio9.setText(null);
 
 	}
+
 	/*
 	 * mHOME
 	 * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	 * 
 	 */
+	public void Login(JTabbedPane tabbedPane, JPanel panelStart, JPanel panelConfiguracao, JPanel panelCadastro,
+			JButton btnConectar, JRadioButton radioAdmin) throws UnsupportedEncodingException {
+		Md5Util md5 = new Md5Util();
+		String user = txtUsuario.getText();
+		byte[] senha = md5.escondeSenha(passwordField.getText());
+		xml.atualizaUsuario(listaUsuario, listaSenha, listaPermicao);
+
+		tabbedPane.remove(panelCadastro);
+		if (btnConectar.getText() == "Conectar") {
+			for (int i = 0; i < listaUsuario.size(); i++) {
+				if (txtUsuario.getText().equals(listaUsuario.get(i))
+						&& Arrays.toString(senha).equals(listaSenha.get(i))) {
+					validaPermicao = listaPermicao.get(i);
+
+					if (validaPermicao == 1) {
+						tabbedPane.add("Configuração", panelConfiguracao);
+						tabbedPane.add("Começar", panelStart);
+						tabbedPane.addTab("Cadasto", panelCadastro);
+
+						radioAdmin.setEnabled(true);
+					} else {
+						tabbedPane.add("Começar", panelStart);
+					}
+
+					txtUsuario.setEnabled(false);
+					passwordField.setEnabled(false);
+
+					tabbedPane.setSelectedIndex(1);
+					btnConectar.setText("Desconectar");
+				}
+			}
+		} else {
+			tabbedPane.remove(panelCadastro);
+			tabbedPane.remove(panelConfiguracao);
+			tabbedPane.remove(panelStart);
+
+			btnConectar.setText("Conectar");
+			txtUsuario.setEnabled(true);
+			txtUsuario.setText(null);
+			passwordField.setEnabled(true);
+			passwordField.setText(null);
+
+			JOptionPane.showMessageDialog(contentPane, "O usuário: " + user + " se desconectou");
+			validaPermicao = 0;
+		}
+	}
 
 	public void logar(JTabbedPane tabbedPane, JPanel panelStart, JPanel panelConfiguracao, JButton btnConectar) {
 		String s = null;
