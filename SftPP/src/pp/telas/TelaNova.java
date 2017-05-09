@@ -235,6 +235,7 @@ public class TelaNova extends JFrame {
 		panelConfiguracao.setLayout(gbl_panelConfiguracao);
 
 		JButton btnBaixar = new JButton("B");
+		btnBaixar.setToolTipText("Buscar Questionário salvo");
 
 		GridBagConstraints gbc_btnBaixar = new GridBagConstraints();
 		gbc_btnBaixar.anchor = GridBagConstraints.EAST;
@@ -245,6 +246,7 @@ public class TelaNova extends JFrame {
 		panelConfiguracao.add(btnBaixar, gbc_btnBaixar);
 
 		JButton btnSalvar = new JButton("S");
+		btnSalvar.setToolTipText("Salvar e sobrepor o questionário que está sendo editado com o que está salvo");
 
 		GridBagConstraints gbc_btnSalvar = new GridBagConstraints();
 		gbc_btnSalvar.fill = GridBagConstraints.VERTICAL;
@@ -254,6 +256,7 @@ public class TelaNova extends JFrame {
 		panelConfiguracao.add(btnSalvar, gbc_btnSalvar);
 
 		JButton btnEditar = new JButton("E");
+		btnEditar.setToolTipText("Editar alguma Pergunta ou Resposta");
 
 		GridBagConstraints gbc_btnEditar = new GridBagConstraints();
 		gbc_btnEditar.fill = GridBagConstraints.VERTICAL;
@@ -280,8 +283,11 @@ public class TelaNova extends JFrame {
 		gbc_comboBox.gridx = 2;
 		gbc_comboBox.gridy = 1;
 		panelConfiguracao.add(comboBox, gbc_comboBox);
+		comboBox.setToolTipText("Selecione a resposta que levará a esta pergunta");
 
 		JButton btnRespostaAnterior = new JButton("");
+		btnRespostaAnterior.setToolTipText("Procurar alguma resposta para levar a proxima pergunta,\n"
+				+ "use este campo caso fique confuso achar pelo campo Resposta Anterior");
 
 		GridBagConstraints gbc_btnRespostaAnterior = new GridBagConstraints();
 		gbc_btnRespostaAnterior.insets = new Insets(0, 0, 5, 0);
@@ -354,7 +360,8 @@ public class TelaNova extends JFrame {
 		gbc_txt1.gridy = 4;
 		panelConfiguracao.add(txt1, gbc_txt1);
 		txt1.setColumns(10);
-
+		txt1.setToolTipText("Não pode existir duas respostas iguais, mesmo em perguntas diferentes");
+		
 		txt2 = new JTextField();
 		GridBagConstraints gbc_txt2 = new GridBagConstraints();
 		gbc_txt2.insets = new Insets(0, 0, 5, 5);
@@ -363,6 +370,7 @@ public class TelaNova extends JFrame {
 		gbc_txt2.gridy = 4;
 		panelConfiguracao.add(txt2, gbc_txt2);
 		txt2.setColumns(10);
+		txt2.setToolTipText("Não pode existir duas respostas iguais, mesmo em perguntas diferentes");
 
 		txt3 = new JTextField();
 		GridBagConstraints gbc_txt3 = new GridBagConstraints();
@@ -373,6 +381,7 @@ public class TelaNova extends JFrame {
 		gbc_txt3.gridy = 4;
 		panelConfiguracao.add(txt3, gbc_txt3);
 		txt3.setColumns(10);
+		txt3.setToolTipText("Não pode existir duas respostas iguais, mesmo em perguntas diferentes");
 
 		txt4 = new JTextField();
 		GridBagConstraints gbc_txt4 = new GridBagConstraints();
@@ -382,6 +391,7 @@ public class TelaNova extends JFrame {
 		gbc_txt4.gridy = 5;
 		panelConfiguracao.add(txt4, gbc_txt4);
 		txt4.setColumns(10);
+		txt4.setToolTipText("Não pode existir duas respostas iguais, mesmo em perguntas diferentes");
 
 		txt5 = new JTextField();
 		GridBagConstraints gbc_txt5 = new GridBagConstraints();
@@ -391,6 +401,7 @@ public class TelaNova extends JFrame {
 		gbc_txt5.gridy = 5;
 		panelConfiguracao.add(txt5, gbc_txt5);
 		txt5.setColumns(10);
+		txt5.setToolTipText("Não pode existir duas respostas iguais, mesmo em perguntas diferentes");
 
 		txt6 = new JTextField();
 		GridBagConstraints gbc_txt6 = new GridBagConstraints();
@@ -401,6 +412,7 @@ public class TelaNova extends JFrame {
 		gbc_txt6.gridy = 5;
 		panelConfiguracao.add(txt6, gbc_txt6);
 		txt6.setColumns(10);
+		txt6.setToolTipText("Não pode existir duas respostas iguais, mesmo em perguntas diferentes");
 
 		txt7 = new JTextField();
 		GridBagConstraints gbc_txt7 = new GridBagConstraints();
@@ -410,6 +422,7 @@ public class TelaNova extends JFrame {
 		gbc_txt7.gridy = 6;
 		panelConfiguracao.add(txt7, gbc_txt7);
 		txt7.setColumns(10);
+		txt7.setToolTipText("Não pode existir duas respostas iguais, mesmo em perguntas diferentes");
 
 		txt8 = new JTextField();
 		GridBagConstraints gbc_txt8 = new GridBagConstraints();
@@ -419,6 +432,7 @@ public class TelaNova extends JFrame {
 		gbc_txt8.gridy = 6;
 		panelConfiguracao.add(txt8, gbc_txt8);
 		txt8.setColumns(10);
+		txt8.setToolTipText("Não pode existir duas respostas iguais, mesmo em perguntas diferentes");
 
 		txt9 = new JTextField();
 		GridBagConstraints gbc_txt9 = new GridBagConstraints();
@@ -430,6 +444,7 @@ public class TelaNova extends JFrame {
 		panelConfiguracao.add(txt9, gbc_txt9);
 		txt9.setColumns(10);
 		tabbedPane.setTitleAt(1, "Configuração");
+		txt9.setToolTipText("Não pode existir duas respostas iguais, mesmo em perguntas diferentes");
 
 		JPanel panelStart = new JPanel();
 		tabbedPane.addTab("New tab", null, panelStart, null);
